@@ -1,10 +1,11 @@
 // Service worker de Silabocho: guarda el juego en el dispositivo para que funcione sin conexión.
 // Al cambiar cualquier archivo del juego, sube VERSION para que los móviles reciban la nueva versión.
-const VERSION = 'silabocho-v1';
+const VERSION = 'silabocho-v2';
 const ARCHIVOS = [
   './', 'index.html', 'css/estilo.css', 'js/juego.js', 'data/tableros.json', 'manifest.webmanifest',
   'fonts/bricolage.woff2', 'fonts/atkinson-400.woff2', 'fonts/atkinson-700.woff2',
-  'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png',
+  'icons/favicon.svg', 'icons/favicon.ico', 'icons/icon-192.png', 'icons/icon-512.png',
+  'icons/icon-maskable-192.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png',
 ];
 
 self.addEventListener('install', e => {

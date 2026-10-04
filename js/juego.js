@@ -9,10 +9,10 @@ const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
 
 let BOARDS = [];
-let S = {day:1, found:{}, cur:[], order:{}, revealed:{}};
+let S = {day:1, found:{}, cur:[], order:{}, revealed:{}, time:{}};   // time: segundos jugados por día
 
-function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};} }catch(e){} }
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed})); }catch(e){} }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};S.time=s.time||{};} }catch(e){} }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed,time:S.time})); }catch(e){} }
 
 // número de día según la fecha local (el 4 de octubre de 2026 es el 1)
 function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
@@ -27,12 +27,34 @@ function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0
 function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
 function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
 
+// ---------- reloj: tiempo jugado en cada tablero ----------
+// Empieza al tocar la primera sílaba, solo corre con la app a la vista y se para al
+// completar el tablero (Alejandrino) o al ver las soluciones.
+const finished = () => !!S.revealed[S.day] || score() >= total();
+const fmtTime = sec => { sec = Math.floor(sec); const m = Math.floor(sec/60), r = sec%60; return m+':'+(r<10?'0':'')+r; };
+let lastTick = 0, sinceSave = 0;
+function clockRunning(){ return S.time[S.day] !== undefined && !finished() && document.visibilityState === 'visible'; }
+function startClock(){ if(S.time[S.day] === undefined && !finished()){ S.time[S.day] = 0; lastTick = performance.now(); save(); renderClock(); } }
+function tickClock(){
+  const now = performance.now(), dt = (now - lastTick)/1000; lastTick = now;
+  if(!clockRunning()) return;
+  S.time[S.day] += Math.min(dt, 5);   // tope por si el navegador congela la página sin avisar
+  if((sinceSave += dt) >= 5){ sinceSave = 0; save(); }
+  renderClock();
+}
+function renderClock(){
+  const t = S.time[S.day], el = document.getElementById('timer');
+  document.getElementById('time').textContent = fmtTime(t || 0);
+  el.className = 'timer' + (t !== undefined && finished() ? ' done' : clockRunning() ? ' run' : '');
+  el.setAttribute('aria-label', 'Tiempo jugado: ' + fmtTime(t || 0).replace(':', ' minutos y ') + ' segundos');
+}
+
 function tileEl(s, isCenter, x, y){
   const b = document.createElement('button');
   b.className = 'tile'+(isCenter?' center':'');
   b.textContent = s; b.style.left = x+'%'; b.style.top = y+'%';
   b.setAttribute('aria-label','Sílaba '+s+(isCenter?' (central)':''));
-  b.addEventListener('click',()=>{ S.cur.push(s); renderVerse(); toast(''); });
+  b.addEventListener('click',()=>{ startClock(); S.cur.push(s); renderVerse(); toast(''); });
   return b;
 }
 function renderRose(){
@@ -88,7 +110,8 @@ function submit(){
   if(joined===B().estrella) toast('¡Palabra estrella! +'+pts,'star');
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
-  clear(); renderScore(); renderWords();
+  if(finished()) save();
+  clear(); renderScore(); renderWords(); renderClock();
 }
 let confirmReveal = false;
 function reveal(){
@@ -106,6 +129,7 @@ function shareText(){
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
     barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+(star?' ★':''),
   ];
+  if(S.time[S.day] !== undefined) lineas.push('⏳ '+fmtTime(S.time[S.day]));
   if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
   lineas.push(URL_JUEGO);
   return lineas.join('\n');
@@ -128,9 +152,9 @@ async function share(){
 function renderAll(){
   const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
   b.textContent = S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
-  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords();
+  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock();
 }
-function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; S.day = n; toast(''); renderAll(); }
+function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
 function start(){
   load(); S.day = today();
@@ -149,11 +173,14 @@ function start(){
   // si la app queda abierta y cambia el día, al volver a ella se pasa al tablero nuevo
   let ultimoHoy = S.day;
   document.addEventListener('visibilitychange',()=>{
-    if(document.visibilityState!=='visible') return;
+    if(document.visibilityState!=='visible'){ tickClock(); save(); renderClock(); return; }
+    lastTick = performance.now();
     const t = today(); if(t===ultimoHoy) return;
     if(S.day===ultimoHoy){ S.day = t; renderAll(); } else renderNav();
     ultimoHoy = t;
   });
+  window.addEventListener('pagehide', ()=>{ tickClock(); save(); });
+  lastTick = performance.now(); setInterval(tickClock, 1000);
   renderAll();
 }
 

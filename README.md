@@ -8,20 +8,21 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - Puntos: 2 sílabas = 1; 3 = 2; 4 = 4; 5 o más = 6. La **palabra estrella** (la más larga) suma 5 más.
 - Rangos según el porcentaje de puntos: Bisílabo 0 %, Trisílabo 5 %, Tetrasílabo 12 %, Pentasílabo 22 %, Hexasílabo 35 %, Heptasílabo 50 %, Octosílabo 70 %, Alejandrino 100 %.
 - Un tablero por día. El **nº 1 es el 4 de octubre de 2026**. Con ◀ se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
-- El progreso se guarda en el dispositivo (`localStorage`).
-- «Compartir resultado» copia o comparte el rango y los puntos del día, sin revelar palabras.
+- Un reloj cuenta el tiempo jugado en cada tablero (minutos y segundos). Empieza al tocar la primera sílaba, se detiene mientras la app no está a la vista y se queda fijo al completar el tablero o al ver las soluciones.
+- El progreso y el tiempo se guardan en el dispositivo (`localStorage`).
+- «Compartir resultado» copia o comparte el rango, los puntos y el tiempo del día, sin revelar palabras.
 - Es una PWA: se puede instalar en el móvil y funciona sin conexión.
 
 ## Estructura
 
 ```
 index.html              página del juego
-css/estilo.css          estilos (modo claro y oscuro)
+css/estilo.css          estilos (modo claro y oscuro; paleta del logo: ocre #E8A33D, azul marino #1E2A3A, crema #F6F1E7)
 js/juego.js             lógica del juego
 data/tableros.json      tableros generados (el juego los lee de aquí)
 manifest.webmanifest    datos de la app instalable
 sw.js                   service worker (funcionamiento sin conexión)
-icons/                  iconos de la app (icon.svg es el original)
+icons/                  logo e iconos de la app (favicon.svg es el original)
 fonts/                  Bricolage Grotesque y Atkinson Hyperlegible, alojadas aquí para ir sin conexión
 generador/              scripts de Python que generan los tableros
   silabas.py            expansión del diccionario Hunspell y silabeador
