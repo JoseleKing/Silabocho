@@ -33,7 +33,8 @@ function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,
 const finished = () => !!S.revealed[S.day] || score() >= total();
 const fmtTime = sec => { sec = Math.floor(sec); const m = Math.floor(sec/60), r = sec%60; return m+':'+(r<10?'0':'')+r; };
 let lastTick = 0, sinceSave = 0;
-function clockRunning(){ return S.time[S.day] !== undefined && !finished() && document.visibilityState === 'visible'; }
+const enPortada = () => { const el = document.getElementById('portada'); return !!el && !el.classList.contains('fuera'); };
+function clockRunning(){ return S.time[S.day] !== undefined && !finished() && document.visibilityState === 'visible' && !enPortada(); }
 function startClock(){ if(S.time[S.day] === undefined && !finished()){ S.time[S.day] = 0; lastTick = performance.now(); save(); renderClock(); } }
 function tickClock(){
   const now = performance.now(), dt = (now - lastTick)/1000; lastTick = now;
@@ -184,8 +185,24 @@ function start(){
   renderAll();
 }
 
+// ---------- portada ----------
+// Se queda lo justo para ver caer la arena (o menos si se toca) y se va cuando el juego está listo.
+const portada = document.getElementById('portada');
+const T0 = performance.now(), DURA = matchMedia('(prefers-reduced-motion: reduce)').matches ? 700 : 2000;
+let listo = false, tocada = false;
+function quitarPortada(){
+  if(!portada || portada.classList.contains('fuera')) return;
+  portada.classList.add('fuera');
+  setTimeout(()=>portada.remove(), 500);
+}
+function quizaQuitarPortada(){ if(listo && (tocada || performance.now()-T0 >= DURA)) quitarPortada(); }
+if(portada){
+  portada.addEventListener('click', ()=>{ tocada = true; quizaQuitarPortada(); });
+  setTimeout(quizaQuitarPortada, DURA);
+}
+
 fetch('data/tableros.json').then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(data=>{ BOARDS = data; start(); })
-  .catch(()=>{ document.getElementById('verse').innerHTML = '<span class="ph">No se han podido cargar los tableros. Comprueba la conexión y vuelve a intentarlo.</span>'; });
+  .then(data=>{ BOARDS = data; start(); listo = true; quizaQuitarPortada(); })
+  .catch(()=>{ quitarPortada(); document.getElementById('verse').innerHTML = '<span class="ph">No se han podido cargar los tableros. Comprueba la conexión y vuelve a intentarlo.</span>'; });
 
 if('serviceWorker' in navigator) window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });

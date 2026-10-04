@@ -74,3 +74,30 @@ h1 .met{color:var(--accent-text)}
 .linkbtn{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;padding:0;align-self:flex-start}
 .linkbtn.warn{color:var(--bad)}
 @media (prefers-reduced-motion: reduce){.tile{transition:none}}
+
+/* ---------- portada fugaz ---------- */
+/* Pantalla de marca (igual en claro y oscuro): fondo ocre, reloj azul marino, arena crema. */
+.portada{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  background:#E8A33D;color:#1E2A3A;cursor:pointer;transition:opacity .45s ease,visibility .45s;padding:16px}
+.portada.fuera{opacity:0;visibility:hidden;pointer-events:none}
+.reloj{width:min(46vw,210px);height:auto;overflow:visible;animation:latido 1.9s ease-in-out both}
+.reloj .contorno{fill:none;stroke:#1E2A3A;stroke-width:4;stroke-linejoin:round}
+.reloj rect{fill:#F6F1E7}
+.reloj .chorro{stroke:#F6F1E7;stroke-width:2;stroke-dasharray:1.6 2.4;animation:chorro .35s linear infinite,chorro-fin 1.9s ease-in both}
+.arena-arriba{animation:vaciar 1.8s cubic-bezier(.45,.05,.55,.95) both}
+.arena-abajo{animation:llenar 1.8s cubic-bezier(.45,.05,.55,.95) both}
+.portada-nombre{margin:14px 0 0;font-family:var(--display);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;animation:asoma .6s .25s ease-out both}
+.portada-lema{margin:0;font-size:.95rem;font-weight:700;animation:asoma-lema .6s .45s ease-out both}
+/* la arena de arriba baja de nivel hasta vaciarse; la de abajo sube */
+@keyframes vaciar{from{transform:translateY(5px)}to{transform:translateY(23px)}}
+@keyframes llenar{from{transform:translateY(19px)}to{transform:translateY(3px)}}
+/* los granos del chorro caen (el trazo discontinuo se desplaza hacia abajo) */
+@keyframes chorro{to{stroke-dashoffset:-4}}
+@keyframes chorro-fin{0%,80%{opacity:1}100%{opacity:0}}
+@keyframes latido{0%{transform:scale(.92)}20%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes asoma{from{opacity:0;transform:translateY(6px)}to{transform:none}}
+@keyframes asoma-lema{from{opacity:0;transform:translateY(6px)}to{opacity:.8;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .reloj,.arena-arriba,.arena-abajo,.reloj .chorro,.portada-nombre,.portada-lema{animation:none}
+  .arena-arriba{transform:translateY(12px)} .arena-abajo{transform:translateY(10px)}
+}

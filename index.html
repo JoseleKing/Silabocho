@@ -19,6 +19,21 @@
 <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
+<!-- Portada fugaz: el reloj de arena del logo con la arena cayendo; se va sola o al tocarla -->
+<div class="portada" id="portada" aria-hidden="true">
+  <svg class="reloj" viewBox="0 0 100 100">
+    <defs>
+      <clipPath id="p-arriba"><path d="M50,50 C78,30 70,10 50,10 C30,10 22,30 50,50 Z"/></clipPath>
+      <clipPath id="p-abajo"><path d="M50,50 C78,70 70,90 50,90 C30,90 22,70 50,50 Z"/></clipPath>
+    </defs>
+    <g clip-path="url(#p-arriba)"><rect class="arena-arriba" x="20" y="28" width="60" height="24"/></g>
+    <g clip-path="url(#p-abajo)"><rect class="arena-abajo" x="20" y="64" width="60" height="28"/></g>
+    <line class="chorro" x1="50" y1="50" x2="50" y2="89"/>
+    <path class="contorno" d="M50,50 C78,30 70,10 50,10 C30,10 22,30 50,50 C78,70 70,90 50,90 C30,90 22,70 50,50 Z"/>
+  </svg>
+  <p class="portada-nombre">Silabocho</p>
+  <p class="portada-lema">Ocho sílabas, muchas palabras</p>
+</div>
 <div class="app">
   <header>
     <div class="brand"><img src="icons/favicon.svg" alt="" width="34" height="34"><h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1></div>
