@@ -63,7 +63,10 @@ h1 .met{color:var(--accent-text)}
 .found{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
 .found-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem;color:var(--muted)}
 .found-head b{color:var(--fg);font-family:var(--display);font-size:1rem}
-.words{display:flex;flex-wrap:wrap;gap:6px}
+.words{display:flex;flex-direction:column;gap:10px}
+.grupo{display:flex;flex-direction:column;gap:5px}
+.grupo-n{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
 .w{font-size:.9rem;padding:3px 9px;border-radius:999px;background:var(--bg);font-variant-numeric:tabular-nums}
 .w.star{background:var(--star-soft);color:var(--fg);font-weight:700}
 .w.missed{color:var(--muted);border:1px dashed var(--line);background:transparent}

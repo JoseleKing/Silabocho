@@ -78,11 +78,17 @@ function renderWords(){
   const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
   document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
   document.getElementById('foundtotal').textContent = 'de '+words().length;
-  const shown = rev ? words().map(w=>w[0]) : f.slice().sort((a,b)=>a.localeCompare(b,'es'));
+  const shown = (rev ? words() : words().filter(w=>f.includes(w[0])));
   if(!shown.length){ list.innerHTML = '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>'; return; }
-  list.innerHTML = shown.map(x=>{ const w = words().find(y=>y[0]===x); if(!w) return '';
-    const cls = x===B().estrella?' star':(!f.includes(x)?' missed':'');
-    return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(x===B().estrella?' ★':'')+'</span>'; }).join('');
+  // agrupadas por número de sílabas (de menos a más) y, dentro de cada grupo, por orden alfabético
+  const grupos = {};
+  shown.forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
+  list.innerHTML = Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
+    const chips = grupos[n].sort((a,b)=>a[0].localeCompare(b[0],'es')).map(w=>{
+      const x = w[0], cls = x===B().estrella?' star':(!f.includes(x)?' missed':'');
+      return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(x===B().estrella?' ★':'')+'</span>'; }).join('');
+    return '<div class="grupo"><span class="grupo-n">'+n+' sílabas</span><div class="chips">'+chips+'</div></div>';
+  }).join('');
 }
 function renderNav(){
   const t = today();
