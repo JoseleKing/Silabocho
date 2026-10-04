@@ -1,0 +1,164 @@
+'use strict';
+// Silabocho: un tablero por día. El día 1 es el 4 de octubre de 2026; si hay menos tableros
+// que días, se vuelve a empezar por el primero.
+
+const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.12],["Pentasílabo",.22],["Hexasílabo",.35],["Heptasílabo",.5],["Octosílabo",.7],["Alejandrino",1]];
+const START = Date.UTC(2026, 9, 4);
+const URL_JUEGO = 'https://joseleking.github.io/Silabocho/';
+const STORE = 'silabocho-v1';
+const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
+
+let BOARDS = [];
+let S = {day:1, found:{}, cur:[], order:{}, revealed:{}};
+
+function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};} }catch(e){} }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed})); }catch(e){} }
+
+// número de día según la fecha local (el 4 de octubre de 2026 es el 1)
+function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
+function dateOf(day){ const d = new Date(START + (day-1)*864e5); return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); }
+const B = () => BOARDS[(S.day-1) % BOARDS.length];
+const words = () => B().palabras;
+const sylls = w => w[1].split('-');
+const wordPoints = w => pointsFor(sylls(w).length) + (w[0]===B().estrella?5:0);
+function total(){ return words().reduce((a,w)=>a+wordPoints(w),0); }
+function myFound(){ return S.found[S.day] || (S.found[S.day]=[]); }
+function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0]===x); return a+(w?wordPoints(w):0); },0); }
+function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
+function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
+
+function tileEl(s, isCenter, x, y){
+  const b = document.createElement('button');
+  b.className = 'tile'+(isCenter?' center':'');
+  b.textContent = s; b.style.left = x+'%'; b.style.top = y+'%';
+  b.setAttribute('aria-label','Sílaba '+s+(isCenter?' (central)':''));
+  b.addEventListener('click',()=>{ S.cur.push(s); renderVerse(); toast(''); });
+  return b;
+}
+function renderRose(){
+  const r = document.getElementById('rose'); r.innerHTML='';
+  r.appendChild(tileEl(B().central, true, 50, 50));
+  outer().forEach((s,i)=>{ const a = (-90 + i*360/7)*Math.PI/180; r.appendChild(tileEl(s,false,50+36*Math.cos(a),50+36*Math.sin(a))); });
+}
+function renderVerse(){
+  const v = document.getElementById('verse');
+  if(!S.cur.length){ v.innerHTML = '<span class="ph">Toca las sílabas para formar una palabra</span>'; return; }
+  v.innerHTML = S.cur.map(s=>'<span'+(s===B().central?' class="c"':'')+'>'+s+'</span>').join('<span class="dot">·</span>');
+}
+function renderScore(){
+  const k = rankIndex();
+  document.getElementById('rankname').textContent = RANKS[k][0];
+  document.getElementById('pts').textContent = score()+' de '+total()+' puntos';
+  document.getElementById('meter').innerHTML = RANKS.map((r,i)=>'<span class="'+(i<=k?'on':'')+(i===RANKS.length-1?' last':'')+'" title="'+r[0]+'"></span>').join('');
+}
+function renderWords(){
+  const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
+  document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
+  document.getElementById('foundtotal').textContent = 'de '+words().length;
+  const shown = rev ? words().map(w=>w[0]) : f.slice().sort((a,b)=>a.localeCompare(b,'es'));
+  if(!shown.length){ list.innerHTML = '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>'; return; }
+  list.innerHTML = shown.map(x=>{ const w = words().find(y=>y[0]===x); if(!w) return '';
+    const cls = x===B().estrella?' star':(!f.includes(x)?' missed':'');
+    return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(x===B().estrella?' ★':'')+'</span>'; }).join('');
+}
+function renderNav(){
+  const t = today();
+  document.getElementById('boardno').textContent = 'nº '+S.day;
+  document.getElementById('prev').disabled = S.day <= 1;
+  document.getElementById('next').disabled = S.day >= t;
+  const fecha = dateOf(S.day).toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+  document.getElementById('fecha').textContent = (S.day===t ? 'Hoy, ' : '')+fecha;
+}
+let tt;
+function toast(msg, kind){ const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast'+(kind?' '+kind:''); clearTimeout(tt); if(msg) tt=setTimeout(()=>{t.textContent='';},2200); }
+
+function submit(){
+  const cur = S.cur; if(!cur.length) return;
+  const joined = cur.join('');
+  const clear = ()=>{ S.cur=[]; renderVerse(); };
+  if(cur.length<2){ toast('Tiene que tener al menos dos sílabas','bad'); return clear(); }
+  if(!cur.includes(B().central)){ toast('Falta la sílaba central','bad'); return clear(); }
+  const w = words().find(y=>y[0]===joined && y[1]===cur.join('-'));
+  if(!w){ toast('No está en la lista','bad'); return clear(); }
+  if(myFound().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
+  if(S.revealed[S.day]){ toast('Las soluciones ya están a la vista','bad'); return clear(); }
+  const antes = rankIndex();
+  myFound().push(joined); save();
+  const n = cur.length, pts = wordPoints(w), k = rankIndex();
+  if(joined===B().estrella) toast('¡Palabra estrella! +'+pts,'star');
+  else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
+  else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
+  clear(); renderScore(); renderWords();
+}
+let confirmReveal = false;
+function reveal(){
+  const b = document.getElementById('reveal');
+  if(S.revealed[S.day]) return;
+  if(!confirmReveal){ confirmReveal = true; b.textContent = 'Toca otra vez para confirmar: ya no podrás sumar puntos en este tablero'; b.classList.add('warn'); return; }
+  S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
+}
+
+// ---------- compartir (rango y puntos, sin palabras) ----------
+function shareText(){
+  const k = rankIndex(), f = myFound(), star = f.includes(B().estrella);
+  const barra = RANKS.map((r,i)=>i<=k?'▰':'▱').join('');
+  const lineas = [
+    'Silabocho nº '+S.day+' · '+RANKS[k][0],
+    barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+(star?' ★':''),
+  ];
+  if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
+  lineas.push(URL_JUEGO);
+  return lineas.join('\n');
+}
+async function share(){
+  const text = shareText();
+  if(navigator.share && matchMedia('(pointer: coarse)').matches){
+    try{ await navigator.share({text}); return; }
+    catch(e){ if(e && e.name==='AbortError') return; }
+  }
+  try{ await navigator.clipboard.writeText(text); toast('Resultado copiado. ¡Pégalo donde quieras!','good'); return; }
+  catch(e){}
+  const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  let ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+  ta.remove();
+  toast(ok ? 'Resultado copiado. ¡Pégalo donde quieras!' : 'No se ha podido copiar el resultado', ok?'good':'bad');
+}
+
+function renderAll(){
+  const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
+  b.textContent = S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
+  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords();
+}
+function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; S.day = n; toast(''); renderAll(); }
+
+function start(){
+  load(); S.day = today();
+  document.getElementById('prev').onclick = ()=>go(-1);
+  document.getElementById('next').onclick = ()=>go(1);
+  document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
+  document.getElementById('shuffle').onclick = ()=>{ const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
+  document.getElementById('send').onclick = submit;
+  document.getElementById('reveal').onclick = reveal;
+  document.getElementById('share').onclick = share;
+  document.addEventListener('keydown',e=>{
+    if(e.target.closest && e.target.closest('summary')) return;
+    if(e.key==='Enter'){ e.preventDefault(); submit(); }
+    else if(e.key==='Backspace'){ S.cur.pop(); renderVerse(); }
+  });
+  // si la app queda abierta y cambia el día, al volver a ella se pasa al tablero nuevo
+  let ultimoHoy = S.day;
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState!=='visible') return;
+    const t = today(); if(t===ultimoHoy) return;
+    if(S.day===ultimoHoy){ S.day = t; renderAll(); } else renderNav();
+    ultimoHoy = t;
+  });
+  renderAll();
+}
+
+fetch('data/tableros.json').then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data=>{ BOARDS = data; start(); })
+  .catch(()=>{ document.getElementById('verse').innerHTML = '<span class="ph">No se han podido cargar los tableros. Comprueba la conexión y vuelve a intentarlo.</span>'; });
+
+if('serviceWorker' in navigator) window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });

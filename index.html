@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Silabocho</title>
+<meta name="description" content="Ocho sílabas, muchas palabras. Un juego de palabras diario en español.">
+<meta name="theme-color" content="#ECEFF5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11131B" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Silabocho">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1>
+    <nav class="nav" aria-label="Archivo de tableros">
+      <button id="prev" aria-label="Día anterior">◀</button>
+      <span id="boardno">nº 1</span>
+      <button id="next" aria-label="Día siguiente">▶</button>
+    </nav>
+  </header>
+  <p class="fecha" id="fecha"></p>
+
+  <section class="rank" aria-live="polite">
+    <div class="rank-top"><span class="rank-name" id="rankname">Bisílabo</span><span class="rank-pts" id="pts">0 puntos</span></div>
+    <div class="meter" id="meter"></div>
+  </section>
+
+  <div class="verse" id="verse" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="rose" id="rose"></div>
+
+  <div class="actions">
+    <button class="btn" id="del">Borrar</button>
+    <button class="btn" id="shuffle">Mezclar</button>
+    <button class="btn primary" id="send">Enviar</button>
+  </div>
+
+  <section class="found">
+    <div class="found-head"><b id="foundcount">0 palabras</b><span id="foundtotal"></span></div>
+    <div class="words" id="words"></div>
+  </section>
+
+  <button class="btn share" id="share">Compartir resultado</button>
+
+  <div class="foot">
+    <details>
+      <summary>Cómo se juega</summary>
+      <ul>
+        <li>Toca las sílabas para formar palabras de dos sílabas o más. Puedes repetir sílabas.</li>
+        <li>Todas las palabras deben llevar la sílaba central.</li>
+        <li>No valen formas verbales conjugadas (sí los infinitivos y participios) ni verbos con pronombre pegado.</li>
+        <li>Puntos: 2 sílabas, 1 punto; 3 sílabas, 2; 4 sílabas, 4; 5 o más, 6.</li>
+        <li>La palabra estrella, la más larga del tablero, suma 5 puntos extra.</li>
+        <li>Los rangos van de Bisílabo a Octosílabo. Si las encuentras todas, llegas a Alejandrino.</li>
+        <li>Cada día hay un tablero nuevo. Con ◀ puedes jugar los de días anteriores.</li>
+      </ul>
+    </details>
+    <button class="linkbtn" id="reveal">Ver soluciones</button>
+  </div>
+</div>
+<noscript><p class="empty" style="text-align:center">Silabocho necesita JavaScript.</p></noscript>
+<script src="js/juego.js"></script>
+</body>
+</html>

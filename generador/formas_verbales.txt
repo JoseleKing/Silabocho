@@ -1,0 +1,35 @@
+# Formas verbales conjugadas que el diccionario trae sueltas (sin marcas de flexión),
+# casi todas de verbos irregulares, y que noverb.py no puede reconocer por sí solo.
+# Se excluyen del léxico. Una por línea; # para comentarios.
+# Las que también son sustantivo, adjetivo, adverbio, etc. NO van aquí
+# (fuera, consigo, entre, para, como…); las dudosas están en revision/dudosas.md.
+
+# ser
+eres eras era eran erais somos sea seas sean será serás serán seré fuere fueras fueran
+fuerais fuese fueses fuesen érase
+# estar
+está estás están estoy esté estés estén estuvo estuve estará estarás estarán estaré
+estuviera estuvieras estuvieran estuviese estuvieses estuviesen estabais estad
+# haber
+habrá habrás habrán habré hubiera hubieras hubieran hubierais hubiese hubieses hubiesen
+hubo hayas hayan habíais
+# poder
+puedo puede puedes pueden pueda puedas puedan pudo pude pudiera pudieras pudieran
+pudiese pudieses podrá podrás podrán podré podríais
+# ir
+iba ibais iré irá irás irán vayas vayan váyanse váyase vayámonos
+# hacer, decir, dar, poner, tener, obtener, detener
+hizo hice diré dirá dirás dirán daré dará darás darán diera dieras dieran diese demos
+haced supón mantén detén obtén quepa
+# jugar, oler, soler, andar
+juega juegas juegan juegue juegues jueguen jugó jugué jugaré jugará jugara
+huele hueles huelen huelo huela suele sueles suelen
+anda andas andan ande andes anden ando anduvo anduve
+# otros verbos regulares que el diccionario trae sueltos
+entro regala cases beses concierne
+# pronombre «os» pegado al verbo
+iros daos haberos daros
+# imperativo con pronombre que el diccionario trae suelto
+vete
+# gerundios que el diccionario trae sueltos
+siendo jugando dando yendo andando volando estando resultando habiendo
