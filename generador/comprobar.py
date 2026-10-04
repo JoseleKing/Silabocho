@@ -1,15 +1,16 @@
 """Comprueba que data/tableros.json coincide con el léxico actual (útil tras tocar las listas).
-Para cada tablero recalcula las soluciones y avisa de palabras que sobran o faltan."""
+Para cada tablero recalcula las soluciones (núcleo y extra) y avisa de palabras que sobran o faltan."""
 import json, os
-from lexico import LEX, DIR
+from lexico import LEX, EXTRA, DIR
 
 tab = json.load(open(os.path.join(DIR, '..', 'data', 'tableros.json'), encoding='utf-8'))
 ok = True
 for i, t in enumerate(tab, 1):
     sil = set(t['exterior']) | {t['central']}
-    sol = {w for w, s in LEX.items() if t['central'] in s and set(s) <= sil}
-    hay = {w for w, _ in t['palabras']}
-    if sol != hay:
-        ok = False
-        print(f"nº {i}: faltan {sorted(sol - hay)} · sobran {sorted(hay - sol)}")
+    for nombre, lex, hay in (('núcleo', LEX, t['palabras']), ('extra', EXTRA, t.get('extra', []))):
+        sol = {w for w, s in lex.items() if t['central'] in s and set(s) <= sil}
+        hay = {w for w, _ in hay}
+        if sol != hay:
+            ok = False
+            print(f"nº {i} ({nombre}): faltan {sorted(sol - hay)} · sobran {sorted(hay - sol)}")
 print('Los tableros coinciden con el léxico.' if ok else 'Hay diferencias: conviene regenerar (python3 gen.py).')

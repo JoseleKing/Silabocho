@@ -36,6 +36,7 @@ generador/              scripts de Python que generan los tableros
   primeros.txt          tableros elegidos para los días 1, 2 y 3
   vetadas.txt           palabras vetadas (malsonantes u ofensivas)
   formas_verbales.txt   formas verbales irregulares que el diccionario trae sueltas
+  admitidas.txt         palabras sueltas que coinciden con un verbo pero valen (para, destino…)
   excluidas.txt         palabras que se quitan a mano tras la revisión
   descargar.sh          descarga las fuentes del léxico
   revision/             listas de palabras dudosas para revisar
@@ -78,19 +79,22 @@ Cómo trabaja:
 1. Construye el léxico (ver reglas abajo) y toma las ~220 sílabas más frecuentes.
 2. Busca conjuntos de 8 sílabas por búsqueda local (*hill climbing*), eligiendo la central que da más palabras y penalizando las sílabas ya muy usadas en otros tableros.
 3. Acepta un tablero si tiene 15–80 palabras, al menos una de 4 sílabas o más, poco solapamiento con los demás (Jaccard ≤ 0,45) y ninguna palabra estrella que haya salido en otro tablero.
-4. Sigue hasta tener todos los candidatos (no hay tope de intentos; los últimos cuestan más). Con los valores por defecto tarda unos 13 minutos.
+4. Sigue hasta tener todos los candidatos (no hay tope de intentos; los últimos cuestan más). Con los valores por defecto tarda alrededor de un minuto; construir el léxico tarda unos 20 segundos más.
 5. Ordena los candidatos por calidad, es decir, por lo interesantes que son: variedad de familias de palabras (preparada y preparados cuentan como una), familias largas, variedad de longitudes y alguna palabra de 5 sílabas o más; penaliza los tableros llenos de participios o con más de 3 Silabochos. Se queda con los mejores.
-6. Los días 1, 2 y 3, los que tienen que enganchar, son los tableros indicados en `primeros.txt` (por una de sus palabras estrella; ahora enteramente, abracadabra y derrotado). Si falta alguno, se elige automáticamente el mejor sin repetir sílaba central. El resto se baraja con la semilla.
+6. Los días 1, 2 y 3, los que tienen que enganchar, son los tableros indicados en `primeros.txt` (por una de sus palabras estrella; ahora catarata, calabozo y operadora). Si falta alguno, se elige automáticamente el mejor sin repetir sílaba central. El resto se baraja con la semilla.
 7. Guarda los candidatos en `candidatos.json` (no va al repositorio) para poder repetir la selección con `--reusar`.
 
 **Después de regenerar**, sube `VERSION` en `sw.js` (por ejemplo, `silabocho-v2`) para que los móviles que ya tienen la app instalada reciban los tableros nuevos.
 
 ## Reglas del léxico
 
-- Palabras del diccionario Hunspell español ([wooorm/dictionaries](https://github.com/wooorm/dictionaries), `dictionaries/es`) con todas sus formas expandidas, cruzadas con las 30.000 más frecuentes de [hermitdave/FrequencyWords](https://github.com/hermitdave/FrequencyWords) (`content/2018/es/es_50k.txt`). Sin nombres propios.
+- Palabras del diccionario Hunspell español ([wooorm/dictionaries](https://github.com/wooorm/dictionaries), `dictionaries/es`, del proyecto RLA-ES, que sigue la norma de la RAE) con todas sus formas expandidas. Sin nombres propios.
+- **Dos niveles:**
+  - **Núcleo** (las palabras que cuentan para el total, los rangos y el «de N»). Sustantivos, adjetivos y demás entran por familias: si alguna forma está entre las 50.000 más frecuentes de [hermitdave/FrequencyWords](https://github.com/hermitdave/FrequencyWords) (`content/2018/es/es_50k.txt`), entra la familia entera (ratero → ratera, rateros, rateras). Los infinitivos y participios solo entran si esa forma concreta es frecuente; así no se llenan los tableros de «costadas» o «datadas».
+  - **Palabras extra.** El resto de palabras válidas del diccionario. Se aceptan, suman sus puntos (sin el extra de Silabocho) y ayudan a subir de rango hasta Octosílabo, pero no cuentan en el total. Alejandrino sigue exigiendo todas las del núcleo. Van en `data/tableros.json`, en la clave `extra` de cada tablero.
 - Silabeo según la división ortográfica estándar (`silabas.py`).
 - Sin formas verbales conjugadas. Valen sustantivos, adjetivos y demás, con plurales y femeninos, más infinitivos y participios. Las palabras que son a la vez forma verbal y otra cosa (casa, llama, paso, toma) sí valen.
-  - Las formas irregulares que el diccionario trae sueltas (está, puede, hizo, huele…) están en `formas_verbales.txt`.
+  - Las formas irregulares que el diccionario trae sueltas (está, puede, hizo, huele…) están en `formas_verbales.txt`. Además, cualquier palabra suelta del diccionario que coincida con una forma verbal (hinchan, suele) se considera verbal, salvo las de `admitidas.txt` (para, destino, marzo…).
   - Si la única lectura no verbal sale de un prefijo (a + cabe → «acabe») o del femenino en -a de un adjetivo en -e (aparente → «aparenta»), la palabra se considera verbal.
 - Sin pronombres pegados al verbo (tenerlo, dámelo, dile, casarse).
 - Sin palabras vetadas (`vetadas.txt`; una línea terminada en `*` veta un prefijo).

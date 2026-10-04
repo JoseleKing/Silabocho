@@ -5,27 +5,31 @@ Para quitar una, añádela a `generador/excluidas.txt` y ejecuta `python3 compro
 Para vetar una palabra malsonante, usa `vetadas.txt`.
 
 Al final están los cambios que sí he hecho por mi cuenta, porque eran fallos claros de las reglas.
+Las palabras extra (fuera del núcleo) siguen las mismas reglas y las mismas listas de vetadas y excluidas.
 
 ## 1. En los 10 tableros actuales
 
-Estas son las que más importan, porque son las que verá quien juegue. Las de los días 1 a 3 aparecen primero, porque son los tableros que tienen que enganchar.
+Estas son las que más importan, porque son las que verá quien juegue. Los días 1 a 3 (en negrita) son los que tienen que enganchar.
+Las palabras extra de cada tablero (rarezas que suman, pero no cuentan en el total) están en `tableros.txt`; no las repito aquí.
 
 | palabra | tablero | duda |
 |---|---|---|
-| acabo | **nº 2**, nº 9 | El diccionario lo admite como sustantivo («acabo», raro), pero se lee como forma de *acabar*. |
-| quita | **nº 3** | Sustantivo rarísimo (perdón de una deuda); se lee como forma de *quitar*. |
-| esta | **nº 3** | Demostrativo. Es correcto, pero «esta/está» puede confundir. |
-| manolo | nº 5 | Nombre propio en minúscula (el diccionario lo trae como «majo, chulapo»). |
-| mariano | nº 7 | Igual: suena a nombre propio (como adjetivo es «de la Virgen María»). |
-| mama | nº 5, nº 7 | Correcta (glándula mamaria), pero se lee como «mamá» sin tilde. |
-| roma | nº 5, nº 7 | Adjetivo «roma» (chata). Se lee como la ciudad. |
-| cabe | nº 6, nº 9 | Preposición antigua («cabe la fuente»); se lee como forma de *caber*. |
-| parta | nº 8 | El diccionario la admite como sustantivo raro, pero se lee como forma de *partir*. |
-| data | nº 8 | Sustantivo raro (fecha de un documento). Además puede parecer un anglicismo. |
-| eta | nº 8 | Letra griega. Es correcta, pero se asocia a la banda terrorista. |
-| torna | nº 10 | «Volver las tornas». Rara sola y se lee como forma de *tornar*. |
-| sena | nº 10 | Correcta (planta; seis en el dado), pero poco conocida. |
-| dona | nº 10 | «Donas» (regalos de boda) o «dona» (rosquilla en América). Rara en España. |
+| taca | **nº 1**, **nº 2**, nº 7 | Correcta (alacena; mancha), pero casi nadie la conoce. |
+| tata | **nº 1**, nº 7 | Coloquial (niñera; hermana). |
+| tacazo, tacazos | **nº 2** | Golpe con el taco de billar. Rara. |
+| cabezo, cabezos | **nº 2** | Cerro pequeño. Rara fuera de algunas regiones. |
+| cabe | **nº 2** | Preposición antigua («cabe la fuente»); se lee como forma de *caber*. |
+| polaca | **nº 2** | Gentilicio. Correcto, pero como sustantivo («la polaca») puede sonar despectivo. |
+| peora | **nº 3** | Rarísima; casi nadie la reconoce. |
+| miradora | **nº 3** | Rara. |
+| ora | **nº 3** | Conjunción literaria («ora… ora…»); se lee como forma de *orar*. |
+| palestina | nº 4 | Gentilicio; como estrella puede parecer un nombre propio. |
+| napa, nava, terna | nº 4 | Correctas, pero poco conocidas. |
+| paradora, curadora, dadora | nº 5, nº 6, nº 8 | Femeninos poco usados. |
+| sera | nº 6 | Correcta (espuerta grande), pero poco conocida. |
+| batazos | nº 7 | Americanismo (golpe con el bate). |
+| doca, casanova | nº 9 | «Doca» es rarísima; «casanova» procede de un nombre propio. |
+| nodo | nº 10 | Técnica. |
 
 ## 2. Nombres propios, unidades y anglicismos que se cuelan
 

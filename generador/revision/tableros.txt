@@ -1,31 +1,41 @@
 # Palabras de cada tablero. (v) = también es forma verbal conjugada.
 
-nº 1: TE | RA MA MEN EN CAN POR CHO | ★ enteramente
-  enteramente, raramente, cantera, chocante, entera (v), machote, portera, tetera, cante (v), ente, mate (v), mente, porte (v), techo (v), tema (v)
+nº 1: TA | CA RA CO PA NES BA PI | ★ capitanes, catarata
+  capitanes, catarata, barata, copita, patanes, pirata, tabaco, tacones, batata, patata, bata (v), cata (v), cota, pata, pita (v), rata, taca, taco, tapa (v), tara (v), tata
+  extra: patacones, batanes, pacata, parata, pataca, pataco, picota, pipita, pitaco, tarara, taba
 
-nº 2: CA | DO A DA SA BO LLA BRA | ★ abracadabra
-  abracadabra, acabo (v), bocado, callada, callado, casada, casado, sacada, sacado, boca, cabo, cabra, cada, casa (v), saca (v)
+nº 2: CA | TA LA PO BO BE ZO ZOS | ★ cabezota, calabozo, calabozos, capotazo, capotazos
+  cabezota, calabozo, calabozos, capotazo, capotazos, cabezo, cabezos, capota (v), polaca, tacazo, tacazos, beca (v), boca, cabe (v), cabo, cala (v), capo (v), cata (v), cazo (v), cazos, laca, poca, taca
+  extra: bocata, zocata, zoca
 
-nº 3: TA | DO DE PA ES LLA QUI RRO | ★ derrotado, detallado, estallado
-  derrotado, detallado, estallado, derrota (v), estado, quitado, tallado, tapado, taquilla, dotado, patata, esta, pata, quita (v), talla (v), tapa (v), tarro
+nº 3: RA | DO TI MI PE O CU DOR | ★ operadora
+  operadora, operado, operador, curadora, miradora, oradora, tiradora, curado, curador, mirado, mirador, orador, peora, tirado, tirador, dorado, rapera, cura (v), mira (v), ora (v), pera, tira (v), rara
+  extra: dormidora, tiramira, dorador, orado, rape
 
-nº 4: RA | DO DA DE CIÓN MO CU CLA | ★ declaración, declarada, declarado, demorado, moderación, moderado
-  declaración, declarada, declarado, demorado, moderación, moderado, curación, curada, curado, demora (v), dorada, morada, morado, dorado, clara, cura (v), mora (v), ración, ramo, rara
+nº 4: NA | TI MA PA VA LES CAR TER | ★ carnavales, maternales, matinales, palestina, paternales
+  carnavales, maternales, matinales, palestina, paternales, carnales, materna, nativa, navales, panales, paterna, napa, nava, pana, terna, tina, vana, nana
+  extra: cartivana, pavana, lesna
 
-nº 5: MA | A TE CA RE RO NO LO | ★ camarero, camarote
-  camarero, camarote, aroma (v), manolo, marea (v), remate, romano (v), ama (v), cama, malo, mano (v), mate (v), roma, tema (v), mama (v)
+nº 5: RA | DO TE PA CU ROS JA DIS | ★ disparadora
+  disparadora, disparado, disparate (v), paradoja, curadora, paradora, curado, parado, rajado, rateros, dorado, ratera, tetera, cura (v), para (v), raja (v), raros, rara
+  extra: rapadora, patera, rapado, jara, rapa
 
-nº 6: CA | SA VA RI ZA BO BE ÑO | ★ cariñosa
-  cariñosa, bocaza, cabeza, caribe, cariño (v), beca (v), boca, cabe (v), cabo, casa (v), cava (v), caza (v), caño, rica, saca (v), vaca (v)
+nº 6: RA | DO DA PA DAS SE CU CHA | ★ separadora
+  separadora, cucharada, cucharadas, separada, separadas, separado, curadora, paradora, charada, charadas, cuchara (v), curada, curadas, curado, dadora, dorada, doradas, parada, paradas, parado, rapada, rapadas, dorado, cura (v), para (v), racha (v), sera, rara
+  extra: rapadora, rachada, rachadas, rachado, rapado, rasera, secura, serado, sesera, rada, radas, rapa
 
-nº 7: MA | TE LA RO NO LE TAS RIA | ★ maletero
-  maletero, malaria, maletas, mariano, materia, romano (v), lama (v), lema, mala, mano (v), matas (v), mate (v), roma, tema (v), mama (v)
+nº 7: TA | CA PA TAS BA ZA ZOS CES | ★ capataces, capataza, zapatazos
+  capataces, capataza, zapatazos, batatas, batazos, patatas, tacazos, zapata, batata, patata, bata (v), cata (v), cesta, pata, taca, tapa (v), tatas, taza (v), tata
+  extra: batacazos, pacata, pataca, tastaces, taba, zata
 
-nº 8: TA | A DA PA E COS PAR LEN | ★ acostada, apartada
-  acostada, apartada, atada, etapa, patada, patata, costa, data (v), eta, lenta, parta (v), pata, tacos, tapa (v), tapar
+nº 8: RA | DO TI DA DOS MO VA CU | ★ motivadora
+  motivadora, curativa, curadora, tiradora, curada, curado, curados, dadora, dorada, dorados, morada, morado, morados, tirada, tirado, tirados, varada, varado, varados, dorado, cura (v), mora (v), ramo, tira (v), vara (v), rara
+  extra: moradora, morava, rada
 
-nº 9: CA | DO A ZA BO BE CER BAR | ★ acercado
-  acercado, abarca (v), acabar, acabo (v), acerca (v), barcaza, bocado, bocaza, cabeza, cazado, barca, beca (v), boca, cabe (v), cabo, caza (v), cerca (v)
+nº 9: CA | DO NA SA MI NI NO VA | ★ dominicana, dominicano
+  dominicana, dominicano, caminado, casanova, camino (v), camisa, canina, canino, canosa, casado, cavado, sacado, canica, casaca, cana, cano, casa (v), cava (v), doca, mica, saca (v), vaca (v)
+  extra: dominica, sananica, canana, micado, vacado, noca
 
-nº 10: NA | DO CIÓN MI SE CE VE TOR | ★ dominación, dominado
-  dominación, dominado, cenado, docena, donación, minado, senado, tornado, venado, donado, cena (v), dona (v), mina (v), nación, nave, sena, torna (v), vena, nana
+nº 10: DO | A TA RA RE MA RAS NO | ★ anotadora, anotadoras, adoradoras, atareado, adoradora
+  anotadora, anotadoras, adoradoras, atareado, adoradora, amadora, amadoras, anotado, mareado, matadora, matadoras, retadora, retadoras, adorado, domadora, domadoras, amado, arado, atado, matado, notado, retado, dorado, dotado, nodo
+  extra: mareadora, mareadoras, tarareado, tatareado, amarado, aradora, aradoras, atadora, atadoras, rareado, reamado, rearado, reatado, redomado, redorado, remadora, remadoras, rematado, domado, redoma, remado, doma

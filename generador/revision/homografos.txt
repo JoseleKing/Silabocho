@@ -1,1910 +1,2924 @@
 # Palabras admitidas que también son forma verbal conjugada.
 # palabra <- entrada del diccionario que la admite
-una <- una, uno/GS
-para <- para
-como <- como
-así <- así
-casa <- casa/LNS
-sobre <- sobre, sobre/S
-cosas <- cosa/S
-uno <- uno, uno/GS, uno/S
-acuerdo <- acuerdo/hS
-trabajo <- trabajo/S
-mira <- mira/NS
-pasa <- pasa/S, paso/GS
-vale <- vale, vale/S
-espera <- espera/S
-cosa <- cosa/S
-amigo <- amigo/GS, amigo/SG
-dije <- dije/S
-nombre <- nombre/pnSorb
-debe <- debe
-mío <- mío/GS
-visto <- visto/GS, visto/SG
-veces <- vez/S
-serio <- serio/GS
-idea <- idea/S
-tarde <- tarde, tarde/Sr
-entre <- entre
-cuenta <- cuenta/S
-haces <- haz/NS, haz/SG
-hermano <- hermano/GS
-cariño <- cariño/S
-forma <- forma/pS
-caso <- caso/aS
-personas <- persona/SN
-camino <- camino/S
-persona <- persona/SN
-ayuda <- ayuda/S
-historia <- historia/nS
-deja <- deja/Si
-agua <- agua/S
-justo <- justo, justo/kGS
-esposa <- esposa/S, esposo/GS
-adelante <- adelante
-mano <- mano/S
-bajo <- bajo, bajo/GS, bajo/pS
-cerca <- cerca, cerca/jS, cerco/GNS
-escucha <- escucha/S
-punto <- punto/HNS
-equipo <- equipo/CS
-llama <- llama/S
-toma <- toma/S
-arriba <- arriba
-sangre <- sangre/S
-listo <- listo/SG
-hermana <- hermano/GS
-meses <- mes/NS, meses/j
-culpa <- culpa/S
 abajo <- abajo
-escuela <- escuela/dS
-habla <- habla/NS
-pregunta <- pregunta/S
-unas <- unas, uno/GS
-segundo <- segundo/GS
-vino <- vino/HNS
-lista <- lista/S, lista/fS, listo/SG
-trata <- trata/fS
-amo <- amo/S
-medio <- medio, medio/GS, medio/SlG
-arma <- arma/S
-queda <- queda/S, quedo/SG
-recuerdo <- recuerdo/S
-acerca <- acerca
-sitio <- sitio/S
-pueblo <- pueblo/S
-vivo <- vivo/S, vivo/qGS
-basta <- basta/NS, basto/GS
-paso <- paso, paso/GS, paso/Sj
-minuto <- minuto/S
-falta <- falta/S, falto/SG
-pienso <- pienso/S
-lleva <- lleva/S
-calle <- calle/jS
-prueba <- prueba/pS
-libro <- libro/HSN
-mía <- mía, mía/S, mío/GS
-duro <- duro, duro/GS, duro/NGS
-afuera <- afuera, afuera/S
-viaje <- viaje/S
-cuarto <- cuarto/GS, cuarto/SG
-preguntas <- pregunta/S
-libre <- libre/GS
-cambio <- cambio/lS
-resto <- resto/S
-extraño <- extraño/GS
-trato <- trato/pSf
-noticias <- noticia/S
-asesino <- asesino/GS
-odio <- odio/Si
-armas <- arma/S
-amiga <- amigo/GS, amigo/SG, miga/Sa
-asunto <- asunto/S
-acabo <- acabo/S
-encima <- encima
-daño <- daño/Sp
-largo <- largo, largo/GS
-pena <- pena/S
-secreto <- secreto, secreto/GS, secreto/SO
-baño <- baño/Sp
-sueño <- sueño/iS
-fuerza <- fuerza/S
-lamento <- lamento/S
-cita <- cita/S
-gusto <- gusto/NHS
-negocio <- negocio/S
-campo <- campo/NS
-hablas <- habla/NS
-pelo <- pelo/CNS
-pase <- pase/CS
-mejores <- mejor/SG
-cena <- cena/S
-accidente <- accidente/S
-tranquilo <- tranquilo/GkS
-vista <- vista/H, vista/S, visto/GS, visto/SG
-tienda <- tienda/Sf
-centro <- centro/S
-salvo <- salvo, salvo/GS
-mesa <- mesa/Sopr
-pruebas <- prueba/pS
-traje <- traje/S
-servicio <- servicio/dS
-programa <- programa/S
-sala <- sal/GS, sala/bS
-embargo <- embargo/S
-suelo <- suelo, suelo/Sjsf
-silencio <- silencio/S
-broma <- broma/S
-gobierno <- gobierno/S
-media <- media/S, media/l, medio/GS, medio/SlG
-regalo <- regalo/NS
-juro <- juro/Sf
-partes <- parte/Sv
-principio <- principio/S
-deseo <- deseo/S
-esposo <- esposo/GS
-disculpa <- disculpa/S
-junto <- junto, junto/GfS
-matrimonio <- matrimonio/S
-oro <- oro/GS, oro/SN
-peligro <- peligro/S
-libertad <- libertad/S
-alegro <- alegro, alegro/S
-baja <- baja/pS, bajo/GS
-segunda <- segunda/NS, segundo/GS
-espacio <- espacio/S
-infierno <- infierno/SN
-tía <- tía, tío/GS
-intento <- intento/GS, intento/S
-piso <- piso/Sj
-llamas <- llama/S
-cocina <- cocina/NS
-corte <- corte/S
-adentro <- adentro, adentro/S
-drogas <- droga/LS
-busca <- busca/S, busca/pS
-lindo <- lindo/HS, lindo/pGS
-duda <- duda/S
-cargo <- cargo/iSph
-frío <- frío/GS
-baile <- baile/S
-llega <- llega/S
-linda <- linda/p, lindo/pGS
-apenas <- apenas
-reina <- reina/S
-tema <- tema/S
-causa <- causa/fS
-caliente <- caliente/SG
-destino <- destino
-base <- base/S
-encuentro <- encuentro/hS
-pelea <- pelea/S
-viva <- viva/q, vivo/qGS
-diferencia <- diferencia/Sk
-formas <- forma/pS
-ejemplo <- ejemplo/S
-radio <- radio/S
-calma <- calma/S
-humano <- humano/GSrk, humano/S
-respecto <- respecto/S
-regreso <- regreso/S
-lleno <- lleno/GS, lleno/SGp
-respeto <- respeto/S
-pista <- pista/dS
-estrella <- estrella/S
-enfermo <- enfermo/NSU
-llevas <- lleva/S
-alegra <- alegra/S, alegre/SG
-precio <- precio/hrSa
-completo <- completo/kGS
-ganas <- gana/S
-reglas <- regla/S
-obra <- obra/LS
-esperanza <- esperanza/S
-molesta <- molesto/GS
-informe <- informe/S
-río <- río/S
-estilo <- estilo/S
-marcha <- marcha/S
-vuelo <- vuelo/S
-nota <- nota/sS, noto/GS
-objetivo <- objetivo/GS, objetivo/S
-doble <- doble, doble/S, doble/SG
-verano <- verano/SN
-ama <- ama/S
-flores <- flor/rS
-dejo <- dejo/NS
-larga <- larga/S, largo/GS
-justicia <- justicia/S
-despierta <- despierto/GS
-luces <- luz/S, luz/SU
-batalla <- batalla/S
-intenta <- intento/GS
-llena <- llena/p, llena/pS, lleno/GS, lleno/SGp
-salga <- salga/S
-visita <- visita/pS
-toca <- toca/NS
-nombres <- nombre/pnSorb
-resulta <- resulta/S
-motivo <- motivo/GS, motivo/S
-estudio <- estudio/S
-noticia <- noticia/S
-tranquila <- tranquila/k, tranquilo/GkS
-beso <- beso/SU
-copa <- copa/NSU
-dejas <- deja/Si
-muestra <- muestra/S
-turno <- turno/S
-estrellas <- estrella/S
-cuentas <- cuenta/S
-anillo <- ano/NS
-trago <- trago/cS
-dientes <- diente/rS
-lucha <- lucha/S
-colegio <- colegio/S
-hielo <- hielo/S
-prensa <- prensa/S
-asiento <- asiento/S
-proyecto <- proyecto/GS, proyecto/Sb
-ideas <- idea/S
-papa <- papa/SN, papa/cS, papo/GS
-fuerzas <- fuerza/S
-huellas <- huella/S
-gana <- gana/S
-robo <- robo/S
-roto <- roto/GS
-serie <- serie/S
-evidencia <- evidencia/S
-viento <- viento/S, viento/Sra
-mando <- mando/S
-extraña <- extraña/S, extraño/GS
-historias <- historia/nS
-bala <- bala/S
-tiro <- tiro/pS
-distancia <- distancia/S
-descanso <- descanso/SN
-casas <- casa/LNS
-enferma <- enferma/NSU
-paseo <- paseo/SU
-detalles <- detalle/S
-ministro <- ministro/GS
-carga <- carga/hprS
-presente <- presente/S, presente/SG
-uso <- uso/CS
-oferta <- oferta/S
-tardes <- tarde/Sr
-grave <- grave/SG
-paga <- paga/rS, pago/GS
-dura <- dura/S, duro/GS, duro/NGS
-leo <- leo/S
-peso <- peso/pSr
-humana <- humana/rk, humano/GSrk
-contento <- contento/GS, contento/hGSp
-cuesta <- cuesta/S
-amenaza <- amenaza/S
-marca <- marca/S
-medicina <- medicina/S
-relaciones <- relación/Sfl
-limpio <- limpio, limpio/GS
-china <- china/S, chino/GS
-correo <- correo/HC, reo/fS
-calles <- calle/jS
-razones <- razón/S
-amas <- ama/S
-almuerzo <- almuerzo/S
-pago <- pago, pago/GS, pago/Sk
-cinta <- cinta/jmS
-comienzo <- comienzo/S
-quedo <- quedo, quedo/SG
-cuento <- cuento/Sh
-agujero <- agujero/S
-proceso <- proceso/S
-mata <- mata/S
-pecho <- pecho/hSpb
-primo <- primo, primo/GS
-premio <- premio/aS
-tomas <- toma/S
-disculpas <- disculpa/S
-entero <- entero/GS, entero/S
-modelo <- modelo/S
-toque <- toque/eS
-disparo <- disparo/S
-doctora <- doctor/GS
-amante <- amante/S
-amigas <- amigo/GS, amigo/SG
-techo <- techo/S
-bote <- bote/S, bote/pS
-truco <- truco/S
-rosa <- rosa/N, rosa/S, rosa/SU, roso/NGS
-mama <- mama/S
-saca <- saca/Sp
-registro <- registro/S
-esquina <- esquina/S
-tomo <- tomo/SN
-firma <- firma/bS, firme/SG
-toques <- toque/eS
-libras <- libra/LS, libre/GS
-curso <- curso/kSufp
-discurso <- discurso/S
-entera <- entera/S, entera/gS, entero/GS
-corta <- corto/SG
-completa <- completa/k, completo/kGS
-cura <- cura/S
-juntas <- junta/S, junto/GfS
-entrevista <- entrevisto/GS
-quieto <- quieto/kGS
-falso <- falso/GS, falso/SG
-corto <- corto/S, corto/SG
-aparte <- aparte, aparte/S
-tumba <- tumba/SN
-vacío <- vacío/S, vacío/SG
-notas <- nota/sS, noto/GS
-condiciones <- condición/nS
-bordo <- bordo/NS
-nieve <- nieve/S
-fecha <- fecha/S
-sujeto <- sujeto/GS, sujeto/S
-acciones <- acción/fklpS
-fría <- fría/S, frío/GS
-droga <- droga/LS
-molesto <- molesto/GS
-seria <- serio/GS
-quedas <- queda/S, quedo/SG
-aventura <- aventura/S, ventura/hSa
-gira <- gira/S, giro/GS
-reino <- reino/sS
-esfuerzo <- esfuerzo/S
-empleo <- empleo/hS
-clave <- clave/S
-piloto <- piloto/S
-amistad <- amistad/S
-planta <- planta/jS
-ritmo <- ritmo/S
-esperas <- espera/S
-ruego <- ruego/S
-combate <- combate/S
-honesto <- honesto/GSh
-limpia <- limpia/S, limpio/GS
-compras <- compra/S
-cola <- cola/NS, cola/S
-taza <- taza/S
-crea <- crea/S
-obvio <- obvio/SG
-abrigo <- abrigo/S
-charla <- charla/S
-bruja <- brujo/GS, brujo/SG
-firme <- firme, firme/S, firme/SG
-despacho <- despacho/bS
-regla <- regla/S
-copia <- copia/mS
-contenta <- contenta/S, contenta/ph, contento/GS, contento/hGSp
-tira <- tira/NS
-lío <- lío/S
-agencia <- agencia/S
-mires <- ?
-libres <- libre/GS
-compra <- compra/S
-uniforme <- uniforme/S
-balas <- bala/S
-consigo <- consigo
-arena <- arena/NS
-licencia <- licencia/S
-espejo <- espejo/Sg
-marina <- marina/S, marina/us, marino/GS, marino/GuSs
-conciencia <- conciencia/S
-sopa <- sopa/S
-divorcio <- divorcio/S
-recibí <- recibí/S
-escuchas <- escucha/S
-pierde <- pierde/S
-hermanas <- hermano/GS
-miras <- mira/NS
-alerta <- alerta, alerta/S
-señales <- señal/S
-revista <- revista/S, revisto/GS
-llegas <- llega/S
-echo <- echo/hS
-despierto <- despierto/GS
-oso <- oso/S
-torre <- torre/S
-arresto <- arresto/S
-ruta <- ruta/S
-alarma <- alarma/S
-iguales <- igual/S, igual/hS
-aviso <- aviso/Snv
-caza <- caza/LS, caza/S
-archivo <- archivo/S
-saco <- saco/SU
-incendio <- incendio/S
-concierto <- concierto/hS
-excusa <- excusa/S
-sombra <- sombra/NS
-rastro <- rastro/SN
-ducha <- ducha/S, ducho/GS
-recompensa <- recompensa/S
-dudas <- duda/S
-entrega <- entrega/S
-voto <- voto/gS
-guarda <- guarda/S
-ciego <- ciego/S, ciego/SG
-falsa <- falsa/NS, falso/GS, falso/SG
-muera <- muera/S
-coma <- coma/S
-creas <- crea/S
-circunstancias <- circunstancia/S
-socorro <- socorro/OS
-castigo <- castigo/S
-junta <- junta/S, junta/f, junto/GfS
-humo <- humo/HS
-fila <- fila/S
-rescate <- rescate/S
-abra <- abra/S
-ambiente <- ambiente/S, ambiente/SG
-marcas <- marca/S
-intentas <- intento/GS
-buscas <- busca/S, busca/pS
-acepto <- acepto/GS
-hierba <- hierba/S
-chino <- chino/GS, chino/SH
-meta <- meta/S
-suelta <- suelta/S, suelta/p, suelto/GS, suelto/pGS
-pasta <- pasta/NS, pasto/GS
-fotografía <- fotografía/S
-esposas <- esposa/S, esposo/GS
-desafío <- desafío/S
-sales <- sal/GS
-custodia <- custodia/S
-mina <- mina/aS
-transporte <- transporte/S
-templo <- templo/bS
-maravilla <- maravilla/S
-quita <- quita/S, quito/GS
-mate <- mate/S
-canta <- canta/S
-guía <- guía/S
-conferencia <- conferencia/S
-objeto <- objeto/S
-ruedas <- rueda/S
-huevo <- huevo/GS, huevo/S
-alcance <- alcance/S
-refugio <- refugio/S
-harto <- harto, harto/SG
-marco <- marco/CS
-secreta <- secreta/S, secreto/GS
-ronda <- ronda/S
-cierre <- cierre/S
-colores <- color/S
-tono <- tono/NS
-espía <- espía/S
-detalle <- detalle/S, talle/gS
-manda <- manda/gS
-flota <- flota/NS
-cultura <- cultura/kS
-botas <- bota/S, boto/GS
-enfrente <- enfrente
-aliento <- aliento/rSh
-placa <- placa/SU
-metas <- meta/S
-cuadro <- cuadro/GS, cuadro/NGS
-sincero <- sincero/GSk
-muestras <- muestra/S
-reserva <- reserva/S
-encanto <- canto/iaS, encanto/hS
-citas <- cita/S
-aceite <- aceite/HS
-punta <- punta/LNS, punta/S
-chiste <- chiste/S
-vaca <- vaca/S
-emociones <- emoción/S
-pulso <- pulso/aSk
-decente <- decente/kS
-informes <- informe/S
-comunicación <- comunicación/klS
-vía <- vía, vía/dS
-visitas <- visita/pS
-vacía <- vacío/SG
-pinta <- pinta/S, pinto/GS, pinto/SG
-pasas <- pasa/S, paso/GS
-escape <- escape/S
-diamantes <- diamante/S
-recibo <- recibo/S
-salto <- salto/Sapr
-barra <- barra/NS
-intereses <- interés/hS
-muro <- muro/bS
-prima <- prima/NS, primo/GS
-gafas <- gafe/GS, gafo/GS
-trozo <- trozo/hS
-pistas <- pista/dS
-rueda <- rueda/S
-grano <- grano/NS
-pagaré <- pagaré/S
-moneda <- moneda/S
-militares <- ?
-temas <- tema/S
-acepta <- acepto/GS
-borde <- borde/S, borde/pS
-rumbo <- rumbo/S
-valle <- valle/S
-desnudo <- desnudo, desnudo/GSq, nudo/Sh
-tratas <- trata/fS
-mayo <- mayo/hS
-viajes <- viaje/S
-lujo <- lujo/S
-hierro <- hierro/S
-corona <- corona/NS
-alegre <- alegre/SG
-masa <- masa/NS
-bromas <- broma/S
-industria <- industria/S
-expediente <- expediente/GS, expediente/S
-pierdes <- pierde/S
-obras <- obra/LS
-desnuda <- desnudo/GSq
-rayo <- rayo/S
-diseño <- diseño/S
-extrañas <- extraña/S, extraño/GS
-impacto <- impacto/S
-experimento <- experimento/S
-empiece <- empiece/S
-plantas <- planta/jS
-secuestro <- secuestro/S
-esperanzas <- esperanza/S
-reto <- reto/S
-aguas <- agua/S
-revés <- revés/S
-uñas <- uña/S
-peleas <- pelea/S
-liga <- liga/NS
-sano <- sano/kGS
-figura <- figura/S, figura/SN
-sueldo <- sueldo/rS
-testimonio <- testimonio/S
-considerando <- considerando/S
-pasaporte <- pasaporte/S
-barba <- barba/S
-sentencia <- sentencia/S
-residencia <- residencia/S
-azules <- azul/GS, azul/S
-lanza <- lanza/S
-falla <- falla/S, fallo/SG
-medias <- media/S, medio/GS, medio/SlG
-progreso <- progreso/SO
-novela <- novel/GS, novela/LS
-auxilio <- auxilio/S
-fracaso <- fracaso/S
-asesina <- asesino/GS
-grita <- grita/LS
-monedas <- moneda/S
-pico <- pico/S
-rota <- rota/S, roto/GS
-listas <- lista/S, lista/fS, listo/SG
-tiendas <- tienda/Sf
-fuga <- fuga/S
-casco <- casco/NS
-agenda <- agenda/S
-rosas <- rosa/S, rosa/SU, roso/NGS
-baila <- baila/S
-hechizo <- hechizo/GS, hechizo/S
-extremo <- extremo/GS, extremo/S
-doctores <- doctor/GS
-romance <- romance/S, romance/SN
-miente <- miente/S
-seco <- seco/GS, seco/pSG
-monte <- monte/SCh
-salgas <- salga/S
-rollo <- rollo/S
-mezcla <- mezcla/NS
-giro <- giro/GS, giro/dS
-amantes <- amante/S
-arreglo <- arreglo/hS
-fotografías <- fotografía/S
-lata <- lata/S, lato/GS
-velas <- vela/S
-ayudas <- ayuda/S
-brujas <- brujo/GS, brujo/SG
-alfombra <- alfombra/NS
-preciso <- preciso/kGS
-papas <- papa/SN, papa/cS, papo/GS
-sombras <- sombra/NS
-postre <- postre/GS, postre/S
-escala <- escala/S
-niveles <- nivel/Sh
-largas <- larga/S, largo/GS
-bajas <- baja/pS, bajo/GS
-canto <- canto/iaS
-aumento <- aumento/S
-huella <- huella/S
-condena <- condena/S
-honesta <- honesta/h, honesto/GSh
-mías <- mía/S, mío/GS
-potencia <- potencia/kSn
-copias <- copia/mS
-receta <- receta/S
-capa <- capa/S
-invito <- invito/GS
-beneficio <- beneficio/S
-empieces <- empiece/S
-saque <- saque/S
-muebles <- mueble/CS, mueble/SG, muebles/k
-presupuesto <- presupuesto/GS, supuesto/Sn
-fruta <- fruta/SNL
-desarrollo <- desarrollo/sS
-pesca <- pesca/S
-arco <- arco/Sr
-remedio <- remedio/S
-harta <- harto/SG
-vela <- vela/S
-tiroteo <- tiroteo/S
-fines <- fin/S, fines/f
-queja <- queja/S
-documento <- documento/S
-estructura <- estructura/S
-pares <- pares, pares/k
-agosto <- agosto/S
-logro <- logro/S
-sospecha <- sospecha/S
-violento <- violento/GS
-macho <- macho/S, macho/SG
-alivio <- alivio/S
-copas <- copa/NSU
-grito <- grito/S
-engaño <- engaño/Sh
-retraso <- retraso/S
-dibujo <- dibujo/S
-conjunto <- conjunto/sS, junto/GfS
-maya <- maya/S
-calientes <- caliente/SG
-tortura <- tortura/S
-reciente <- reciente/S
-corea <- corea/S
-marzo <- marzo
-cuarta <- cuarta/NS, cuarto/GS, cuarto/SG
-amenazas <- amenaza/S
-alfa <- alfa/S
-afecta <- afecta/h, afecto/hGS
-graves <- grave/SG
-feria <- feria/S
-mancha <- mancha/S
-parto <- parto/SG, parto/pSr
-digno <- digno/fGkS
-quinto <- quinto/GS
-juramento <- juramento/S
-pases <- pase/CS
-protocolo <- protocolo/S
-otoño <- otoño/S
-huelga <- huelga/S
-rabia <- rabia/S
-comando <- comando/S
-dieta <- dieta/S
-suelto <- suelto/GS, suelto/pGS
-comercio <- comercio/S
-envío <- envío/S
-desfile <- desfile/S
-suma <- suma/S, suma/qS, sumo/GS
-mientes <- miente/S
-salve <- salve, salve/GKS
-valores <- valor/S
-salario <- salario/S
-oculta <- oculto/SG
-quema <- quema/S
-sello <- sello/S
-escuelas <- escuela/dS
-programas <- programa/S
-falsas <- falsa/NS, falso/GS, falso/SG
-matas <- mata/S
-ocasiones <- ocasión/S
-quieta <- quieta/k, quieto/kGS
-fallo <- fallo/SG
-aparato <- aparato/S
-estatua <- estatua/S
-perfume <- perfume/S
-duelo <- duelo/SC
-revistas <- revista/S, revisto/GS
-gesto <- gesto/S
-cintas <- cinta/jmS
-embarazo <- embarazo/hS
-consuelo <- consuelo/hS, suelo/Sjsf
-sincera <- sincera/k, sincero/GSk
-vidrio <- vidrio/S
-boleto <- boleto/S
-facultad <- facultad/S
-timbre <- timbre/HS
-araña <- araña/S, raña/aS
-martillo <- marte/NS, martillo/H
-inicio <- inicio/S
-pagas <- paga/rS, pago/GS
-retrato <- retrato/dS, trato/pSf
-justa <- justa/S, justa/k, justo/kGS
-vacas <- vaca/S
-minas <- mina/aS
-seda <- sed/GS
-diamante <- diamante/S
-cojo <- cojo/GS
-comunicaciones <- comunicación/klS
-tara <- tara/S
-seca <- seca/S, seca/p, seco/GS, seco/pSG
-oculto <- oculto/SG
-salva <- salva/C, salva/N, salve/GKS, salvo/GS
-excusas <- excusa/S
-tales <- tal/GS
-sobra <- sobra/S
-paro <- paro/CS, paro/S
-saluda <- saludo/GS
-talla <- talla/iS
-tabla <- tabla/NS
-escudo <- escudo/S
-quejas <- queja/S
-coca <- coca/S
-avance <- avance/S
-activo <- activo/opGSflk, activo/pS
-quinta <- quinta/NS, quinto/GS
-levante <- levante/S
-pesa <- pesa/S
-lance <- lance/S
-mueres <- ?
-cortes <- corte/S, cortes/S
-fritas <- frita/S, frito/GS
-sierra <- sierra/S
-abuso <- abuso/S
-diente <- diente/rS
-medicinas <- medicina/S
-torres <- torre/S
-sacas <- saca/Sp
-danza <- danza/S
-mates <- mate/S
-tocas <- toca/NS
-chistes <- chiste/S
-signo <- signo/S
-ciega <- ciego/SG
-papeleo <- papeleo/S
-beca <- beca/S
-sana <- sana/k, sano/kGS
-orina <- orina/S
-hilo <- hilo/NS
-raya <- raya/S
-interna <- interno/GS, terna/kS
-choque <- choque/S
-consulta <- consulta/S
-barro <- barro/SN
-multa <- multa/S
-misa <- misa/Sn
-pega <- pega/S
-afueras <- afuera/S
-pila <- pila/S
-presentes <- presente/S, presente/SG
-interno <- interno/GS, interno/S
-espías <- espía/S
-contraseña <- contraseña/S
-factura <- factura/S
-afecto <- afecto/Sh, afecto/hGS
-cristiano <- cristiano/S, cristiano/cGS
-oriente <- oriente/S
-tapa <- tapa/S
-brillo <- brillo/S
-llenas <- llena/pS, lleno/GS, lleno/SGp
-coja <- coja/S, cojo/GS
-oficio <- oficio/S
-torneo <- torneo/S
-etiqueta <- etiqueta/S
-referencia <- referencia/S
-renta <- renta/NS
-posiciones <- posición/ktoSlnabpg
-derrota <- derrota/S
-orilla <- orilla/S
-mueras <- muera/S
-manchas <- mancha/S
-niego <- niego/S
-argumento <- argumento/Sv
-pillo <- pillo/GS
-escritura <- escritura/S
-cosecha <- cosecha/S
-disciplina <- disciplina/S
-privilegio <- privilegio/S
-secuencia <- secuencia/fS
-diferencias <- diferencia/Sk
-estaciones <- estación/sSn
-denuncia <- denuncia/S
-bloqueo <- bloqueo/Sv
-garantía <- garantía, garantía/S
-evidencias <- evidencia/S
-cabe <- cabe, cabe/Sa
-alimento <- alimento/S
-cobra <- cobra/S
-pacto <- pacto/S
-accidentes <- accidente/S
-mosca <- mosca/S, mosco/GS, mosco/SG
-curva <- curva/S, curvo/GS
-aventuras <- aventura/S
-romano <- romano/nSG
-sospechas <- sospecha/S
-entusiasmo <- entusiasmo/S
-manejo <- manejo/S
-saludo <- saludo/GS
-instrumento <- instrumento/S
-renuncia <- renuncia/S
-vago <- vago/GS
-promedio <- promedio/S
-entrevistas <- entrevisto/GS
-flecha <- flecha/S
-cruce <- cruce/S
-escoria <- escoria/S
-coco <- coco/mS
-aceptas <- acepto/GS
-lindas <- lindo/pGS
-obispo <- obispo/NS
-dallas <- dalla/S
-vivas <- vivo/qGS
-maravillas <- maravilla/S
-vendo <- vendo/CS
-serena <- serena/S, sereno/GS
-envidia <- envidia/S
-vacías <- vacío/SG
-presta <- esta/nS, presta/S
-cometa <- cometa/S
-divina <- divino/GS, divino/aGS
-invita <- invito/GS
-pausa <- pausa/S
-mesas <- mesa/Sopr
-cuna <- cuna/S
-enlace <- enlace/hS
-subasta <- subasta/S
-ciclo <- ciclo/Se
-bata <- bata/H, bata/S, bato/GS
-duras <- dura/S, duro/GS, duro/NGS
-recto <- recto/GS, recto/fGS
-infarto <- infarto/S
-fijo <- fijo/GS, fijo/aSGn
-bases <- base/S
-alboroto <- alboroto/S
-hermandad <- hermandad/S
-cuadra <- cuadra/NS, cuadro/GS, cuadro/NGS
-explique <- explique/S
-divino <- divino/GS, divino/aGS
-tarda <- tardo/GS
-captura <- captura/S
-mejora <- mejor/SG, mejora/S
-tinta <- tinta/SN, tinta/p, tinto/SGN, tinto/SGp
-cepillo <- cepo/NS
-activa <- activa/flkp, activo/opGSflk
-concreto <- concreto/GS, concreto/S
-bate <- bate/iSg
-reservas <- reserva/S
-marino <- marino/GS, marino/GuSs
-estafa <- estafa/S
-orquesta <- orquesta/S
-tiras <- tira/NS
-firmes <- firme/S, firme/SG
-boxeo <- boxeo/S
-disfrute <- disfrute/S
-marea <- marea/S
-facturas <- factura/S
-visiones <- visión/Snopt
-lesiones <- lesión/S
-placas <- placa/SU
-cuelga <- cuelga/S
-gallo <- gallo/aS
-limpias <- limpia/S, limpio/GS
-municiones <- munición/S
-ruina <- ruina/S
-plaga <- plaga/S
-conexiones <- conexión/S
-barras <- barra/NS
-frito <- frito/GS, frito/S
-calibre <- calibre/S
-atento <- atento/hGSk
-triunfo <- triunfo/S
-vendí <- vendí/S
-frutas <- fruta/SNL
-resumen <- resumen/S
-demente <- demente/GS
-moscas <- mosca/S, mosco/GS, mosco/SG
-regimiento <- regimiento/Sf
-vistas <- vista/S, visto/GS, visto/SG
-aborto <- aborto/S
-venda <- venda/S
-penas <- pena/S
-manga <- manga/S
-lava <- lava/S
-ruinas <- ruina/S
-batallas <- batalla/S
-cifras <- cifra/S
-fractura <- fractura/S
-uniformes <- uniforme/S
-filas <- fila/S
-funciones <- función/gS
-crío <- crío/GS
-recta <- recta/f, recta/qS, recto/GS, recto/fGS
-mudo <- mudo/GS
-apodo <- apodo/S
-botes <- bote/S, bote/pS
-garras <- garra/S
-desperdicio <- desperdicio/S
-cosquillas <- cosquillas
-recientes <- reciente/S
-humanas <- humano/GSrk
-entierro <- entierro/S
-plomo <- plomo/HS
-dinamita <- dinamita/S
-madura <- madura/k, maduro/GSk
-tronco <- tronco/GS
-controles <- control/dhS
-parlamento <- parlamento/S
-clavo <- clavo/SN
-cortas <- corto/SG
-misiones <- misión/uSlpo
-soporte <- soporte/S
-lazo <- lazo/Sa
-dificultad <- dificultad/S
-intimidad <- intimidad/S
-causas <- causa/fS
-valía <- valía/S
-reflejo <- reflejo/GS
-velo <- velo/CSN
-quito <- quito/GS
-comprueba <- comprueba/S
-tumbas <- tumba/SN
-respetable <- respetable/S
-leña <- leña/S
-ilusiones <- ilusión/hS
-estreno <- estreno/S
-violenta <- violento/GS
-cicatrices <- cicatriz/S
-comas <- coma/S
-fumo <- fumo/S
-provecho <- provecho/S
-rechazo <- rechazo/S
-hierbas <- hierba/S
-fechas <- fecha/S
-escolta <- escolta/S
-valla <- valla/S
-guardas <- guarda/S
-latas <- lata/S, lato/GS
-suministro <- suministro/S
-perlas <- perla/S
-monta <- monta/pS
-cuestiones <- cuestión/S
-carbono <- carbono/S
-cristiana <- cristiana/c, cristiano/cGS
-hacienda <- hacienda/S
-refresco <- refresco/S
-pipa <- pipa, pipa/LS, pipa/S
-sustancia <- sustancia/S
-ratones <- ratón/S
-disfraces <- disfraz/S
-insulto <- insulto/S
-paces <- paz/S
-abras <- abra/S
-invento <- invento/S
-freno <- freno/NHS
-dispares <- ?
-rodea <- rodea/S
-domicilio <- domicilio/S
-sesiones <- sesión/S
-ciegas <- ciego/SG
-calvo <- calvo/GS
-bates <- bate/iSg
-conferencias <- conferencia/S
-aroma <- aroma/S
-serias <- serio/GS
-espuma <- espuma/SN
-fija <- fija/S, fija/an, fijo/GS, fijo/aSGn
-entregas <- entrega/S
-impaciente <- impaciente/G, paciente/kS
-cuchara <- cuchara/NS
-fino <- fino/pSGjt, fino/pSa
-data <- data/S
-palma <- palma/NS
-basa <- basa/S
-cobre <- cobre/S
-pica <- pica/S
-firmas <- firma/bS, firme/SG
-referencias <- referencia/S
-sede <- sede
-cría <- cría/pS, crío/GS
-torno <- torno/fSip
-libra <- libra/LS, libre/GS
-precisa <- precisa/k, preciso/kGS
-veros <- vero/S
-cuadras <- cuadra/NS, cuadro/GS, cuadro/NGS
-arroyo <- arroyo/S
-tenso <- tenso/GSkn
-filme <- filme/mS
-notable <- notable/S
-sujeta <- sujeto/GS
-ancho <- ancho/GS, ancho/jSG
-quitas <- quita/S, quito/GS
-ajo <- ajo, ajo/S
-angustia <- angustia/S
-quiebra <- quiebra/S
-hipoteca <- hipoteca/S
-ofertas <- oferta/S
-adjunto <- adjunto/GS
-demora <- demora/S
-burla <- burla/S
-topo <- topo/GS, topo/S
-noto <- noto/GS, noto/S
-respaldo <- respaldo/S
-cargas <- carga/hprS
-tasa <- tasa/gS
-ausente <- ausente/GS, ausente/S
-corra <- corra/S
-extrema <- extremo/GS
-expedientes <- expediente/GS, expediente/S
-fichas <- ficha/Sm
-fina <- fina/fSptj, fino/pSGjt
-novelas <- novel/GS, novela/LS
-aleja <- aleja/S
-intruso <- intruso/GS
-masas <- masa/NS
-sendero <- sendero/S
-despegue <- despegue/S
 abandono <- abandono/S
-racha <- racha/S
-rezo <- rezo/S
-bailes <- baile/S
-vacuna <- vacuna/S, vacuno/GS
-soborno <- soborno/S
-atraco <- atraco/S
-cemento <- cemento/S
-leve <- leve/aS
-conforme <- conforme, conforme/S, conforme/Sk
-estanque <- estanque/S
-capas <- capa/S
-panda <- panda/NS, panda/S, pando/GS, pando/SG
-española <- español/GS
-sonda <- sonda/S
-ingreso <- ingreso/S
-maduro <- maduro/GSk
-pasaportes <- pasaporte/S
-figuras <- figura/S, figura/SN
-empuje <- empuje/S
-cebo <- cebo/aS
-dobles <- doble/S, doble/SG, dobles/j
-ficha <- ficha/Sm
-muda <- muda/SM, mudo/GS
-tope <- tope/S
-agarre <- agarre/S
-enteras <- entera/S, entera/gS, entero/GS
-acera <- acera/S
-bombardeo <- bombardeo/S
-jura <- jura/S
-flechas <- flecha/S
-plasma <- plasma/S
-remolque <- remolque/S
-adelanto <- adelanto/S
-trueno <- trueno/S
-borda <- borda/S
-blando <- blando, blando/qGS
-trío <- trío/S
-finca <- finca/S
-concuerda <- concuerda/S
-trama <- trama/NS
-digna <- digna/fk, digno/fGkS
-rotas <- rota/S, roto/GS
-arca <- arca/S
-desnudas <- desnudo/GSq
-enmienda <- enmienda/S
-tango <- tango/GNS
-maniobra <- maniobra/S
-encargue <- encargue/S
-raja <- raja/S
-españoles <- español/GS, español/S
-fruto <- fruto/S
-deriva <- deriva/S
-reemplazo <- reemplazo/S
-ocultas <- oculto/SG
-octavo <- octavo/GS, octavo/SG
-honores <- honor/S
-prestas <- presta/S
-salas <- sal/GS, sala/bS
-ladrillo <- ladrillo/HS
-levantes <- levante/S
-entrañas <- entraña/S, entraño/SG
-saques <- saque/S
-tablas <- tabla/NS
-abismo <- abismo/S
-dobla <- dobla/SN, doble/SG
-agencias <- agencia/S
-antorcha <- antorcha/S
-frías <- fría/S, frío/GS
-luchas <- lucha/S
-vendas <- venda/S
-industrias <- industria/S
-saliva <- saliva/S
-cenas <- cena/S
-menciones <- mención/S
-rasguño <- rasguño/S
-corro <- corro/N
-presiones <- presión/kSpg
-bota <- bota/S, boto/GS
-trastorno <- trastorno/S
-rodeo <- rodeo/S
-cante <- cante/NHS
-rondas <- ronda/S
-rastreo <- rastreo/S
-cejas <- ceja/rS
-alambre <- alambre/S
-lloro <- lloro/S
-maligno <- maligno/GS, maligno/S
-dato <- dato/S
-arañas <- araña/S
-estrecho <- estrecho/GS, estrecho/S
-disputa <- disputa/S
-cifra <- cifra/S
-mango <- mango/S
-gasto <- gasto/S
-cantas <- canta/S
-tito <- tito/GS, tito/S
-expreso <- expreso, expreso/GS, expreso/S
-jarra <- jarra/S
-perla <- perla/S
-rutas <- ruta/S
-bailas <- baila/S
-conquista <- conquista/pS
-molestas <- molesto/GS
-resuelve <- resuelve/S
-pizca <- pizca/S
-marchas <- marcha/S
-arranque <- arranque/S
-secretas <- secreta/S, secreto/GS
-grieta <- grieta/S
-tazas <- taza/S
-escoba <- escoba/NS
-flora <- flora/LS
-precauciones <- precaución/S
-sobras <- sobra/S
-tensa <- tensa/kn, tenso/GSkn
-coronas <- corona/NS
-derrame <- derrame/S
-espina <- espina/NS
-fallas <- falla/S, fallo/SG
-tercio <- tercio/GS
-regazo <- regazo/S
-corras <- corra/S
-amargo <- amargo/GS, amargo/SN
-ajuste <- ajuste/Sp
-explosiones <- explosión/S
-pilas <- pila/S
-vales <- val/aS, vale/S
-pasto <- pasto/GS, pasto/S
-carpa <- carpa/S
-empate <- empate/S
-lima <- lima/S
-desvío <- desvío/S
-diligencia <- diligencia/Sk
-travieso <- travieso/GS
-cancela <- cancela/S
-comporta <- comporta/S
-alegres <- alegre/SG
-recetas <- receta/S
-sumo <- sumo/GS, sumo/fSk
-pesas <- pesa/S
-estrecha <- estrecho/GS
-gritas <- grita/LS
-circunstancia <- circunstancia/S
-esponja <- esponja/S
-charlas <- charla/S
-tinto <- tinto/SGN, tinto/SGp
-honra <- honra/gNS
-estima <- estima/dSh
-codicia <- codicia/S
-fragmento <- fragmento/S
-chocó <- chocó/S
-pinzas <- pinza/S
-culturas <- cultura/kS
-anestesia <- anestesia/S
-alarmas <- alarma/S
-avances <- avance/S
-compadre <- compadre/CS
-lujuria <- lujuria/S
-dimensiones <- dimensión/S
-romana <- romana/NS, romana/n, romano/nSG
-multas <- multa/S
-tarifa <- tarifa/S
-culpas <- culpa/S
-golpeo <- golpeo/S
-pego <- pego/ahS
-choca <- choca/S, choco/SG
-trance <- trance/SH
-cometas <- cometa/S
-titulares <- ?
-conserva <- conserva/S
-despiertas <- despierto/GS
-aprieto <- aprieto/S
-grifo <- grifo/GS
-invitas <- invito/GS
-rías <- ría/S
-mandas <- manda/gS
-rayas <- raya/S
-curvas <- curva/S, curvo/GS
-veto <- veto/S
-etiquetas <- etiqueta/S
-popa <- popa/S
-recreo <- recreo/S
-brote <- brote/S
-tributo <- tributo/aS
-filtro <- filtro/S
-reglamento <- reglamento/S
-curas <- cura/S
-insolente <- insolente/GS
-cobro <- cobro/S
-roble <- roble/S
-fresas <- fresa/S
-vara <- vara/SN
-fastidio <- fastidio/S
-fresa <- fresa/S
-mendigo <- mendigo/GS
-preste <- este/n, preste/S
-reinas <- reina/S
-fosa <- fosa/S
-hala <- hala
-ligas <- liga/NS
-duchas <- ducha/S, ducho/GS
-rima <- rima/S
-cruces <- cruce/S, cruces/r, cruz/LS
-almacenes <- almacén/S
-obvia <- obvio/SG
-brujo <- brujo/GS, brujo/SG
-lanzas <- lanza/S
-relato <- relato/fS
-alce <- alce/Sp
-esquinas <- esquina/S
-cocinas <- cocina/NS
-escrituras <- escritura/S
-comportas <- comporta/S
-pisa <- pisa/pS
-pinto <- pinto/GS, pinto/SG
-bocina <- bocina/S
-jaleo <- jaleo/S
-plancha <- plancha/S
-infame <- infame/GS
-maniobras <- maniobra/S
-puja <- puja/S
-vicio <- vicio/S
-fracturas <- fractura/S
-empeño <- empeño/Sh
-alfombras <- alfombra/NS
-escalones <- escalón/S
-cierres <- cierre/S
-presto <- presto, presto/S, presto/aS
-parche <- parche/HS
-cultivo <- cultivo/S
-cuelgue <- cuelgue/S
-burlas <- burla/S
-nieves <- nieve/S
-diploma <- diploma/S
-recuento <- recuento/S
-refleja <- refleja/S, reflejo/GS
-nervio <- nervio/S
-uña <- uña/S
-estufa <- estufa/SN
-castro <- castro/S
-apuntes <- apunte/S
-pegas <- pega/S
-sustancias <- sustancia/S
-crías <- cría/pS, crío/GS
-filo <- filo/S
-porta <- porta/bS
-arcilla <- arcilla/S
-encaje <- encaje/S
-rampa <- rampa/S
-albergue <- albergue/S
-suspiro <- suspiro/S
-ajustes <- ajuste/Sp
-manifiesto <- manifiesto/GS, manifiesto/S
-impresiones <- impresión/pS
-puntas <- punta/LNS, punta/S
-chivo <- chivo/S
-alcantarilla <- alcantarilla/S
-estatuas <- estatua/S
-sorbo <- sorbo/S
-balde <- balde/S
-series <- serie/S
-estructuras <- estructura/S
-aro <- aro/GN
-mera <- mera/p, mero/GpS
-indicio <- indicio/S
-estaca <- estaca/S
-prestigio <- prestigio/hS
-mangas <- manga/S
-recompensas <- recompensa/S
-transparente <- transparente/GS, transparente/S
-sufra <- sufra/S
-carroza <- carroza/S
-soplo <- soplo/NS
-patines <- patín/HS
-posesiones <- posesión/S
-perdones <- perdón/S
-soluciones <- solución/pS
-tibia <- tibia/S, tibio/GS
-pillas <- pillo/GS
-secas <- seca/S, seco/GS, seco/pSG
-paralelo <- paralelo/GS
-garantías <- garantía/S, garantías
-tranquilas <- tranquilo/GkS
-verso <- verso/S, verso/pSf
-escolares <- ?
-reverencia <- reverencia/S
-ancla <- ancla/S
-dote <- dote/S
-borra <- borra/S
-sueltas <- suelta/S, suelto/GS, suelto/pGS
-temple <- temple/hS
-sacramento <- sacramento/S
-zanja <- zanja/S
-ambiciones <- ambición/S
-callaos <- callao/S
-internas <- interno/GS
-cuelgues <- cuelgue/S
-reclutas <- recluta/S
-cojas <- coja/S, cojo/GS
-mordisco <- mordisco/S
-colas <- cola/NS, cola/S
-duela <- duela/S
-eclipse <- eclipse/S
-embarque <- embarque/Sh
-colmo <- colmo/NS, colmo/SG
-prenda <- prenda/S
-latino <- latino/GS
-obsequio <- obsequio/S
-aparente <- aparente/SG
-cava <- cava/S, cavo/GS
-remo <- remo/S
-cazas <- caza/LS, caza/S
-versiones <- versión/akpSsf
-manía <- manía, manía/S
-ofrenda <- ofrenda/S
-espinas <- espina/NS
-procura <- procura/S
-amarga <- amargo/GS
-prestes <- preste/S
-funda <- funda/S, funda/o, fundo/SGo
-distancias <- distancia/S
-taladro <- taladro/S
-mejoras <- mejor/SG, mejora/S
-pintas <- pinta/S, pinto/GS, pinto/SG
-asfixia <- asfixia/S
-faltas <- falta/S, falto/SG
-hipo <- hipo/S
-molde <- molde/S
-bordes <- borde/S, borde/pS
-claves <- clave/S
-traviesa <- travieso/GS
-frecuente <- frecuente/GS
-anhelo <- anhelo/S
-ahorro <- ahorro/S
-decentes <- decente/kS
-patente <- patente/GS, patente/S
-palmas <- palma/NS
-mareo <- mareo/CS
-octava <- octavo/GS, octavo/SG
-flote <- flote/S
-disgusto <- disgusto/S
-grietas <- grieta/S
-penitencia <- penitencia/kS
-giras <- gira/S, giro/GS
-vaga <- vaga/S, vago/GS
-regulares <- ?
-desagüe <- desagüe/S
-buceo <- buceo/S
-alza <- alza/S
-raciones <- ración/S
-cansa <- canso/GS
-timo <- timo/S
-golosinas <- golosina/S
-combates <- combate/S
-solares <- ?
-garra <- garra/S
-excepciones <- excepción/S
-mazo <- mazo/SHN
-enfermas <- enferma/NSU
-celo <- celo/CS
-postres <- postre/GS, postre/S
-transportes <- transporte/S
-peine <- peine/HSN
-arrugas <- arruga/S
-pilla <- pillo/GS
-osa <- osa/S
-mero <- mero/GpS, mero/S
-reclamo <- reclamo/S
-repleto <- repleto/GS
-decreto <- decreto/S
-zurdo <- zurdo/GS
-recluta <- recluta/S
-bautizo <- bautizo/S
-donas <- dona/S
-censura <- censura/S
-musa <- musa/S
-rocío <- rocío/S
-mezquino <- mezquino/GS, mezquino/S
-latina <- latino/GS
-foso <- foso/bS
-astilla <- astilla/S
-apunte <- apunte/S
-sutura <- sutura/S
-completas <- completas, completo/kGS
-secciones <- sección/lS
-filmes <- film/S, filme/mS
-expresa <- expreso/GS
-fijas <- fija/S, fijo/GS, fijo/aSGn
-bollo <- bollo/pS
-dones <- don/S, dones/ef
-ases <- as/S
-juras <- jura/S
-tapas <- tapa/S
-dance <- dance/S
-atenta <- atenta/hk, atento/hGSk
-prendas <- prenda/S
-convulsiones <- convulsión/S
-guiso <- guiso/S
-unes <- un/S
-arenas <- arena/NS
-destello <- destello/S
-refuerzo <- refuerzo/S
-capó <- capó/S
-jeringa <- jeringa/S
-disparate <- disparate/S
-jalea <- jalea/S
-condenas <- condena/S
-moro <- moro/GS
-antorchas <- antorcha/S
-fatiga <- fatiga/S
-callo <- callo/S
-compartimento <- compartimento/S
-relevo <- relevo/S
-salvas <- salve/GKS, salvo/GS
-dona <- dona/S
-tejas <- teja/S
-biografía <- biografía/dS
-alegras <- alegra/S, alegre/SG
-conjetura <- conjetura/S
-disfrutes <- disfrute/S
-platino <- platino/S
-empujes <- empuje/S
-escapo <- escapo/S
-arrastre <- arrastre/S
-cosechas <- cosecha/S
-azufre <- azufre/S
-cuarteles <- cuartel/HSN
-ahogo <- ahogo/Sh
-contusiones <- contusión/S
-sublime <- sublime/GS
-guías <- guía/S
-sobres <- sobre/S
-orillas <- orilla/S
-transacciones <- transacción/S
-chinas <- china/S, chino/GS
-atropello <- atropello/S
-mudas <- muda/SM, mudo/GS
-pinza <- pinza/S
-violentas <- violento/GS
-vacunas <- vacuna/S, vacuno/GS
-bizcocho <- bizcocho/S
-dominó <- dominó/S
-montes <- monte/SCh, montes/p
-segundas <- segunda/NS, segundo/GS
-alquila <- alquila/S
-mecha <- mecha/S
-ancha <- ancha/S, ancha/j, ancho/GS, ancho/jSG
-parta <- parta/aS, parto/SG
-oliva <- oliva/S
-primas <- prima/NS, primo/GS
-denuncias <- denuncia/S
-majo <- majo/GS
-sustento <- sustento/S
-finas <- fina/fSptj, fino/pSGjt
-portas <- porta/bS
-blanda <- blanda/S, blando/qGS
-torturas <- tortura/S
-incremento <- incremento/S
-decepciones <- decepción/S
-adorno <- adorno/S
-pensiones <- pensión/oS
-sinceras <- sincero/GSk
-renuncias <- renuncia/S
-intermedio <- intermedio/S, medio/SlG
-curro <- curro/GS, curro/S
-examinando <- examinando/GS
-cisco <- cisco/S
-trina <- trino/GS
-aras <- ara/S, aro/GN
-asombro <- asombro/S
-tose <- tose/S
-migas <- miga/Sa
-clones <- clon/S
-sueno <- sueno/S
-precisas <- preciso/kGS
-parcela <- parcela/S
-encierro <- encierro/S
-sereno <- sereno/GS, sereno/S
-tramo <- tramo/S
-hocico <- hocico/S
-regente <- regente/S, regente/fS
-ordenando <- ordenando/S
-alertas <- alerta/S
-grillo <- grillo/S
-acecho <- acecho/S
-ladra <- ladra/S
-descontento <- contento/hGSp, descontento/S
-perfiles <- perfil/S
-frita <- frita/S, frito/GS
-desacato <- desacato/S
-incienso <- incienso/S
-marinas <- marina/S, marino/GS, marino/GuSs
-lama <- lama/S, lama/aS
-incentivo <- incentivo/GS
-turbo <- turbo/S
-arrecife <- arrecife/S
-estira <- estira/S
-gobierna <- gobierna/S
-domo <- domo/S
-conservas <- conserva/S
-extremas <- extremo/GS
-fundamento <- fundamento/S
-ría <- ría/S
-guillotina <- guillotina/S
-proporciones <- proporción/hS
-almendras <- almendra/NS
-tardo <- tardo/GS
-concreta <- concreto/GS
-ceño <- ceño/S
-cobras <- cobra/S
-ampollas <- ampolla/S
-ilustre <- ilustre/GS
-maja <- majo/GS
-patentes <- patente/GS, patente/S
-alcantarillas <- alcantarilla/S
-licencias <- licencia/S
-aceleración <- aceleración/S
-escote <- escote/SO
-asfalto <- asfalto/S
-asesinas <- asesino/GS
-flexiones <- flexión/pSk
-moco <- moco/NGS
-elogio <- elogio/S
-asesores <- asesor/GS
-frecuentes <- frecuente/GS, frecuentes/k
-gramo <- gramo/S
-roles <- rol/S
-segmento <- segmento/S
-halo <- halo/S
-lidia <- lidia/S
-cansas <- canso/GS
-susurro <- susurro/S
-mezclas <- mezcla/NS
-tutora <- tutor/GS
-rotura <- rotura/S
-mareas <- marea/S
-pique <- pique/Sp
-aseo <- aseo/hS
-pisas <- pisa/pS
-esgrima <- esgrima/S
-revoluciones <- revolución/S
-calva <- calva/S, calvo/GS
-atasco <- atasco/S
-pío <- pío, pío/S, pío/kGS
-secuencias <- secuencia/fS
-hacedlo <- hacedlo
-plagas <- plaga/S
-excremento <- excremento/S
-baraja <- baraja/S
-cucharas <- cuchara/NS
-vallas <- valla/S
-espesa <- espeso/GS
-enchufe <- enchufe/S
-becas <- beca/S
-tasas <- tasa/gS
-púas <- púa/S
-canso <- canso/GS
-guiño <- guiño/S
-merienda <- merienda/S
-ora <- ora, oro/GS
-tibio <- tibio/GS
-tanga <- tanga/S, tango/GNS
-mueble <- mueble/CS, mueble/SG
-tardas <- tardo/GS
-avería <- avería/S
-peregrino <- peregrino/GS
-muelas <- muela/S
-infecciones <- infección/hS
-doctrina <- doctrina/S
-columpio <- columpio/S
-porte <- porte/aSkg
-providencia <- providencia/S
-cortejo <- cortejo/S
-mora <- moro/GS
-cese <- cese/S
-sorteo <- sorteo/S
-coles <- col/S
-trenzas <- trenza/SN
-gozo <- gozo/S
-ministra <- ministro/GS
-disputas <- disputa/S
-valles <- valle/S
-cilindro <- cilindro/qS
-estuche <- estuche/S
-corcho <- corcho/S
-indulto <- indulto/S
-asa <- asa/NS
-cuco <- cuco/GNS, cuco/GS
-murmullo <- murmullo/S
-brotes <- brote/S
-alejas <- aleja/S
-obvias <- obvio/SG
-mayas <- maya/S
-franja <- franja/S
-escalas <- escala/S
-azotes <- azote/HS
-sumas <- suma/S, suma/qS, sumo/GS
-muela <- muela/S
-hurto <- hurto/S
-cautela <- cautela/S
-consultas <- consulta/S
-hernia <- hernia/S
-fugas <- fuga/S
-conjeturas <- conjetura/S
-rasgo <- rasgo/S
-pilares <- ?
-ceja <- ceja/rS
-diluvio <- diluvio/S
-presagio <- presagio/S
-perfumes <- perfume/S
-tinte <- tinte/pS
-goteo <- goteo/S
-ejemplares <- ?
-lego <- lego/GS
-lavas <- lava/S
-rapto <- rapto/S
-lastre <- lastre/S
-acierto <- acierto/hS
-lave <- lave/CS
-silba <- silba/S
-escuadrones <- escuadrón/S
-quietas <- quieto/kGS
 abanico <- abanico/HS
-lucro <- lucro/S
-saldo <- saldo/S
-cloro <- cloro/S
-escapes <- escape/S
-asedio <- asedio/S
-secretaría <- secretaría/S
-esmalte <- esmalte/S
-tallo <- tallo/S
-caricatura <- caricatura/S
-amparo <- amparo/hS
-suela <- suela, suela/S
-arpa <- arpa/S
-maduras <- maduro/GSk
-escuadra <- escuadra/NS
-penitenciaría <- penitenciaría/S
-malla <- malla/S
-mojo <- mojo/Sp
-avispas <- avispa/S
-maligna <- maligno/GS
-trompa <- trompa/S
-faja <- faja/NS
-silueta <- silueta/S
-quilates <- quilate/S
-ronca <- ronca/S, ronce/SG, ronco/GS
-ampolla <- ampolla/S
-mestizo <- mestizo/GS
-montas <- monta/pS
-justas <- justa/S, justo/kGS
-plantilla <- plantilla/S
-enjambre <- enjambre/S
-chapa <- chapa/SU, chapo/GS
-resta <- resta/S
-custodio <- custodio/S
-moras <- moro/GS
-repleta <- repleto/GS
-expliques <- explique/S
-maqueta <- maqueta/S, maqueto/GS
-falto <- falto/SG
-cantes <- cante/NHS
-extracto <- extracto/S
-riña <- riña/S
-cerco <- cerco/GNS
-aloja <- aloja/S
-tarifas <- tarifa/S
-estorbo <- estorbo/S
-diafragma <- diafragma/S
-dementes <- demente/GS
-fosas <- fosa/S
-deterioro <- deterioro/S
-subastas <- subasta/S
-comisiones <- comisión/S
-raso <- raso/GS
-forro <- forro/CS
-fusiles <- fusil/HS
-azote <- azote/HS
-capo <- capo/SHN
-subsidio <- subsidio/S
-barbas <- barba/S
-conquistas <- conquista/pS
-picas <- pica/S
-galope <- galope/S
-buzo <- buzo/S
-talle <- talle/gS
-labores <- labor/S
-grata <- grata/S, grata/k, grato/SGk
-asesora <- asesor/GS
-confines <- confín/S, fines/f
-roce <- roce/S
-manifiesta <- manifiesto/GS
-parches <- parche/HS
-cortocircuito <- cortocircuito/S
-mallas <- malla/S
-pecas <- peca/S
-remolino <- remolino/S
-maltrato <- maltrato/S
-turba <- turba/S
-improviso <- improviso/GS
-romances <- romance/S, romance/SN
-arrebato <- arrebato/S
-ayuno <- ayuno/GS, ayuno/hS
-faena <- faena/S
-malicia <- malicia/S
-hamaca <- hamaca/S
-caricaturas <- caricatura/S
-anexo <- anexo/GS, anexo/SG, nexo/aS
-descalzo <- descalzo/GS
-motiva <- motivo/GS
-hipotecas <- hipoteca/S
-injerto <- injerto/S
-huracanes <- huracán/S
-cuestas <- cuesta/S
-tapones <- tapón/HS
-diagrama <- diagrama/S
-desfiles <- desfile/S
-estereotipo <- estereotipo/S
-hebilla <- hebilla/S
-traba <- traba/N, trabe/SG
-riego <- riego/S
-avispa <- avispa/S
-chorizo <- chorizo/GS, chorizo/S
-sufras <- sufra/S
-marga <- marga/S
-saludas <- saludo/GS
-pavimento <- pavimento/S
-enredo <- enredo/S
-ocio <- ocio/S
-purga <- purga/S
-precinto <- precinto/S
-derrama <- derrama/S
-sanciones <- sanción/S
-sanas <- sano/kGS
-mezquina <- mezquino/GS
-deleite <- deleite/S
-respetables <- respetable/S
-traiciones <- traición/S
-clava <- clava/S
-parpadeo <- parpadeo/S
-choques <- choque/S
-objetiva <- objetivo/GS
-pastas <- pasta/NS, pasto/GS
-emplea <- emplea/S
-desgaste <- desgaste/S
-parodia <- parodia/S
-huelgas <- huelga/S
-contraataque <- contraataque/S
-agarres <- agarre/S
-sentencias <- sentencia/S
-ofrendas <- ofrenda/S
-calumnia <- calumnia/S
-escamas <- escama/S
-rastras <- rastra/SN
-rallo <- rallo/S
-tramas <- trama/NS
-astillas <- astilla/S
-disparates <- disparate/S
-estafas <- estafa/S
-veta <- veta/S
-apego <- apego/hS, pego/ahS
-estampillas <- ?
-jadeo <- jadeo/S
-hincha <- hincha, hincha/S
-robles <- roble/S
-tutela <- tutela/S
-joroba <- joroba, joroba/S
-espanto <- espanto/S
-imanes <- imán/S
-ranura <- ranura/S
-planchas <- plancha/S
-marisco <- marisco/S
-halago <- halago/S
-atraso <- atraso/S
-siembra <- siembra/S
-decoro <- coro/Sjgb, decoro/kS
-enlaces <- enlace/hS
-contraseñas <- contraseña/S
-coito <- coito/S
-saqueo <- saqueo/S
-interino <- interino/GS
-hormigueo <- hormigueo/S
-rimas <- rima/S
-suturas <- sutura/S
-envase <- envase/S
-garbo <- garbo/hS
-leves <- leve/aS
-enemistad <- enemistad/S
-honestas <- honesto/GSh
-erizo <- erizo/S
-ultraje <- ultraje/S
-arenque <- arenque/S
-deforme <- deforme/S
-derrotas <- derrota/S
-anchoas <- anchoa/S
-trueque <- trueque/S
-espeso <- espeso/GS
-torna <- torna/S
-descalza <- descalzo/GS
-mimo <- mimo/S
-tutores <- tutor/GS
-cautiva <- cautivo/GS
-parloteo <- parloteo/S
-grava <- grava/NS, grave/SG
-calmas <- calma/S
-cazo <- cazo/pS
-notables <- notable/S
-cautivo <- cautivo/GS
-tallas <- talla/iS
-vapores <- vapor/S
-chinches <- chinche/GS, chinche/S
-apartes <- aparte/S
-ruedo <- ruedo/S
-jarras <- jarra/S
-auxiliares <- ?
-concretas <- concreto/GS
-rifa <- rifa/S
-quemas <- quema/S
-macizo <- macizo/GS, macizo/S
-fiambre <- fiambre/S
-reencuentro <- reencuentro/S
-tiemblo <- tiemblo/S
-notaría <- notaría/S
-ausentes <- ausente/GS, ausente/S
-zarpa <- zarpa/S
-sondeo <- sondeo/S
-carpas <- carpa/S
-adjunta <- adjunta/S, adjunto/GS
-anchas <- ancha/S, ancho/GS, ancho/jSG
-activas <- activo/opGSflk
-sigilo <- sigilo/S
-rancio <- rancio/S, rancio/SG
-contagio <- contagio/S
-arda <- arda/S
-batas <- bata/S, bato/GS
-colcha <- colcha/S
-sondas <- sonda/S
-estacas <- estaca/S
-encargues <- encargue/S
-tajo <- tajo/Sha
-dotes <- dote/S
-remodelación <- remodelación/S
-potencias <- potencia/kSn
-estornudo <- estornudo/S
-hito <- hito/GS
-dietas <- dieta/S
-proyecta <- proyecto/GS
-aderezo <- aderezo/S
-engendro <- engendro/S
-quiebre <- quiebre/S
-horquilla <- horca/NS
-fía <- fía/S
-traspaso <- traspaso/S
-batea <- batea/S
-limo <- limo/HS
-manco <- manco/S, manco/SG
-resina <- resina/S
-embrollo <- embrollo/S
-resguardo <- resguardo/S
-colecciones <- colección/pS
-correría <- correría/S
-desgarro <- desgarro/S
-calumnias <- calumnia/S
-boya <- boya/S
-rectas <- recta/qS, recto/GS, recto/fGS
+abarcas <- abarca/S
 abarca <- abarca/S
+abismo <- abismo/S
+aborto <- aborto/S
+abra <- abra/S
+abras <- abra/S
+abrigo <- abrigo/S
+absorto <- absorto/GS
+absorta <- absorto/GS
+absortas <- absorto/GS
+abucheo <- abucheo/S
+abuso <- abuso/S
+acabo <- acabo/S
+accidente <- accidente/S
+accidentes <- accidente/S
+acciones <- acción/fklpS
+acecho <- acecho/S
+aceites <- aceite/HS
+aceite <- aceite/HS
+aceleración <- aceleración/S
+aceleraciones <- aceleración/S
+acepta <- acepto/GS
+acepto <- acepto/GS
+aceptas <- acepto/GS
+aceras <- acera/S
+acera <- acera/S
+acerca <- acerca
+acierto <- acierto/hS
+acuerdo <- acuerdo/hS
+activa <- activa/flkp, activo/opGSflk
+activas <- activo/opGSflk
+activo <- activo/opGSflk, activo/pS
+acuses <- acuse/S
+acuse <- acuse/S
+adelanto <- adelanto/S
+adelante <- adelante
+adentro <- adentro, adentro/S
+aderezo <- aderezo/S
+adiciones <- adición/S
+adjetivo <- adjetivo/GS
+adjetivas <- adjetivo/GS
+adjetiva <- adjetivo/GS
+adjuntas <- adjunta/S, adjunto/GS
+adjunta <- adjunta/S, adjunto/GS
+adjunto <- adjunto/GS
+adorno <- adorno/S
+afecciones <- afección/S
+afecta <- afecta/h, afecto/hGS
+afecto <- afecto/Sh, afecto/hGS
+afectas <- afecto/hGS
+aficiones <- afición/S
+afines <- afín/S
+afueras <- afuera/S
+afuera <- afuera, afuera/S
+afrentas <- afrenta/S
+afrenta <- afrenta/S
+afanes <- afán/S
+agarres <- agarre/S
+agarre <- agarre/S
+agencia <- agencia/S
+agencias <- agencia/S
+agenda <- agenda/S
+agendas <- agenda/S
+agüero <- agüero/S
+agosto <- agosto/S
+agote <- agote/GS
+agotes <- agote/GS
+agravio <- agravio/hS
+agua <- agua/S
+aguas <- agua/S
+agujero <- agujero/S
+ahogo <- ahogo/Sh
+ahorro <- ahorro/S
+ajes <- aj/S
+ajo <- ajo, ajo/S
+ajetreo <- ajetreo/S
+ajuares <- ?
+ajustes <- ajuste/Sp
+ajuste <- ajuste/Sp
+alambres <- alambre/S
+alambre <- alambre/S
+alarma <- alarma/S
+alarmas <- alarma/S
+albergue <- albergue/S
+albergues <- albergue/S
+alboroto <- alboroto/S
+alcances <- alcance/S
+alcance <- alcance/S
+alcantarillas <- alcantarilla/S
+alcantarilla <- alcantarilla/S
+alces <- alce/Sp
+alce <- alce/Sp
+alcoholes <- alcohol/SO
+alegras <- alegra/S, alegre/SG
+alegra <- alegra/S, alegre/SG
+alegre <- alegre/SG
+alegro <- alegro, alegro/S
+alegres <- alegre/SG
+alejas <- aleja/S
+aleja <- aleja/S
+aliento <- aliento/rSh
+alerta <- alerta, alerta/S
+alertas <- alerta/S
+alfa <- alfa/S
+alfas <- alfa/S
+alfombra <- alfombra/NS
+alfombras <- alfombra/NS
+algodones <- algodón/NS
+aliases <- alias/S
+alimento <- alimento/S
+alivio <- alivio/S
+almacenes <- almacén/S
+almacena <- almaceno/GS
+almacenas <- almaceno/GS
+almaceno <- almaceno/GS
+almendra <- almendra/NS
+almendras <- almendra/NS
+almidones <- almidón/S
+almizcle <- almizcle/S
+almizcles <- almizcle/S
+almohadilla <- almohada/NS
+almohadillas <- ?
+almuerzo <- almuerzo/S
+aloja <- aloja/S
+alojas <- aloja/S
+alquila <- alquila/S
+alquilas <- alquila/S
+alquitranes <- alquitrán/S
+alterna <- alterno/sSG
+alternas <- alterno/sSG
+alterno <- alterno/sSG
+subalterno <- alterno/sSG, subalterno/GS
+alzas <- alza/S
+alza <- alza/S
+amas <- ama/S
+ama <- ama/S
+amantes <- amante/S
+amante <- amante/S
+amapola <- amapola/S
+amapolas <- amapola/S
+amo <- amo/S
+amarga <- amargo/GS
+amargo <- amargo/GS, amargo/SN
+amargas <- amargo/GS
+amarilleces <- ?
+amarre <- amarre/CS
+amarres <- amarre/CS
+ambiciones <- ambición/S
+ambiente <- ambiente/S, ambiente/SG
+ambientes <- ambiente/S, ambiente/SG
+amenazas <- amenaza/S
+amenaza <- amenaza/S
+amigas <- amigo/GS, amigo/SG
+amigo <- amigo/GS, amigo/SG
+amiga <- amigo/GS, amigo/SG, miga/Sa
+amistad <- amistad/S
+amparo <- amparo/hS
+ampollas <- ampolla/S
+ampolla <- ampolla/S
+ancha <- ancha/S, ancha/j, ancho/GS, ancho/jSG
+anchas <- ancha/S, ancho/GS, ancho/jSG
+ancho <- ancho/GS, ancho/jSG
+anchoas <- anchoa/S
+anchoa <- anchoa/S
+anclas <- ancla/S
+ancla <- ancla/S
+anestesias <- anestesia/S
+anestesia <- anestesia/S
+anexo <- anexo/GS, anexo/SG, nexo/aS
+anexas <- anexo/GS, anexo/SG
+anexa <- anexo/GS, anexo/SG
+angosto <- angosto/GS
+angostas <- angosto/GS
+angosta <- angosto/GS
+angulares <- ?
+angustias <- angustia/S
+angustia <- angustia/S
+anhelo <- anhelo/S
+anillo <- ano/NS
+antorchas <- antorcha/S
+antorcha <- antorcha/S
+anulares <- ?
+anises <- anís/S
+aparato <- aparato/S
+aparejo <- aparejo/S
+aparente <- aparente/SG
+aparentes <- aparente/SG
+aparte <- aparte, aparte/S
+apartes <- aparte/S
+apego <- apego/hS, pego/ahS
+apenas <- apenas
+aplique <- aplique/S
+apliques <- aplique/S
+apodo <- apodo/S
+aposento <- aposento/S
+aprieto <- aprieto/S
+apuntes <- apunte/S
+apunte <- apunte/S
+aras <- ara/S, aro/GN
+ara <- ara/S, aro/GN
+aro <- aro/GN
+arares <- ?
+araña <- araña/S, raña/aS
+arañas <- araña/S
+arca <- arca/S
+arcas <- arca/S
+arco <- arco/Sr
+archivo <- archivo/S
+arcilla <- arcilla/S
+arcillas <- arcilla/S
+arda <- arda/S
+ardas <- arda/S
+arenas <- arena/NS
+arena <- arena/NS
+arenques <- arenque/S
+arenque <- arenque/S
+argumento <- argumento/Sv
+armas <- arma/S
+arma <- arma/S
+aroma <- aroma/S
+aromas <- aroma/S
+arpa <- arpa/S
+arpas <- arpa/S
+arpones <- arpón/S
+arranques <- arranque/S
+arranque <- arranque/S
+arrastre <- arrastre/S
+arrastres <- arrastre/S
+arrebato <- arrebato/S
+arrecifes <- arrecife/S
+arrecife <- arrecife/S
+arreglo <- arreglo/hS
+arriendo <- arriendo/sS
+arresto <- arresto/S
+arriba <- arriba
+arribo <- arribo/CS
+arrojo <- arrojo/S
+arroyo <- arroyo/S
 arruga <- arruga/S
+arrugas <- arruga/S
+articulares <- ?
+ases <- as/S
+asas <- asa/NS
+asa <- asa/NS
+aseo <- aseo/hS
+asedio <- asedio/S
+asiento <- asiento/S
+asesinas <- asesino/GS
+asesina <- asesino/GS
+asesino <- asesino/GS
+asesores <- asesor/GS
+asesora <- asesor/GS
+asesoras <- asesor/GS
+asfalto <- asfalto/S
+asfixias <- asfixia/S
+asfixia <- asfixia/S
+así <- así
+asombro <- asombro/S
+astillas <- astilla/S
+astilla <- astilla/S
+asunto <- asunto/S
+atasco <- atasco/S
+ateneos <- ateneo/GS, ateneo/S
+atenta <- atenta/hk, atento/hGSk
+atento <- atento/hGSk
+atentas <- atento/hGSk
+atraco <- atraco/S
+atraso <- atraso/S
+atropello <- atropello/S
+aumento <- aumento/S
+aureolas <- aureola/S
+aureola <- aureola/S
+ausente <- ausente/GS, ausente/S
+ausentes <- ausente/GS, ausente/S
+auxiliares <- ?
+auxilio <- auxilio/S
+avance <- avance/S
+avances <- avance/S
+avanzo <- avanzo/S
+avellanas <- avellana/S
+avellana <- avellana/S
+aventura <- aventura/S, ventura/hSa
+aventuras <- aventura/S
+avería <- avería/S
+averías <- avería/S
+aviares <- ?
+aviso <- aviso/Snv
+avispa <- avispa/S
+avispas <- avispa/S
+ayudas <- ayuda/S
+ayuda <- ayuda/S
+ayuno <- ayuno/GS, ayuno/hS
+ayuna <- ayuno/GS
+ayunas <- ayuno/GS
+azafranes <- azafrán/S
+azotes <- azote/HS
+azote <- azote/HS
+azufre <- azufre/S
+azufres <- azufre/S
+azula <- azul/GS
+azules <- azul/GS, azul/S
+azulas <- azul/GS
+azulejo <- azulejo/GS, azulejo/S
+azuleja <- azulejo/GS
+azulejas <- azulejo/GS
+añejo <- añejo/SG
+añejas <- añejo/SG
+añeja <- añejo/SG
+bailas <- baila/S
+baila <- baila/S
+baile <- baile/S
+bailes <- baile/S
+bajas <- baja/pS, bajo/GS
+baja <- baja/pS, bajo/GS
+bajo <- bajo, bajo/GS, bajo/pS
+bala <- bala/S
+balas <- bala/S
+baldes <- balde/S, baldes/S
+balde <- balde/S
+baldosas <- baldosa/S
+baldosa <- baldosa/S
+baraja <- baraja/S
+barajas <- baraja/S
+barbas <- barba/S
+barba <- barba/S
+barnices <- barniz/S
+barra <- barra/NS
+barras <- barra/NS
+barro <- barro/SN
+basa <- basa/S
+basas <- basa/S
+bases <- base/S
+base <- base/S
+basta <- basta/NS, basto/GS
+bastas <- basta/NS, basto/GS
+basto <- basto/GS, basto/aS
+bastiones <- bastión/S
+bata <- bata/H, bata/S, bato/GS
+batas <- bata/S, bato/GS
+batalla <- batalla/S
+batallas <- batalla/S
+bates <- bate/iSg
+bate <- bate/iSg
+bateas <- batea/S
+batea <- batea/S
+bato <- bato/GS
+bautizo <- bautizo/S
+baña <- baña/S
+bañas <- baña/S
+baño <- baño/Sp
+becas <- beca/S
+beca <- beca/S
+beneficio <- beneficio/S
+beso <- beso/SU
+biografía <- biografía/dS
+biografías <- biografía/dS
+bizco <- bizco/GS
+bizcas <- bizco/GS
+bizca <- bizco/GS
+bizcocho <- bizcocho/S
+blanda <- blanda/S, blando/qGS
+blandas <- blanda/S, blando/qGS
+blando <- blando, blando/qGS
+blanqueo <- blanqueo/S
+blasfemo <- blasfemo/GS
+blasfema <- blasfemo/GS
+blasfemas <- blasfemo/GS
+bloqueo <- bloqueo/Sv
+bobinas <- bobina/S
+bobina <- bobina/S
+bocina <- bocina/S
+bocinas <- bocina/S
+boletas <- boleta/S
+boleta <- boleta/S
+boleto <- boleto/S
+bollo <- bollo/pS
+bombardeo <- bombardeo/S
+bordas <- borda/S
+borda <- borda/S
+bordes <- borde/S, borde/pS
+bordo <- bordo/NS
+borde <- borde/S, borde/pS
+borneo <- borneo/S
+borras <- borra/S
+borra <- borra/S
+bosquejo <- bosquejo/S
+bostezo <- bostezo/S
+bota <- bota/S, boto/GS
+botas <- bota/S, boto/GS
+bote <- bote/S, bote/pS
+botes <- bote/S, bote/pS
+boto <- boto/GS, boto/NS
+boxeo <- boxeo/S
+boya <- boya/S
+boyas <- boya/S
+rebozo <- bozo/pSi, rebozo/N
+breas <- brea/S
+brea <- brea/S
+brillo <- brillo/S
+brinco <- brinco/NS
+bromas <- broma/S
+broma <- broma/S
+brotas <- brota/S
+brota <- brota/S
+brotes <- brote/S
+brote <- brote/S
+bruces <- bruces
+bruja <- brujo/GS, brujo/SG
+brujas <- brujo/GS, brujo/SG
+brujo <- brujo/GS, brujo/SG
+brumas <- bruma/S
+bruma <- bruma/S
+buceo <- buceo/S
+burlas <- burla/S
+burla <- burla/S
+buscas <- busca/S, busca/pS
+busca <- busca/S, busca/pS
+buzo <- buzo/S
+cabe <- cabe, cabe/Sa
+cabes <- cabe/Sa
+cabría <- cabrío/GS
+cupo <- cupo/S
+cabestro <- cabestro/NCS
+cabrías <- cabrío/GS
+cacha <- cacha/S, cacho/GS
+cachas <- cacha/S, cachas/S, cacho/GS
+cacho <- cacho/GS, cacho/S
+cachases <- cachas/S
+cales <- cal/S
+cala <- cala/NS
+calas <- cala/NS
+caliente <- caliente/SG
+calientes <- caliente/SG
+calibre <- calibre/S
+calibres <- calibre/S
+callaos <- callao/S
+calle <- calle/jS
+callo <- callo/S
+calles <- calle/jS
+calmas <- calma/S
+calma <- calma/S
+calumnia <- calumnia/S
+calumnias <- calumnia/S
+calvas <- calva/S, calvo/GS
+calva <- calva/S, calvo/GS
+calvo <- calvo/GS
+calzas <- calza/rS
+calza <- calza/rS
+cambio <- cambio/lS
+camino <- camino/S
+campo <- campo/NS
+cancela <- cancela/S
+cancelas <- cancela/S
+cansa <- canso/GS
+canso <- canso/GS
+cansas <- canso/GS
+canta <- canta/S
+cantas <- canta/S
+canto <- canto/iaS
+cantes <- cante/NHS
+cante <- cante/NHS
+cantares <- ?
+encanto <- canto/iaS, encanto/hS
+capa <- capa/S
+capas <- capa/S
+capo <- capo/SHN
+capó <- capó/S
+capotas <- capota/S
+capota <- capota/S
+capote <- capote/HS
+capotes <- capote/HS
+captura <- captura/S
+capturas <- captura/S
+carbono <- carbono/S
+carbonato <- carbonato/Se
+carbones <- carbón/NS
+cargas <- carga/hprS
+carga <- carga/hprS
+cargo <- cargo/iSph
+caricaturas <- caricatura/S
+caricatura <- caricatura/S
+cariño <- cariño/S
+carpa <- carpa/S
+carpas <- carpa/S
+carrozas <- carroza/S
+carroza <- carroza/S
+carroña <- carroña/S
+carroñas <- carroña/S
+casas <- casa/LNS
+casa <- casa/LNS
+caso <- caso/aS
+casares <- ?
+casco <- casco/NS
+castigo <- castigo/S
+castro <- castro/S
+cata <- cata/S
+catas <- cata/S
+catapultas <- catapulta/S
+catapulta <- catapulta/S
+cato <- cato/Sp
+causa <- causa/fS
+causas <- causa/fS
+cautela <- cautela/S
+cautelas <- cautela/S
+cautiva <- cautivo/GS
+cautivo <- cautivo/GS
+cautivas <- cautivo/GS
+cava <- cava/S, cavo/GS
+cavas <- cava/S, cavo/GS
+cavo <- cavo/GS, cavo/S
+caza <- caza/LS, caza/S
+cazas <- caza/LS, caza/S
+cazo <- cazo/pS
+cebo <- cebo/aS
+cecinas <- cecina/S
+cecina <- cecina/S
+ceda <- ceda/NS
+cedas <- ceda/NS
+ciegas <- ciego/SG
+ciega <- ciego/SG
+ciego <- ciego/S, ciego/SG
+cejas <- ceja/rS
+ceja <- ceja/rS
+celo <- celo/CS
+cemento <- cemento/S
+cena <- cena/S
+cenas <- cena/S
+censo <- censo/hkS
+censuras <- censura/S
+censura <- censura/S
+centro <- centro/S
+cepillo <- cepo/NS
+cerca <- cerca, cerca/jS, cerco/GNS
+cercas <- cerca/jS, cercas, cerco/GNS
+cerco <- cerco/GNS
+ciernes <- cierne/S
+cierne <- cierne/S
+cierre <- cierre/S
+cierres <- cierre/S
+cerrillo <- cerro/SN
+cese <- cese/S
+ceses <- cese/S
+ceño <- ceño/S
+chales <- chal/S
+chapa <- chapa/SU, chapo/GS
+chapas <- chapa/SU, chapo/GS
+chapo <- chapo/GS
+charlas <- charla/S
+charla <- charla/S
+chillas <- chilla/S, chillo/GS
+chilla <- chilla/S, chillo/GS
+chillo <- chillo/GS
+china <- china/S, chino/GS
+chinas <- china/S, chino/GS
+chino <- chino/GS, chino/SH
+chinches <- chinche/GS, chinche/S
+chinche <- chinche/GS, chinche/S
+chistes <- chiste/S
+chiste <- chiste/S
+chitas <- chita/S
+chita <- chita/S
+chivo <- chivo/S
+chocas <- choca/S, choco/SG
+choca <- choca/S, choco/SG
+choques <- choque/S
+choco <- choco/SG
+choque <- choque/S
+chocó <- chocó/S
+chorizo <- chorizo/GS, chorizo/S
+choriza <- chorizo/GS
+chorizas <- chorizo/GS
+churro <- churro/GS, churro/S, churro/SG
+churra <- churro/GS, churro/SG
+churras <- churro/GS, churro/SG
+chute <- chute/Si
+chutes <- chute/Si
+cicatrices <- cicatriz/S
+ciclo <- ciclo/Se
+cifras <- cifra/S
+cifra <- cifra/S
+cilindro <- cilindro/qS
+cimiento <- cimiento/S
+cinceles <- cincel/S
+cinematografía <- cinematografía/S
+cinematografías <- cinematografía/S
+cinta <- cinta/jmS
+cintas <- cinta/jmS
+cinto <- cinto/NS
+circulares <- ?
+circunstancia <- circunstancia/S
+circunstancias <- circunstancia/S
+cisco <- cisco/S
+citas <- cita/S
+cita <- cita/S
+clausuras <- clausura/S
+clausura <- clausura/S
+clavas <- clava/S
+clava <- clava/S
+clavo <- clavo/SN
+clave <- clave/S
+claves <- clave/S
+clones <- clon/S
+clonación <- clonación/S
+clonaciones <- clonación/S
+cloro <- cloro/S
+cloruro <- cloruro/S
+cobija <- cobija/S
+cobijas <- cobija/S
+cobra <- cobra/S
+cobras <- cobra/S
+cobro <- cobro/S
+cobre <- cobre/S
+cobres <- cobre/S
+cocas <- coca/S
+coca <- coca/S
+coco <- coco/mS
+cocinas <- cocina/NS
+cocina <- cocina/NS
+codicias <- codicia/S
+codicia <- codicia/S
+coja <- coja/S, cojo/GS
+cojas <- coja/S, cojo/GS
+cojo <- cojo/GS
+coito <- coito/S
+coles <- col/S
+cola <- cola/NS, cola/S
+colas <- cola/NS, cola/S
+colcha <- colcha/S
+colchas <- colcha/S
+colecciones <- colección/pS
+colegio <- colegio/S
+cuelgue <- cuelgue/S
+cuelgas <- cuelga/S
+cuelgues <- cuelgue/S
+cuelga <- cuelga/S
+colisiones <- colisión/S
+colmo <- colmo/NS, colmo/SG
+colmas <- colmo/SG
+colma <- colmo/SG
+colonización <- colonización/S
+colonizaciones <- colonización/S
+colores <- color/S
+columpio <- columpio/S
+coma <- coma/S
+comas <- coma/S
+comando <- comando/S
+comarcas <- comarca/S
+comarca <- comarca/S
+combate <- combate/S
+combates <- combate/S
+comienzo <- comienzo/S
+como <- como
+comercio <- comercio/S
+cometa <- cometa/S
+cometas <- cometa/S
+comisiones <- comisión/S
+compacto <- compacto/GS, compacto/S
+compacta <- compacto/GS
+compactas <- compacto/GS
+compadre <- compadre/CS
+compadres <- compadre/CS
+compartimento <- compartimento/S
+compases <- compás/S
+complemento <- complemento/S
+completa <- completa/k, completo/kGS
+completo <- completo/kGS
+completas <- completas, completo/kGS
+comportas <- comporta/S
+comporta <- comporta/S
+compras <- compra/S
+compra <- compra/S
+compruebas <- comprueba/S
+comprueba <- comprueba/S
+comunicaciones <- comunicación/klS
+comunicación <- comunicación/klS
+concierto <- concierto/hS
+conciencia <- conciencia/S
+conciencias <- conciencia/S
+conciliares <- ?
+concuerda <- concuerda/S
+concreto <- concreto/GS, concreto/S
+concreta <- concreto/GS
+concretas <- concreto/GS
+concuerdas <- concuerda/S
+condena <- condena/S
+condenas <- condena/S
+condiciones <- condición/nS
+condimento <- condimento/S
+conexiones <- conexión/S
+confecciones <- confección/S
+conferencia <- conferencia/S
+conferencias <- conferencia/S
+confines <- confín/S, fines/f
+conforme <- conforme, conforme/S, conforme/Sk
+conformes <- conforme/S, conforme/Sk
+conjetura <- conjetura/S
+conjeturas <- conjetura/S
+conjunto <- conjunto/sS, junto/GfS
+encono <- cono/iS, encono/hS
+conquistas <- conquista/pS
+conquista <- conquista/pS
+consigo <- consigo
+conservas <- conserva/S
+conserva <- conserva/S
+considerando <- considerando/S
+consignas <- consigna/S
+consigna <- consigna/S
+consuelo <- consuelo/hS, suelo/Sjsf
+consultas <- consulta/S
+consulta <- consulta/S
+contagio <- contagio/S
+cuenta <- cuenta/S
+cuentas <- cuenta/S
+cuento <- cuento/Sh
+contentas <- contenta/S, contento/GS, contento/hGSp
+contenta <- contenta/S, contenta/ph, contento/GS, contento/hGSp
+contento <- contento/GS, contento/hGSp
+contentares <- ?
+descontento <- contento/hGSp, descontento/S
+contingente <- contingente/GS, contingente/S
+contingentes <- contingente/GS, contingente/S
+contraataque <- contraataque/S
+contraataques <- contraataque/S
+contraseñas <- contraseña/S
+contraseña <- contraseña/S
+controles <- control/dhS
+contusiones <- contusión/S
+conversa <- converso/GS
+converso <- converso/GS, verso/pSf
+conversas <- converso/GS
+convoyes <- convoy/S
+convulsiones <- convulsión/S
+copas <- copa/NSU
+copa <- copa/NSU
+copo <- copo/S
+copia <- copia/mS
+copias <- copia/mS
+corcho <- corcho/S
+cordeles <- cordel/HS
+coreas <- corea/S
+corea <- corea/S
+decoro <- coro/Sjgb, decoro/kS
+corona <- corona/NS
+coronas <- corona/NS
+corras <- corra/S
+corra <- corra/S
+correo <- correo/HC, reo/fS
+correría <- correría/S
+corro <- corro/N
+correrías <- correría/S
+cortas <- corto/SG
+corto <- corto/S, corto/SG
+corta <- corto/SG
+cortes <- corte/S, cortes/S
+corte <- corte/S
+cortejo <- cortejo/S
+cortocircuito <- cortocircuito/S
+cosa <- cosa/S
+cosas <- cosa/S
+cosecha <- cosecha/S
+cosechas <- cosecha/S
+coso <- coso/Sa
+cosquillas <- cosquillas
+cuesta <- cuesta/S
+cuestas <- cuesta/S
+cotilleo <- cotilleo/S
+creas <- crea/S
+crea <- crea/S
+crías <- cría/pS, crío/GS
+crío <- crío/GS
+cría <- cría/pS, crío/GS
+crisoles <- crisol/S
+cristiana <- cristiana/c, cristiano/cGS
+cristiano <- cristiano/S, cristiano/cGS
+cristianas <- cristiano/cGS
+cromo <- cromo/S
+cruce <- cruce/S
+cruces <- cruce/S, cruces/r, cruz/LS
+cuadra <- cuadra/NS, cuadro/GS, cuadro/NGS
+cuadras <- cuadra/NS, cuadro/GS, cuadro/NGS
+cuadro <- cuadro/GS, cuadro/NGS
+cuartas <- cuarta/NS, cuarto/GS, cuarto/SG
+cuarta <- cuarta/NS, cuarto/GS, cuarto/SG
+cuarto <- cuarto/GS, cuarto/SG
+cuarteles <- cuartel/HSN
+cuco <- cuco/GNS, cuco/GS
+cucharas <- cuchara/NS
+cuchara <- cuchara/NS
+cuca <- cuca/S, cuco/GNS, cuco/GS
+cucas <- cuca/S, cuco/GNS, cuco/GS
+cuestiones <- cuestión/S
+culpa <- culpa/S
+culpas <- culpa/S
+cultivo <- cultivo/S
+culturas <- cultura/kS
+cultura <- cultura/kS
+cunas <- cuna/S
+cuna <- cuna/S
+cura <- cura/S
+curas <- cura/S
+curro <- curro/GS, curro/S
+curra <- curro/GS
+curras <- curro/GS
+curso <- curso/kSufp
+curvas <- curva/S, curvo/GS
+curva <- curva/S, curvo/GS
+curvo <- curvo/GS
+custodias <- custodia/S
+custodia <- custodia/S
+custodio <- custodio/S
+cuñas <- cuña/S
+cuña <- cuña/S
+dallas <- dalla/S
+dalla <- dalla/S
+dance <- dance/S
+dances <- dance/S
+danza <- danza/S
+danzas <- danza/S
+datas <- data/S
+data <- data/S
+dato <- dato/S
+daño <- daño/Sp
+debe <- debe
+decentes <- decente/kS
+decente <- decente/kS
+decepciones <- decepción/S
+dije <- dije/S
+decreto <- decreto/S
+deformes <- deforme/S
+deforme <- deforme/S
+dejas <- deja/Si
+deja <- deja/Si
+dejo <- dejo/NS
+deleite <- deleite/S
+deleites <- deleite/S
+deletreo <- deletreo/S
+demente <- demente/GS
+dementes <- demente/GS
+demoras <- demora/S
+demora <- demora/S
+diente <- diente/rS
+dientes <- diente/rS
+denuncias <- denuncia/S
+denuncia <- denuncia/S
+deriva <- deriva/S
+derivas <- deriva/S
+derrama <- derrama/S
+derramas <- derrama/S
+derrames <- derrame/S
+derrame <- derrame/S
+derrape <- derrape/S
+derrapes <- derrape/S
+derribo <- derribo/S
+derrotas <- derrota/S
+derrota <- derrota/S
+desacato <- desacato/S
+desafío <- desafío/S
+desagües <- desagüe/S
+desagüe <- desagüe/S
+desarrollo <- desarrollo/sS
+descalzo <- descalzo/GS
+descalza <- descalzo/GS
+descalzas <- descalzo/GS
+descanso <- descanso/SN
+descargue <- descargue/S
+descargues <- descargue/S
+deseo <- deseo/S
+desfalco <- desfalco/S
+desfile <- desfile/S
+desfiles <- desfile/S
+desgarro <- desgarro/S
+desgaste <- desgaste/S
+desgastes <- desgaste/S
+deshonores <- deshonor/S
+deslices <- desliz/S
+desnudo <- desnudo, desnudo/GSq, nudo/Sh
+desnuda <- desnudo/GSq
+desnudas <- desnudo/GSq
+despacho <- despacho/bS
+despegue <- despegue/S
+despegues <- despegue/S
+desperdicio <- desperdicio/S
+despiertas <- despierto/GS
+despierta <- despierto/GS
+despierto <- despierto/GS
+despertares <- ?
+despojo <- despojo/S
+destello <- destello/S
+destierro <- destierro/S
+destino <- destino
+desvío <- desvío/S
+detalle <- detalle/S, talle/gS
+detalles <- detalle/S
+deterioro <- deterioro/S
+diafragmas <- diafragma/S
+diafragma <- diafragma/S
+diagrama <- diagrama/S
+diagramas <- diagrama/S
+diamante <- diamante/S
+diamantes <- diamante/S
+dibujo <- dibujo/S
+dieta <- dieta/S
+dietas <- dieta/S
+diferencias <- diferencia/Sk
+diferencia <- diferencia/Sk
+dificultad <- dificultad/S
+digna <- digna/fk, digno/fGkS
+digno <- digno/fGkS
+dignas <- digno/fGkS
+diligencia <- diligencia/Sk
+diligencias <- diligencia/Sk
+diluvio <- diluvio/S
+dimensiones <- dimensión/S
+dinamita <- dinamita/S
+dinamitas <- dinamita/S
+diploma <- diploma/S
+diplomas <- diploma/S
+dirigible <- dirigible/S
+dirigibles <- dirigible/S
+disciplinas <- disciplina/S
+disciplina <- disciplina/S
+disculpas <- disculpa/S
+disculpa <- disculpa/S
+discurso <- discurso/S
+disecciones <- disección/S
+diseño <- diseño/S
+disfraces <- disfraz/S
+disfrutes <- disfrute/S
+disfrute <- disfrute/S
+disgusto <- disgusto/S
+dispares <- ?
+disparo <- disparo/S
+disparates <- disparate/S
+disparate <- disparate/S
+dispensa <- dispensa/S
+dispensas <- dispensa/S
+dispersas <- disperso/GS
+dispersa <- disperso/GS
+disperso <- disperso/GS
+disputas <- disputa/S
+disputa <- disputa/S
+distancias <- distancia/S
+distancia <- distancia/S
+distorsiones <- distorsión/S
+divino <- divino/GS, divino/aGS
+divinas <- divino/GS, divino/aGS
+divina <- divino/GS, divino/aGS
+divisa <- divisa/S
+divisas <- divisa/S
+divorcio <- divorcio/S
+doblas <- dobla/SN, doble/SG
+dobla <- dobla/SN, doble/SG
+dobladillo <- dobladillo/S
+dobles <- doble/S, doble/SG, dobles/j
+doble <- doble, doble/S, doble/SG
+doctores <- doctor/GS
+doctoras <- doctor/GS
+doctora <- doctor/GS
+doctrinas <- doctrina/S
+doctrina <- doctrina/S
+documento <- documento/S
+duela <- duela/S
+duelo <- duelo/SC
+domo <- domo/S
+domicilio <- domicilio/S
+dominó <- dominó/S
+dones <- don/S, dones/ef
+donas <- dona/S
+dona <- dona/S
+dotes <- dote/S
+dote <- dote/S
+drago <- drago/S
+droga <- droga/LS
+drogas <- droga/LS
+duchas <- ducha/S, ducho/GS
+ducha <- ducha/S, ducho/GS
+ducho <- ducho/GS
+duda <- duda/S
+dudas <- duda/S
+duelas <- duela/S
+duras <- dura/S, duro/GS, duro/NGS
+dura <- dura/S, duro/GS, duro/NGS
+duro <- duro, duro/GS, duro/NGS
+echo <- echo/hS
+eclipse <- eclipse/S
+eclipses <- eclipse/S
+educando <- educando/GS
+efigie <- efigie/S
+efigies <- efigie/S
+ejemplo <- ejemplo/S
+ejemplares <- ?
+elegía <- elegía/S
+elegías <- elegía/S
+elogio <- elogio/S
+embalse <- embalse/S
+embalses <- embalse/S
+embarazo <- embarazo/hS
+embarque <- embarque/Sh
+embarco <- embarco/hS
+embargo <- embargo/S
+embarques <- embarque/Sh
+embrollo <- embrollo/S
+embudo <- embudo/S
+emociones <- emoción/S
+empaque <- empaque/S
+empalme <- empalme/S
+empalmes <- empalme/S
+empaques <- empaque/S
+empate <- empate/S
+empates <- empate/S
+empiece <- empiece/S
+empieces <- empiece/S
+empeño <- empeño/Sh
+emplea <- emplea/S
+empleas <- emplea/S
+empleo <- empleo/hS
+empuje <- empuje/S
+empujes <- empuje/S
+enaguas <- enagua/S
+enagua <- enagua/S
+encajes <- encaje/S
+encaje <- encaje/S
+encargues <- encargue/S
+encargue <- encargue/S
+encierro <- encierro/S
+enchufe <- enchufe/S
+enchufes <- enchufe/S
+encima <- encima
+encomienda <- encomienda/S
+encomiendas <- encomienda/S
+encuentro <- encuentro/hS
+enderezas <- endereza/S
+endereza <- endereza/S
+enemistad <- enemistad/S
+enferma <- enferma/NSU
+enfermas <- enferma/NSU
+enfermo <- enfermo/NSU
+enfrente <- enfrente
+enganche <- enganche/S
+enganches <- enganche/S
+engaño <- engaño/Sh
+engendro <- engendro/S
+enjambre <- enjambre/S
+enjambres <- enjambre/S
+enjuague <- enjuague/S
+enjuagues <- enjuague/S
+enlace <- enlace/hS
+enlaces <- enlace/hS
+enmiendas <- enmienda/S
+enmienda <- enmienda/S
+enredo <- enredo/S
+entera <- entera/S, entera/gS, entero/GS
+enteras <- entera/S, entera/gS, entero/GS
+entero <- entero/GS, entero/S
+entierro <- entierro/S
+entre <- entre
+entrañas <- entraña/S, entraño/SG
+entraña <- entraña/S, entraño/SG
+entraño <- entraño/SG
+entregas <- entrega/S
+entrega <- entrega/S
+entrevistas <- entrevisto/GS
+entrevista <- entrevisto/GS
+entrevisto <- entrevisto/GS
+entusiasmo <- entusiasmo/S
+envases <- envase/S
+envase <- envase/S
+envío <- envío/S
+envidia <- envidia/S
+envidias <- envidia/S
+equipo <- equipo/CS
+ero <- ero/S
+ere <- ere/GS
+erizo <- erizo/S
+erosiones <- erosión/S
+eructo <- eructo/S
+esbozo <- esbozo/S
+escalas <- escala/S
+escala <- escala/S
+escalares <- ?
+escalofrío <- escalofrío/S
+escalones <- escalón/S
+escama <- escama/S
+escamas <- escama/S
+escape <- escape/S
+escapo <- escapo/S
+escapes <- escape/S
+escaramuza <- escaramuza/S
+escaramuzas <- escaramuza/S
+escarmiento <- escarmiento/S
+escayola <- escayola/S
+escayolas <- escayola/S
+escaño <- escaño/S
+escobas <- escoba/NS
+escobilla <- escoba/NS
+escobillas <- ?
+escoba <- escoba/NS
+escobares <- ?
+escuela <- escuela/dS
+escolares <- ?
+escuelas <- escuela/dS
+escolta <- escolta/S
+escoltas <- escolta/S
+escombro <- escombro/S
+escoria <- escoria/S
+escorias <- escoria/S
+escota <- escota/NS, escoto/GS
+escotas <- escota/NS, escoto/GS
+escote <- escote/SO
+escotes <- escote/SO
+escritura <- escritura/S
+escrituras <- escritura/S
+escuadras <- escuadra/NS
+escuadra <- escuadra/NS
+escuadrones <- escuadrón/S
+escucha <- escucha/S
+escuchas <- escucha/S
+escudo <- escudo/S
+esfuerzo <- esfuerzo/S
+esgrima <- esgrima/S
+esgrimas <- esgrima/S
+eslabones <- eslabón/S
+esmalte <- esmalte/S
+esmaltes <- esmalte/S
+esmero <- esmero/S
+espacio <- espacio/S
+espanto <- espanto/S
+española <- español/GS
+españolas <- español/GS
+españoles <- español/GS, español/S
+especulares <- ?
+espejo <- espejo/Sg
+esperas <- espera/S
+espera <- espera/S
+esperanzas <- esperanza/S
+esperanza <- esperanza/S
+espesa <- espeso/GS
+espeso <- espeso/GS
+espesas <- espeso/GS
+espías <- espía/S
+espía <- espía/S
+espinas <- espina/NS
+espina <- espina/NS
+espino <- espino/S
+esponja <- esponja/S
+esponjas <- esponja/S
+esposa <- esposa/S, esposo/GS
+esposas <- esposa/S, esposo/GS
+esposo <- esposo/GS
+espuma <- espuma/SN
+espumas <- espuma/SN
+esquíes <- esquí/S
+esquinas <- esquina/S
+esquina <- esquina/S
+esquiva <- esquivo/SG
+esquivas <- esquivo/SG
+esquivo <- esquivo/SG
+presta <- esta/nS, presta/S
+estaca <- estaca/S
+estacas <- estaca/S
+estaciones <- estación/sSn
+estafas <- estafa/S
+estafa <- estafa/S
+estampa <- estampa/SN
+estampilla <- estampa/SN
+estampillas <- ?
+estampas <- estampa/SN
+estanque <- estanque/S
+estanques <- estanque/S
+estanco <- estanco/GS, estanco/NS
+estanca <- estanco/GS
+estancas <- estanco/GS
+estatua <- estatua/S
+estatuas <- estatua/S
+estaño <- estaño/S
+preste <- este/n, preste/S
+esteres <- ?
+estereotipo <- estereotipo/S
+estilo <- estilo/S
+estima <- estima/dSh
+estimas <- estima/dSh
+estira <- estira/S
+estiras <- estira/S
+estorbo <- estorbo/S
+estornudo <- estornudo/S
+estrago <- estrago/S
+estrecha <- estrecho/GS
+estrecho <- estrecho/GS, estrecho/S
+estrechas <- estrecho/GS
+estrella <- estrella/S
+estrellas <- estrella/S
+estrellares <- ?
+estreno <- estreno/S
+estrías <- estría/S
+estribo <- estribo/SN
+estructuras <- estructura/S
+estructura <- estructura/S
+estría <- estría/S
+estuche <- estuche/S
+estuches <- estuche/S
+estudio <- estudio/S
+estufas <- estufa/SN
+estufa <- estufa/SN
+etiqueta <- etiqueta/S
+etiquetas <- etiqueta/S
+evidencias <- evidencia/S
+evidencia <- evidencia/S
+evoluciones <- evolución/Sg
+examinando <- examinando/GS
+excepciones <- excepción/S
+excremento <- excremento/S
+excusa <- excusa/S
+excusas <- excusa/S
+exento <- exento/GS, exento/S
+exenta <- exento/GS
+exentas <- exento/GS
+expansiones <- expansión/S
+expediente <- expediente/GS, expediente/S
+expedientes <- expediente/GS, expediente/S
+experimento <- experimento/S
+explique <- explique/S
+expliques <- explique/S
+explosiones <- explosión/S
+expresas <- expreso/GS
+expreso <- expreso, expreso/GS, expreso/S
+expresa <- expreso/GS
+expulso <- expulso/GS
+expulsa <- expulso/GS
+expulsas <- expulso/GS
+extorsiones <- extorsión/S
+extracto <- extracto/S
+extraña <- extraña/S, extraño/GS
+extrañas <- extraña/S, extraño/GS
+extraño <- extraño/GS
+extrema <- extremo/GS
+extremas <- extremo/GS
+extremo <- extremo/GS, extremo/S
+factura <- factura/S
+facturas <- factura/S
+facultad <- facultad/S
+faenas <- faena/S
+faena <- faena/S
+faja <- faja/NS
+fajas <- faja/NS
+fallas <- falla/S, fallo/SG
+falla <- falla/S, fallo/SG
+fallo <- fallo/SG
+falsas <- falsa/NS, falso/GS, falso/SG
+falsa <- falsa/NS, falso/GS, falso/SG
+falso <- falso/GS, falso/SG
+falta <- falta/S, falto/SG
+faltas <- falta/S, falto/SG
+falto <- falto/SG
+fardo <- fardo/CS
+fastidio <- fastidio/S
+fatigas <- fatiga/S
+fatiga <- fatiga/S
+fechas <- fecha/S
+fecha <- fecha/S
+feria <- feria/S
+ferias <- feria/S
+fierro <- fierro/S
+fervores <- fervor/S
+festejo <- festejo/S
+feudo <- feudo/S
+fiambre <- fiambre/S
+fiambres <- fiambre/S
+fías <- fía/S
+fía <- fía/S
+fichas <- ficha/Sm
+ficha <- ficha/Sm
+fieltro <- fieltro/S
+figura <- figura/S, figura/SN
+figuras <- figura/S, figura/SN
+fija <- fija/S, fija/an, fijo/GS, fijo/aSGn
+fijas <- fija/S, fijo/GS, fijo/aSGn
+fijo <- fijo/GS, fijo/aSGn
+prefijo <- fijo/aSGn, prefijo/S
+fila <- fila/S
+filas <- fila/S
+filo <- filo/S
+filmes <- film/S, filme/mS
+filme <- filme/mS
+filtro <- filtro/S
+fines <- fin/S, fines/f
+finas <- fina/fSptj, fino/pSGjt
+fina <- fina/fSptj, fino/pSGjt
+fino <- fino/pSGjt, fino/pSa
+fincas <- finca/S
+finca <- finca/S
+firmas <- firma/bS, firme/SG
+firma <- firma/bS, firme/SG
+firme <- firme, firme/S, firme/SG
+firmes <- firme/S, firme/SG
+fisiones <- fisión/S
+flecha <- flecha/S
+flechas <- flecha/S
+flexiones <- flexión/pSk
+flirteo <- flirteo/S
+flores <- flor/rS
+floras <- flora/LS
+flora <- flora/LS
+flotas <- flota/NS
+flota <- flota/NS
+flote <- flote/S
+flotes <- flote/S
+fogueo <- fogueo/S
+forcejeo <- forcejeo/S
+forja <- forja/S
+forjas <- forja/S
+forma <- forma/pS
+formas <- forma/pS
+formulares <- ?
+aforo <- aforo/O, foro/sSa
+forro <- forro/CS
+fuerzas <- fuerza/S
+fuerza <- fuerza/S
+fosas <- fosa/S
+fosa <- fosa/S
+foso <- foso/bS
+fotocopias <- fotocopia/S
+fotocopia <- fotocopia/S
+fotografías <- fotografía/S
+fotografía <- fotografía/S
+fracaso <- fracaso/S
+fracciones <- fracción/pkS
+fracturas <- fractura/S
+fractura <- fractura/S
+fragmento <- fragmento/S
+franja <- franja/S
+franjas <- franja/S
+frecuentes <- frecuente/GS, frecuentes/k
+frecuente <- frecuente/GS
+friega <- friega/S
+freno <- freno/NHS
+frenillo <- freno/NHS
+fresas <- fresa/S
+fresa <- fresa/S
+fría <- fría/S, frío/GS
+frío <- frío/GS
+frías <- fría/S, frío/GS
+fricciones <- fricción/S
+friegas <- friega/S
+frita <- frita/S, frito/GS
+fritas <- frita/S, frito/GS
+frito <- frito/GS, frito/S
+frote <- frote/S
+frotes <- frote/S
+frutas <- fruta/SNL
+fruta <- fruta/SNL
+fruto <- fruto/S
+fuga <- fuga/S
+fugas <- fuga/S
+fumo <- fumo/S
+funciones <- función/gS
+funda <- funda/S, funda/o, fundo/SGo
+fundas <- funda/S, fundo/SGo
+fundamento <- fundamento/S
+fundo <- fundo/SGo, fundo/oS
+fusiles <- fusil/HS
+fusiones <- fusión/kSof
+gafe <- gafe/GS
+gafas <- gafe/GS, gafo/GS
+gafa <- gafe/GS, gafo/GS
+gafes <- gafe/GS
+gafo <- gafo/GS, gafo/S
+gallo <- gallo/aS
+galope <- galope/S
+galopes <- galope/S
+ganas <- gana/S
+gana <- gana/S
+gangrenas <- gangrena/S
+gangrena <- gangrena/S
+garantía <- garantía, garantía/S
+garantías <- garantía/S, garantías
+garbo <- garbo/hS
+garra <- garra/S
+garras <- garra/S
+gasto <- gasto/S
+gesto <- gesto/S
+gestiones <- gestión/fSkd
+gira <- gira/S, giro/GS
+giras <- gira/S, giro/GS
+giro <- giro/GS, giro/dS
+gobierna <- gobierna/S
+gobierno <- gobierno/S
+gobiernas <- gobierna/S
+goce <- goce/S
+goces <- goce/S
+golosinas <- golosina/S
+golosina <- golosina/S
+golpeo <- golpeo/S
+goteo <- goteo/S
+gozo <- gozo/S
+gramo <- gramo/S
+granes <- gran/S
+grano <- grano/NS
+granizo <- granizo/S
+grapa <- grapa/S
+grapas <- grapa/S
+grata <- grata/S, grata/k, grato/SGk
+gratas <- grata/S, grato/SGk
+grato <- grato/SGk
+grava <- grava/NS, grave/SG
+gravas <- grava/NS, grave/SG
+grave <- grave/SG
+graves <- grave/SG
+grietas <- grieta/S
+grieta <- grieta/S
+grifo <- grifo/GS
+grifas <- grifa/S, grifo/GS
+grifa <- grifa/S, grifo/GS
+grillo <- grillo/S
+gritas <- grita/LS
+grita <- grita/LS
+grito <- grito/S
+guadaña <- guadaña/S
+guadañas <- guadaña/S
+guardas <- guarda/S
+guarda <- guarda/S
+guarniciones <- guarnición/S
+guayes <- guay/S
+guías <- guía/S
+guía <- guía/S
+guillotinas <- guillotina/S
+guillotina <- guillotina/S
+guindas <- guinda/NS, guinda/S
+guinda <- guinda/NS, guinda/S
+guiso <- guiso/S
+guiño <- guiño/S
+gusto <- gusto/NHS
+habilitaciones <- habilitación/pS
+habilitación <- habilitación/pS
+habla <- habla/NS
+hablas <- habla/NS
+hacienda <- hacienda/S
+haces <- haz/NS, haz/SG
+hache <- hache/GS
+haches <- hache/GS
+haciendas <- hacienda/S
+hala <- hala
+halago <- halago/S
+halo <- halo/S
+hamaca <- hamaca/S
+hamacas <- hamaca/S
+hartas <- harto/SG
+harta <- harto/SG
+harto <- harto, harto/SG
+hebilla <- hebilla/S
+hebillas <- hebilla/S
+hechizo <- hechizo/GS, hechizo/S
+hechiza <- hechizo/GS
+hechizas <- hechizo/GS
+hielo <- hielo/S
+hierba <- hierba/S
+hierbas <- hierba/S
+hermanas <- hermano/GS
+hermana <- hermano/GS
+hermano <- hermano/GS
+hermandad <- hermandad/S
+hernia <- hernia/S
+hernias <- hernia/S
+hierro <- hierro/S
+hilo <- hilo/NS
+hincha <- hincha, hincha/S
+hinojo <- hinojo/S
+hipo <- hipo/S
+hipoteca <- hipoteca/S
+hipotecas <- hipoteca/S
+hisopo <- hisopo/NHS, hisopo/S
+historia <- historia/nS
+historias <- historia/nS
+hito <- hito/GS
+hita <- hito/GS
+hitas <- hito/GS
+hocico <- hocico/S
+huelga <- huelga/S
+huelgas <- huelga/S
+huella <- huella/S
+huellas <- huella/S
+honesta <- honesta/h, honesto/GSh
+honesto <- honesto/GSh
+honestas <- honesto/GSh
+honores <- honor/S
+honras <- honra/gNS, honras/gh
+honra <- honra/gNS
+horquillas <- ?
+horquilla <- horca/NS
+hormigueo <- hormigueo/S
+hoces <- hoz/S
+huevo <- huevo/GS, huevo/S
+huevas <- huevo/GS
+hueva <- huevo/GS
+humana <- humana/rk, humano/GSrk
+humanas <- humano/GSrk
+humano <- humano/GSrk, humano/S
+humo <- humo/HS
+huracanes <- huracán/S
+hurto <- hurto/S
+ideas <- idea/S
+idea <- idea/S
+iguales <- igual/S, igual/hS
+iguala <- iguala/S
+igualas <- iguala/S
+ilusiones <- ilusión/hS
+ilustres <- ilustre/GS
+ilustre <- ilustre/GS
+imanes <- imán/S
+impaciente <- impaciente/G, paciente/kS
+impacto <- impacto/S
+impresiones <- impresión/pS
+improviso <- improviso/GS
+improvisa <- improviso/GS
+improvisas <- improviso/GS
+incendio <- incendio/S
+incienso <- incienso/S
+incentivo <- incentivo/GS
+incentiva <- incentivo/GS
+incentivas <- incentivo/GS
+incremento <- incremento/S
+incursiones <- incursión/S
+indicio <- indicio/S
+indulto <- indulto/S
+industria <- industria/S
+industrias <- industria/S
+infames <- infame/GS
+infame <- infame/GS
+infarto <- infarto/S
+infecciones <- infección/hS
+infierno <- infierno/SN
+informe <- informe/S
+informes <- informe/S
+ingreso <- ingreso/S
+inicio <- inicio/S
+injerto <- injerto/S
+insolente <- insolente/GS
+insolentes <- insolente/GS
+inspecciones <- inspección/S
+instrumento <- instrumento/S
+insulto <- insulto/S
+insurrecciones <- insurrección/S
+intento <- intento/GS, intento/S
+intentas <- intento/GS
+intenta <- intento/GS
+intereses <- interés/hS
+interino <- interino/GS
+interina <- interino/GS
+interinas <- interino/GS
+intermedio <- intermedio/S, medio/SlG
+interno <- interno/GS, interno/S
+internas <- interno/GS
+interna <- interno/GS, terna/kS
+intimidad <- intimidad/S
+intruso <- intruso/GS
+intrusa <- intruso/GS
+intrusas <- intruso/GS
+invento <- invento/S
+invitas <- invito/GS
+invito <- invito/GS
+invita <- invito/GS
+involucro <- involucro/S
+irises <- iris/S
+jabones <- jabón/NS
+jadeo <- jadeo/S
+jaleas <- jalea/S
+jalea <- jalea/S
+jaleo <- jaleo/S
+jarra <- jarra/S
+jarras <- jarra/S
+jarro <- jarro/HS
+jeringa <- jeringa/S
+jeringas <- jeringa/S
+jetas <- jeta/S
+jeta <- jeta/S
+joroba <- joroba, joroba/S
+jorobas <- joroba/S
+junta <- junta/S, junta/f, junto/GfS
+juntas <- junta/S, junto/GfS
+junto <- junto, junto/GfS
+jura <- jura/S
+juras <- jura/S
+juramento <- juramento/S
+juro <- juro/Sf
+justa <- justa/S, justa/k, justo/kGS
+justas <- justa/S, justo/kGS
+justo <- justo, justo/kGS
+justicias <- justicia/S
+justicia <- justicia/S
+labores <- labor/S
+ladra <- ladra/S
+ladras <- ladra/S
+ladrillo <- ladrillo/HS
+lama <- lama/S, lama/aS
+lamas <- lama/S, lama/aS
+lamento <- lamento/S
+lance <- lance/S
+lances <- lance/S
+lanzas <- lanza/S
+lanza <- lanza/S
+largas <- larga/S, largo/GS
+larga <- larga/S, largo/GS
+largo <- largo, largo/GS
+lastre <- lastre/S
+lastres <- lastre/S
+latas <- lata/S, lato/GS
+lata <- lata/S, lato/GS
+latina <- latino/GS
+latino <- latino/GS
+latinas <- latino/GS
+lato <- lato/GS
+latines <- latín/S
+lava <- lava/S
+lavas <- lava/S
+laves <- lave/CS
+lave <- lave/CS
+lazo <- lazo/Sa
+leo <- leo/S
+lego <- lego/GS
+lega <- lega/S, lego/GS
+legas <- lega/S, lego/GS
+lesiones <- lesión/S
+leva <- leva/S
+levas <- leva/S
+levante <- levante/S
+levantes <- levante/S
+leve <- leve/aS
+leves <- leve/aS
+leñas <- leña/S
+leña <- leña/S
+lío <- lío/S
+lía <- lía/S
+libertad <- libertad/S
+libras <- libra/LS, libre/GS
+libra <- libra/LS, libre/GS
+libro <- libro/HSN
+libre <- libre/GS
+libres <- libre/GS
+licencia <- licencia/S
+licencias <- licencia/S
+lidias <- lidia/S
+lidia <- lidia/S
+ligas <- liga/NS
+liga <- liga/NS
+lijas <- lija/S, lija/oS
+lija <- lija/S, lija/oS
+lima <- lima/S
+limas <- lima/S
+limo <- limo/HS
+limpias <- limpia/S, limpio/GS
+limpia <- limpia/S, limpio/GS
+limpio <- limpio, limpio/GS
+linda <- linda/p, lindo/pGS
+lindo <- lindo/HS, lindo/pGS
+lindas <- lindo/pGS
+lista <- lista/S, lista/fS, listo/SG
+listas <- lista/S, lista/fS, listo/SG
+listo <- listo/SG
+listones <- listón/S, listón/SG
+listona <- listón/SG
+listonas <- listón/SG
+livideces <- lividez/S
+llagas <- llaga/S
+llaga <- llaga/S
+llama <- llama/S
+llamas <- llama/S
+llegas <- llega/S
+llega <- llega/S
+llena <- llena/p, llena/pS, lleno/GS, lleno/SGp
+llenas <- llena/pS, lleno/GS, lleno/SGp
+lleno <- lleno/GS, lleno/SGp
+llevas <- lleva/S
+lleva <- lleva/S
+lloro <- lloro/S
+loas <- loa/S
+loa <- loa/S
+loables <- loable/S
+loable <- loable/S
+logro <- logro/S
+losas <- losa/NS, losas/a
+losa <- losa/NS
+lucha <- lucha/S
+luchas <- lucha/S
+luces <- luz/S, luz/SU
+lucro <- lucro/S
+lujo <- lujo/S
+lujuria <- lujuria/S
+lujurias <- lujuria/S
+luxes <- lux/S
+lías <- lía/S
+macho <- macho/S, macho/SG
+machas <- macha/S, macho/SG
+macha <- macha/S, macho/SG
+maciza <- macizo/GS
+macizo <- macizo/GS, macizo/S
+macizas <- macizo/GS
+madura <- madura/k, maduro/GSk
+maduras <- maduro/GSk
+maduro <- maduro/GSk
+majo <- majo/GS
+maja <- majo/GS
+majas <- majo/GS
+maleficio <- maleficio/S
+malicias <- malicia/S
+malicia <- malicia/S
+maligna <- maligno/GS
+malignas <- maligno/GS
+maligno <- maligno/GS, maligno/S
+mallas <- malla/S
+malla <- malla/S
+maltrato <- maltrato/S
+mama <- mama/S
+mamas <- mama/S
+manes <- man/S, manes/h
+mano <- mano/S
+manco <- manco/S, manco/SG
+manchas <- mancha/S
+mancha <- mancha/S
+manca <- manco/SG
+mancas <- manco/SG
+manda <- manda/gS
+mandas <- manda/gS
+mando <- mando/S
+manejo <- manejo/S
+mangas <- manga/S
+manga <- manga/S
+mango <- mango/S
+manifiesto <- manifiesto/GS, manifiesto/S
+manifiesta <- manifiesto/GS
+manifiestas <- manifiesto/GS
+maniobra <- maniobra/S
+maniobras <- maniobra/S
+manufactura <- manufactura/S
+manufacturas <- manufactura/S
+manía <- manía, manía/S
+manías <- manía/S, manías
+maquetas <- maqueta/S, maqueto/GS
+maqueta <- maqueta/S, maqueto/GS
+maqueto <- maqueto/GS
+maravillas <- maravilla/S
+maravilla <- maravilla/S
+marcas <- marca/S
+marca <- marca/S
+marco <- marco/CS
+marcha <- marcha/S
+marchas <- marcha/S
+marchita <- marchito/GS
+marchitas <- marchito/GS
+marchito <- marchito/GS
+marzo <- marzo
+marea <- marea/S
+mareas <- marea/S
+mareo <- mareo/CS
+margas <- marga/S
+marga <- marga/S
+marinas <- marina/S, marino/GS, marino/GuSs
+marina <- marina/S, marina/us, marino/GS, marino/GuSs
+marino <- marino/GS, marino/GuSs
+marisco <- marisco/S
+marras <- marra/aS
+marra <- marra/aS
+martillo <- marte/NS, martillo/H
+masas <- masa/NS
+masa <- masa/NS
+mata <- mata/S
+matas <- mata/S
+mates <- mate/S
+mate <- mate/S
+matices <- matiz/S
+matrimonio <- matrimonio/S
+mayas <- maya/S
+maya <- maya/S
+mayo <- mayo/hS
+mazas <- maza/S
+maza <- maza/S
+mazo <- mazo/SHN
+mecha <- mecha/S
+mechas <- mecha/S
+medias <- media/S, medio/GS, medio/SlG
+media <- media/S, media/l, medio/GS, medio/SlG
+medio <- medio, medio/GS, medio/SlG
+medicina <- medicina/S
+medicinas <- medicina/S
+mejoras <- mejor/SG, mejora/S
+mejores <- mejor/SG
+mejora <- mejor/SG, mejora/S
+mellas <- mella/S
+mella <- mella/S
+memorando <- memorando/GS, memorando/S
+menciones <- mención/S
+mendigo <- mendigo/GS
+mendiga <- mendigo/GS
+mendigas <- mendigo/GS
+mientes <- miente/S
+miente <- miente/S
+mera <- mera/p, mero/GpS
+mero <- mero/GpS, mero/S
+merca <- merca/S
+mercas <- merca/S
+merienda <- merienda/S
+meriendas <- merienda/S
+meras <- mero/GpS
+meses <- mes/NS, meses/j
+mesas <- mesa/Sopr
+mesa <- mesa/Sopr
+mestiza <- mestizo/GS
+mestizo <- mestizo/GS
+mestizas <- mestizo/GS
+meta <- meta/S
+metas <- meta/S
+mezclas <- mezcla/NS
+mezcla <- mezcla/NS
+mezquino <- mezquino/GS, mezquino/S
+mezquina <- mezquino/GS
+mezquinas <- mezquino/GS
+mía <- mía, mía/S, mío/GS
+mías <- mía/S, mío/GS
+mío <- mío/GS
+mieles <- miel/S
+migas <- miga/Sa
+miga <- miga/Sa
+militares <- ?
+mimo <- mimo/S
+mimbre <- mimbre/S
+mimbres <- mimbre/S
+minas <- mina/aS
+mina <- mina/aS
+ministro <- ministro/GS
+ministra <- ministro/GS
+ministras <- ministro/GS
+minuto <- minuto/S
+mires <- ?
+miras <- mira/NS
+mira <- mira/NS
+misas <- misa/Sn
+misa <- misa/Sn
+misiones <- misión/uSlpo
+moco <- moco/NGS
+moca <- moco/NGS
+mocas <- moco/NGS
+modelo <- modelo/S
+mojo <- mojo/Sp
+moje <- moje/S
+mojes <- moje/S
+mojones <- mojón/S
+mole <- mole/GS
+molares <- ?
+molde <- molde/S
+moldes <- molde/S
+moles <- mol/S, mole/GS
+muelas <- muela/S
+muela <- muela/S
+molesto <- molesto/GS
+molestas <- molesto/GS
+molesta <- molesto/GS
+mondo <- mondo/SG
+mondas <- monda/S, mondo/SG
+monda <- monda/S, mondo/SG
+monedas <- moneda/S
+moneda <- moneda/S
+montas <- monta/pS
+monta <- monta/pS
+montes <- monte/SCh, montes/p
+monte <- monte/SCh
+remontes <- montes/p, remonte/S
+mores <- mor/S
+mora <- moro/GS
+moro <- moro/GS
+moras <- moro/GS
+mordisco <- mordisco/S
+muera <- muera/S
+mueres <- ?
+mueras <- muera/S
+mosca <- mosca/S, mosco/GS, mosco/SG
+moscas <- mosca/S, mosco/GS, mosco/SG
+mosco <- mosco/GS, mosco/SG
+muestras <- muestra/S
+muestra <- muestra/S
+motivo <- motivo/GS, motivo/S
+motiva <- motivo/GS
+motivas <- motivo/GS
+muda <- muda/SM, mudo/GS
+mudas <- muda/SM, mudo/GS
+mudo <- mudo/GS
+mudares <- ?
+mueble <- mueble/CS, mueble/SG
+muebles <- mueble/CS, mueble/SG, muebles/k
+muescas <- muesca/S
+muesca <- muesca/S
+multas <- multa/S
+multa <- multa/S
+municiones <- munición/S
+muro <- muro/bS
+murmullo <- murmullo/S
+musa <- musa/S
+musas <- musa/S
+musculares <- ?
+mases <- más/S
+narras <- narra/S
+narra <- narra/S
+niego <- niego/S
+negocio <- negocio/S
+nervio <- nervio/S
+nieve <- nieve/S
+nieves <- nieve/S
+nitro <- nitro/S
+niveles <- nivel/Sh
+nombre <- nombre/pnSorb
+nombres <- nombre/pnSorb
+nota <- nota/sS, noto/GS
+notas <- nota/sS, noto/GS
+notable <- notable/S
+notables <- notable/S
+noto <- noto/GS, noto/S
+notaría <- notaría/S
+notarías <- notaría/S
+noticia <- noticia/S
+noticias <- noticia/S
+novelas <- novel/GS, novela/LS
+noveles <- novel/GS
+novela <- novel/GS, novela/LS
+nubla <- nublo/GS
+nublas <- nublo/GS
+nublo <- nublo/GS, nublo/S
+obispo <- obispo/NS
+objeto <- objeto/S
+objetiva <- objetivo/GS
+objetivo <- objetivo/GS, objetivo/S
+objetivas <- objetivo/GS
+obras <- obra/LS
+obra <- obra/LS
+obsequio <- obsequio/S
+obsesiones <- obsesión/S
+obvio <- obvio/SG
+obvias <- obvio/SG
+obvia <- obvio/SG
+ocasiones <- ocasión/S
+ocio <- ocio/S
+octava <- octavo/GS, octavo/SG
+octavo <- octavo/GS, octavo/SG
+octavas <- octavo/GS, octavo/SG
+oculta <- oculto/SG
+oculto <- oculto/SG
+ocultas <- oculto/SG
+odio <- odio/Si
+ofertas <- oferta/S
+oferta <- oferta/S
+oficio <- oficio/S
+ofrendas <- ofrenda/S
+ofrenda <- ofrenda/S
+ojales <- ojal/S
+olivas <- oliva/S
+oliva <- oliva/S
+olivo <- olivo/NS
+ora <- ora, oro/GS
+oro <- oro/GS, oro/SN
+ordenando <- ordenando/S
+oriente <- oriente/S
+orientes <- oriente/S
+orillas <- orilla/S
+orilla <- orilla/S
+orinas <- orina/S
+orina <- orina/S
+orines <- orín/S
+oras <- oro/GS
+orillo <- oro/SN
+orquestas <- orquesta/S
+orquesta <- orquesta/S
+osa <- osa/S
+osas <- osa/S
+oso <- oso/S
+otoño <- otoño/S
+ovaciones <- ovación/S
+ovales <- oval/S
+paces <- paz/S
+pacto <- pacto/S
+paga <- paga/rS, pago/GS
+pagas <- paga/rS, pago/GS
+pagaré <- pagaré/S
+pago <- pago, pago/GS, pago/Sk
+palma <- palma/NS
+palmas <- palma/NS
+palmo <- palmo/S
+panda <- panda/NS, panda/S, pando/GS, pando/SG
+pandas <- panda/NS, panda/S, pando/GS, pando/SG
+pando <- pando/GS, pando/SG
+papa <- papa/SN, papa/cS, papo/GS
+papas <- papa/SN, papa/cS, papo/GS
+papeleo <- papeleo/S
+papo <- papo/GS
+pares <- pares, pares/k
+para <- para
+paralelas <- paralela/S, paralelo/GS
+paralela <- paralela/S, paralelo/GS
+paralelo <- paralelo/GS
+paro <- paro/CS, paro/S
+parares <- ?
+parcelas <- parcela/S
+parcela <- parcela/S
+parche <- parche/HS
+parches <- parche/HS
+parlamento <- parlamento/S
+parloteo <- parloteo/S
+parodias <- parodia/S
+parodia <- parodia/S
+parpadeo <- parpadeo/S
+parras <- parra/NS, parras/c
+parra <- parra/NS
+partas <- parta/aS, parto/SG
+parta <- parta/aS, parto/SG
+partes <- parte/Sv
+particiones <- partición/Sp
+parto <- parto/SG, parto/pSr
+pasa <- pasa/S, paso/GS
+pasas <- pasa/S, paso/GS
+pasamano <- pasamano/S
+pasaportes <- pasaporte/S
+pasaporte <- pasaporte/S
+paso <- paso, paso/GS, paso/Sj
+pases <- pase/CS
+pase <- pase/CS
+paseo <- paseo/SU
+pasma <- pasma/S
+pasmas <- pasma/S
+pasta <- pasta/NS, pasto/GS
+pastas <- pasta/NS, pasto/GS
+pasto <- pasto/GS, pasto/S
+patentes <- patente/GS, patente/S
+patente <- patente/GS, patente/S
+patines <- patín/HS
+pausa <- pausa/S
+pausas <- pausa/S
+pautas <- pauta/S
+pauta <- pauta/S
+pavimento <- pavimento/S
+pecas <- peca/S
+peca <- peca/S
+pecho <- pecho/hSpb
+pega <- pega/S
+pegas <- pega/S
+pego <- pego/ahS
+peinas <- peina/S
+peina <- peina/S
+peine <- peine/HSN
+peines <- peine/HSN, peines/ij
+pela <- pela/S
+pelas <- pela/S
+pelo <- pelo/CNS
+peleas <- pelea/S
+pelea <- pelea/S
+peligro <- peligro/S
+pellizco <- pellizco/S
+pena <- pena/S
+penas <- pena/S
+pendencias <- pendencia/gS
+pendencia <- pendencia/gS
+penitencia <- penitencia/kS
+penitencias <- penitencia/kS
+penitenciaría <- penitenciaría/S
+penitenciarías <- penitenciaría/S
+pienso <- pienso/S
+pensiones <- pensión/oS
+perchas <- percha/S
+percha <- percha/S
+pierde <- pierde/S
+pierdes <- pierde/S
+perdones <- perdón/S
+peregrino <- peregrino/GS
+peregrinas <- peregrino/GS
+peregrina <- peregrino/GS
+perfecciones <- perfección/kS
+perfiles <- perfil/S
+perfumes <- perfume/S
+perfume <- perfume/S
+perito <- perito/GS
+perita <- perito/GS
+peritas <- perito/GS
+perlas <- perla/S
+perla <- perla/S
+persona <- persona/SN
+personas <- persona/SN
+pesa <- pesa/S
+pesas <- pesa/S
+pesares <- ?
+peso <- peso/pSr
+pesca <- pesca/S
+pescas <- pesca/S
+pío <- pío, pío/S, pío/kGS
+pía <- pío/kGS
+pica <- pica/S
+picas <- pica/S
+pique <- pique/Sp
+pico <- pico/S
+pila <- pila/S
+pilas <- pila/S
+pilares <- ?
+pilla <- pillo/GS
+pillo <- pillo/GS
+pillas <- pillo/GS
+piloto <- piloto/S
+pinceles <- pincel/S
+pincho <- pincho/GS, pincho/S
+pincha <- pincho/GS
+pinchas <- pincho/GS
+pintas <- pinta/S, pinto/GS, pinto/SG
+pinta <- pinta/S, pinto/GS, pinto/SG
+pinto <- pinto/GS, pinto/SG
+pinza <- pinza/S
+pinzas <- pinza/S
+pipa <- pipa, pipa/LS, pipa/S
+pipas <- pipa/LS, pipa/S
+pipíes <- pipí/S
+piques <- pique/Sp
+piro <- piro/S
+pises <- pis/S
+pisa <- pisa/pS
+pisas <- pisa/pS
+piso <- piso/Sj
+pistas <- pista/dS
+pista <- pista/dS
+pita <- pita, pita/S, pito/GS
+pitas <- pita/S, pito/GS
+pizcas <- pizca/S
+pizca <- pizca/S
+placa <- placa/SU
+placas <- placa/SU
+plagas <- plaga/S
+plaga <- plaga/S
+plancha <- plancha/S
+planchas <- plancha/S
+plantas <- planta/jS
+planta <- planta/jS
+plantares <- ?
+plantilla <- plantilla/S
+plantillas <- plantilla/S
+plasmas <- plasma/S
+plasma <- plasma/S
+plateas <- platea/S
+platea <- platea/S
+platino <- platino/S
+pliegue <- pliegue/pS
+pliegues <- pliegue/pS
+plomo <- plomo/HS
+pueblo <- pueblo/S
+popa <- popa/S
+popas <- popa/S
+porta <- porta/bS
+portas <- porta/bS
+portes <- porte/aSkg
+porte <- porte/aSkg
+poses <- pos/S
+posa <- posa/S
+posas <- posa/S
+posó <- posó/S
+posesiones <- posesión/S
+posiciones <- posición/ktoSlnabpg
+poso <- poso/Sp
+postres <- postre/GS, postre/S
+postre <- postre/GS, postre/S
+pote <- pote/CS
+potes <- pote/CS
+potencias <- potencia/kSn
+potencia <- potencia/kSn
+poyo <- poyo/Sa
+precauciones <- precaución/S
+precio <- precio/hrSa
+precinto <- precinto/S
+precisa <- precisa/k, preciso/kGS
+precisas <- preciso/kGS
+preciso <- preciso/kGS
+preguntas <- pregunta/S
+pregunta <- pregunta/S
+premio <- premio/aS
+prendas <- prenda/S
+prenda <- prenda/S
+prensas <- prensa/S
+prensa <- prensa/S
+presagio <- presagio/S
+presentes <- presente/S, presente/SG
+presente <- presente/S, presente/SG
+presidio <- presidio/S
+presiones <- presión/kSpg
+prestas <- presta/S
+prestes <- preste/S
+presto <- presto, presto/S, presto/aS
+prestigio <- prestigio/hS
+presupuesto <- presupuesto/GS, supuesto/Sn
+presupuestas <- presupuesto/GS
+presupuesta <- presupuesto/GS
+prima <- prima/NS, primo/GS
+primas <- prima/NS, primo/GS
+primo <- primo, primo/GS
+principio <- principio/S
+privilegio <- privilegio/S
+pruebas <- prueba/pS
+prueba <- prueba/pS
+proceso <- proceso/S
+proclamas <- proclama/S
+proclama <- proclama/S
+procuras <- procura/S
+procura <- procura/S
+profano <- profano/SG
+profana <- profano/SG
+profanas <- profano/SG
+programas <- programa/S
+programa <- programa/S
+progreso <- progreso/SO
+promedio <- promedio/S
+propicio <- propicio/GS
+propicias <- propicio/GS
+propicia <- propicio/GS
+proporciones <- proporción/hS
+protocolo <- protocolo/S
+provecho <- provecho/S
+providencia <- providencia/S
+providencias <- providencia/S
+proyecta <- proyecto/GS
+proyecto <- proyecto/GS, proyecto/Sb
+proyectas <- proyecto/GS
+púas <- púa/S
+púa <- púa/S
+puja <- puja/S
+pujas <- puja/S
+pulso <- pulso/aSk
+pulsares <- ?
+punciones <- punción/S
+punta <- punta/LNS, punta/S
+puntas <- punta/LNS, punta/S
+punto <- punto/HNS
+purga <- purga/S
+purgas <- purga/S
+pías <- pío/kGS
+quiebre <- quiebre/S
+quiebra <- quiebra/S
+quedas <- queda/S, quedo/SG
+queda <- queda/S, quedo/SG
+quedo <- quedo, quedo/SG
+quejas <- queja/S
+queja <- queja/S
+quemas <- quema/S
+quema <- quema/S
+quiebras <- quiebra/S
+quiebres <- quiebre/S
+quieta <- quieta/k, quieto/kGS
+quieto <- quieto/kGS
+quietas <- quieto/kGS
+quilates <- quilate/S
+quilate <- quilate/S
+quintas <- quinta/NS, quinto/GS
+quinta <- quinta/NS, quinto/GS
+quinto <- quinto/GS
+quiste <- quiste/S
+quistes <- quiste/S
+quitas <- quita/S, quito/GS
+quita <- quita/S, quito/GS
+quito <- quito/GS
+rabias <- rabia/S
+rabia <- rabia/S
+rachas <- racha/S
+racha <- racha/S
+racimo <- racimo/S
+raciones <- ración/S
+radio <- radio/S
+rajas <- raja/S
+raja <- raja/S
+rallo <- rallo/S
+rampas <- rampa/S
+rampa <- rampa/S
+rancio <- rancio/S, rancio/SG
+rancia <- rancio/SG
+rancias <- rancio/SG
+ranura <- ranura/S
+ranuras <- ranura/S
+rapto <- rapto/S
+rases <- ras/S, rases/i
+raso <- raso/GS
+rasgo <- rasgo/S
+rasguño <- rasguño/S
+rasa <- rasa/NS, raso/GS
+rasas <- rasa/NS, raso/GS
+rastrillas <- ?
+rastras <- rastra/SN
+rastrilla <- rastra/SN
+rastra <- rastra/SN
+rastro <- rastro/SN
+rastreo <- rastreo/S
+rastrillo <- rastrillo/C, rastro/SN
+ratones <- ratón/S
+rayas <- raya/S
+raya <- raya/S
+rayo <- rayo/S
+razones <- razón/S
+recambio <- recambio/S
+recelo <- recelo
+recientes <- reciente/S
+reciente <- reciente/S
+receta <- receta/S
+recetas <- receta/S
+rechazo <- rechazo/S
+recibo <- recibo/S
+recibí <- recibí/S
+recibís <- recibí/S
+reclame <- reclame/S
+reclamo <- reclamo/S
+reclamares <- ?
+reclames <- reclame/S
+reclutas <- recluta/S
+recluta <- recluta/S
+recompensas <- recompensa/S
+recompensa <- recompensa/S
+recuento <- recuento/S
+recuerdo <- recuerdo/S
+recreo <- recreo/S
+recta <- recta/f, recta/qS, recto/GS, recto/fGS
+rectas <- recta/qS, recto/GS, recto/fGS
+recto <- recto/GS, recto/fGS
+rectores <- rector/fGS, rector/fSG
+rectora <- rector/fGS, rector/fSG
+rectoras <- rector/fGS, rector/fSG
+rediles <- redil/S
+redoble <- redoble/S
+redobles <- redoble/S
+reemplazo <- reemplazo/S
+reencuentro <- reencuentro/S
+referencia <- referencia/S
+referencias <- referencia/S
+refleja <- refleja/S, reflejo/GS
+reflejas <- refleja/S, reflejo/GS
+reflejo <- reflejo/GS
+reflexiones <- reflexión/kS
+refuerzo <- refuerzo/S
+refresco <- refresco/S
+refugio <- refugio/S
+regalo <- regalo/NS
+riego <- riego/S
+regazo <- regazo/S
+regaño <- regaño/S
+regente <- regente/S, regente/fS
+regentes <- regente/S, regente/fS
+regimiento <- regimiento/Sf
+registro <- registro/S
+regla <- regla/S
+reglas <- regla/S
+reglamento <- reglamento/S
+regocijo <- regocijo/S
+regreso <- regreso/S
+regulares <- ?
+reinas <- reina/S
+reina <- reina/S
+reino <- reino/sS
+relaciones <- relación/Sfl
+relato <- relato/fS
+relevo <- relevo/S
+relincho <- relincho/S
+rellano <- rellano/S
+remo <- remo/S
+remedio <- remedio/S
+remites <- remite/S
+remite <- remite/S
+remodelaciones <- remodelación/S
+remodelación <- remodelación/S
+remolque <- remolque/S
+remolques <- remolque/S
+remolino <- remolino/S
+rentas <- renta/NS
+renta <- renta/NS
+renuncia <- renuncia/S
+renuncias <- renuncia/S
+reparo <- reparo/S
+repleta <- repleto/GS
+repleto <- repleto/GS
+repletas <- repleto/GS
+reproches <- reproche/S
+reproche <- reproche/S
+rescates <- rescate/S
+rescate <- rescate/S
+reservas <- reserva/S
+reserva <- reserva/S
+resguardo <- resguardo/S
+residencia <- residencia/S
+residencias <- residencia/S
+resinas <- resina/S
+resina <- resina/S
+resuelve <- resuelve/S
+resuelves <- resuelve/S
+respaldo <- respaldo/S
+respaldares <- ?
+respecto <- respecto/S
+respetables <- respetable/S
+respetable <- respetable/S
+respeto <- respeto/S
+restas <- resta/S
+resta <- resta/S
+resto <- resto/S
+resultas <- resulta/S
+resulta <- resulta/S
+resumen <- resumen/S
+reto <- reto/S
+retoño <- retoño/S
+retraso <- retraso/S
+retrato <- retrato/dS, trato/pSf
+revés <- revés/S
+reverencias <- reverencia/S
+reverencia <- reverencia/S
+revista <- revista/S, revisto/GS
+revistas <- revista/S, revisto/GS
+revisto <- revisto/GS
+revoluciones <- revolución/S
+reveses <- revés/S
+rezo <- rezo/S
+ría <- ría/S
+río <- río/S
+rías <- ría/S
+riña <- riña/S
+riñas <- riña/S
+rieles <- riel/S
+rifa <- rifa/S
+rifas <- rifa/S
+rima <- rima/S
+rimas <- rima/S
+ritmo <- ritmo/S
+rizo <- rizo/GS, rizo/S
+riza <- riza/S, rizo/GS
+rizas <- riza/S, rizo/GS
+robo <- robo/S
+roble <- roble/S
+robles <- roble/S
+roces <- roce/S
+roce <- roce/S
+rocío <- rocío/S
+ruedo <- ruedo/S
+rueda <- rueda/S
+ruedas <- rueda/S
+rodea <- rodea/S
+rodeas <- rodea/S
+rodeo <- rodeo/S
+ruego <- ruego/S
+roles <- rol/S
+rollo <- rollo/S
+romana <- romana/NS, romana/n, romano/nSG
+romanas <- romana/NS, romano/nSG
+romano <- romano/nSG
+romance <- romance/S, romance/SN
+romances <- romance/S, romance/SN
+romanes <- román/NS
+ronca <- ronca/S, ronce/SG, ronco/GS
+roncas <- ronca/S, ronce/SG, ronco/GS
+ronco <- ronco/GS
+ronce <- ronce/SG
+ronces <- ronce/SG
+ronda <- ronda/S
+rondas <- ronda/S
+rosa <- rosa/N, rosa/S, rosa/SU, roso/NGS
+rosas <- rosa/S, rosa/SU, roso/NGS
+rosca <- rosca/SN
+roscas <- rosca/SN
+roso <- roso/NGS
+rotas <- rota/S, roto/GS
+rota <- rota/S, roto/GS
+roto <- roto/GS
+rotura <- rotura/S
+roturas <- rotura/S
+roza <- roza/S
+rozas <- roza/S
+ruines <- ruin/S
+ruina <- ruina/S
+ruinas <- ruina/S
+rulo <- rulo/S
+rumbo <- rumbo/S
+ruta <- ruta/S
+rutas <- ruta/S
+saborea <- saborea/S
+saboreas <- saborea/S
+sacas <- saca/Sp
+saca <- saca/Sp
+saque <- saque/S
+saques <- saque/S
+saco <- saco/SU
+sacramento <- sacramento/S
+sales <- sal/GS
+sala <- sal/GS, sala/bS
+salas <- sal/GS, sala/bS
+salario <- salario/S
+saldo <- saldo/S
+salgas <- salga/S
+salga <- salga/S
+saliva <- saliva/S
+salivas <- saliva/S
+salma <- salma/S
+salmas <- salma/S
+salmo <- salmo/S
+salmuera <- salmuera/S
+salmueras <- salmuera/S
+salto <- salto/Sapr
+saludes <- salud/S
+saludo <- saludo/GS
+saluda <- saludo/GS
+saludas <- saludo/GS
+salva <- salva/C, salva/N, salve/GKS, salvo/GS
+salvo <- salvo, salvo/GS
+salve <- salve, salve/GKS
+salvas <- salve/GKS, salvo/GS
+salves <- salve/GKS
+sanes <- san/S
+sana <- sana/k, sano/kGS
+sano <- sano/kGS
+sanas <- sano/kGS
+sanciones <- sanción/S
+sangre <- sangre/S
+sangres <- sangre/S
+saqueo <- saqueo/S
+secas <- seca/S, seco/GS, seco/pSG
+seca <- seca/S, seca/p, seco/GS, seco/pSG
+seco <- seco/GS, seco/pSG
+secciones <- sección/lS
+reseco <- reseco/S, seco/pSG
+secreta <- secreta/S, secreto/GS
+secretas <- secreta/S, secreto/GS
+secretaría <- secretaría/S
+secreto <- secreto, secreto/GS, secreto/SO
+secretarías <- secretaría/S
+secuencias <- secuencia/fS
+secuencia <- secuencia/fS
+secuestro <- secuestro/S
+sedas <- sed/GS
+sedes <- sed/GS
+seda <- sed/GS
+sede <- sede
+segmento <- segmento/S
+segunda <- segunda/NS, segundo/GS
+segundas <- segunda/NS, segundo/GS
+segundo <- segundo/GS
+selecciones <- selección/Sn
+sello <- sello/S
+siembra <- siembra/S
+sendero <- sendero/S
+sentencia <- sentencia/S
+sentencias <- sentencia/S
+serena <- serena/S, sereno/GS
+serenas <- serena/S, sereno/GS
+sereno <- sereno/GS, sereno/S
+serio <- serio/GS
+series <- serie/S
+serie <- serie/S
+seria <- serio/GS
+serias <- serio/GS
+sierra <- sierra/S
+sierras <- sierra/S
+servicio <- servicio/dS
+sesiones <- sesión/S
+señales <- señal/S
+siembras <- siembra/S
+sigilo <- sigilo/S
+signo <- signo/S
+silbas <- silba/S
+silba <- silba/S
+silencio <- silencio/S
+silueta <- silueta/S
+siluetas <- silueta/S
+sincera <- sincera/k, sincero/GSk
+sincero <- sincero/GSk
+sinceras <- sincero/GSk
+sitio <- sitio/S
+soborno <- soborno/S
+sobra <- sobra/S
+sobras <- sobra/S
+sobres <- sobre/S
+sobre <- sobre, sobre/S
+socorro <- socorro/OS
+solapas <- solapa/S
+solapa <- solapa/S
+solares <- ?
+suela <- suela, suela/S
+suelo <- suelo, suelo/Sjsf
+sueldo <- sueldo/rS
+sollozo <- sollozo/S
+suelto <- suelto/GS, suelto/pGS
+suelta <- suelta/S, suelta/p, suelto/GS, suelto/pGS
+sueltas <- suelta/S, suelto/GS, suelto/pGS
+soluciones <- solución/pS
+solvente <- solvente/GS
+solventes <- solvente/GS, solventes/pk
+sombra <- sombra/NS
+sombras <- sombra/NS
+sueno <- sueno/S
+sondas <- sonda/S
+sonda <- sonda/S
+sondeo <- sondeo/S
+sopa <- sopa/S
+sopas <- sopa/S
+soplo <- soplo/NS
+soporte <- soporte/S
+soportes <- soporte/S
+sorbo <- sorbo/S
+sorteo <- sorteo/S
+sospechas <- sospecha/S
+sospecha <- sospecha/S
+sueño <- sueño/iS
+subalternas <- subalterno/GS
+subalterna <- subalterno/GS
+subastas <- subasta/S
+subasta <- subasta/S
+sublime <- sublime/GS
+sublimes <- sublime/GS
+subsidio <- subsidio/S
+substancia <- substancia/S
+substancias <- substancia/S
+subvenciones <- subvención/S
+succiones <- succión/S
+sufra <- sufra/S
+sufras <- sufra/S
+sugestiones <- sugestión/Sd
+sujetas <- sujeto/GS
+sujeta <- sujeto/GS
+sujeto <- sujeto/GS, sujeto/S
+sulfato <- sulfato/S
+sulfuro <- sulfuro/eS
+suma <- suma/S, suma/qS, sumo/GS
+sumas <- suma/S, suma/qS, sumo/GS
+sumo <- sumo/GS, sumo/fSk
+suministro <- suministro/S
+surco <- surco/Sj
+suspiro <- suspiro/S
+sustancia <- sustancia/S
+sustancias <- sustancia/S
+sustento <- sustento/S
+susurro <- susurro/S
+suturas <- sutura/S
+sutura <- sutura/S
+tabique <- tabique/S
+tabiques <- tabique/S
+tabla <- tabla/NS
+tablas <- tabla/NS
+tacha <- tacha/S
+tachas <- tacha/S
+tacho <- tacho/S
+tajo <- tajo/Sha
+talas <- tal/GS, tala/S, talo/GS
+tales <- tal/GS
+tala <- tal/GS, tala/S, talo/GS
+taladro <- taladro/S
+talla <- talla/iS
+tallas <- talla/iS
+talle <- talle/gS
+tallo <- tallo/S
+tallares <- ?
+talles <- talle/gS
+talo <- talo/GS
+tanga <- tanga/S, tango/GNS
+tangas <- tanga/S, tango/GNS
+tango <- tango/GNS
+tapas <- tapa/S
+tapa <- tapa/S
+tapias <- tapia/S
+tapia <- tapia/S
+tapices <- tapiz/S
+tapones <- tapón/HS
+taquigrafía <- taquigrafía/S
+taquigrafías <- taquigrafía/S
+tara <- tara/S
+taras <- tara/S
+tardas <- tardo/GS
+tarda <- tardo/GS
+tarde <- tarde, tarde/Sr
+tardes <- tarde/Sr
+tardo <- tardo/GS
+tarifa <- tarifa/S
+tarifas <- tarifa/S
+tartamudeo <- tartamudeo/S
+tasas <- tasa/gS
+tasa <- tasa/gS
+tazas <- taza/S
+taza <- taza/S
+techo <- techo/S
+teja <- teja/S
+tejas <- teja/S
+tejo <- tejo/NS
+temas <- tema/S
+tema <- tema/S
+tiemblo <- tiemblo/S
+temple <- temple/hS
+templo <- templo/bS
+temples <- temple/hS
+tiendas <- tienda/Sf
+tienda <- tienda/Sf
+tenderos <- tendero/GS
+tensa <- tensa/kn, tenso/GSkn
+tenso <- tenso/GSkn
 tensas <- tenso/GSkn
+tientas <- tienta/S
+tienta <- tienta/S
+tercio <- tercio/GS
+tercias <- tercia/S, tercio/GS
+tercia <- tercia/S, tercio/GS
+terraplenes <- terraplén/S
+testas <- testa/oS
+testa <- testa/oS
+testimonio <- testimonio/S
+tibia <- tibia/S, tibio/GS
+tibias <- tibia/S, tibio/GS
+tibio <- tibio/GS
+timo <- timo/S
+timbre <- timbre/HS
+timbres <- timbre/HS
+tinta <- tinta/SN, tinta/p, tinto/SGN, tinto/SGp
+tintas <- tinta/SN, tinto/SGN, tinto/SGp
+tinte <- tinte/pS
+tinto <- tinto/SGN, tinto/SGp
+tintes <- tinte/pS
+tintura <- tintura/S
+tinturas <- tintura/S
+tiras <- tira/NS
+tira <- tira/NS
+tiro <- tiro/pS
+tiroteo <- tiroteo/S
+tita <- tito/GS
+tito <- tito/GS, tito/S
+titas <- tito/GS
+titulares <- ?
+toca <- toca/NS
+tocas <- toca/NS
+toque <- toque/eS
+toques <- toque/eS
+toldo <- toldo/SN
+tomas <- toma/S
+toma <- toma/S
+tomo <- tomo/SN
+tones <- ton/S
+tono <- tono/NS
+topo <- topo/GS, topo/S
+topes <- tope/S
+tope <- tope/S
+topas <- topa/S, topo/GS
+topa <- topa/S, topo/GS
+tuerce <- tuerce/S
+tornas <- torna/S
+torna <- torna/S
+torno <- torno/fSip
+torneo <- torneo/S
+torres <- torre/S
+torre <- torre/S
+torturas <- tortura/S
+tortura <- tortura/S
+toses <- tose/S
+tose <- tose/S
+traba <- traba/N, trabe/SG
+trabajo <- trabajo/S
+trabes <- trabe/SG
+trabe <- trabe/SG
+tractores <- tractor/S
+traje <- traje/S
+trago <- trago/cS
+traiciones <- traición/S
+trama <- trama/NS
+tramas <- trama/NS
+tramo <- tramo/S
+trance <- trance/SH
+trances <- trance/SH
+tranquila <- tranquila/k, tranquilo/GkS
+tranquilo <- tranquilo/GkS
+tranquilas <- tranquilo/GkS
+transacciones <- transacción/S
+transparente <- transparente/GS, transparente/S
+transparentes <- transparente/GS, transparente/S
+transporte <- transporte/S
+transportes <- transporte/S
+traspaso <- traspaso/S
+trastorno <- trastorno/S
+tratas <- trata/fS
+trata <- trata/fS
+trato <- trato/pSf
+travieso <- travieso/GS
+traviesas <- travieso/GS
+traviesa <- travieso/GS
+traza <- traza/SL
+trazas <- traza/SL
+trazo <- trazo/S
+trenza <- trenza/SN
+trencillas <- ?
+trenzas <- trenza/SN
+trencilla <- trenza/SN
+trepas <- trepa/S
+trepa <- trepa/S
+triangulares <- ?
+trío <- trío/S
+tributo <- tributo/aS
+trina <- trino/GS
+trino <- trino/GS, trino/qS
+trinas <- trino/GS
+triunfo <- triunfo/S
+trueque <- trueque/S
+trompas <- trompa/S
+trompa <- trompa/S
+trompo <- trompo/HNS
+trueno <- trueno/S
+tronco <- tronco/GS
+troncas <- tronca/S, tronco/GS
+tronca <- tronca/S, tronco/GS
+tropiezo <- tropiezo/S
+trote <- trote/S
+trotes <- trote/S
+trozo <- trozo/hS
+truco <- truco/S
+trueques <- trueque/S
+tuerces <- tuerce/S
+tumba <- tumba/SN
+tumbas <- tumba/SN
+tumbo <- tumbo/S
+tundas <- tunda/S
+tunda <- tunda/S
+turbas <- turba/S
+turba <- turba/S
+turbo <- turbo/S
+turno <- turno/S
+tutelas <- tutela/S
+tutela <- tutela/S
+tutoras <- tutor/GS
+tutora <- tutor/GS
+tutores <- tutor/GS
+tía <- tía, tío/GS
+ultraje <- ultraje/S
+ultrajes <- ultraje/S
+umbrales <- umbral/S
+unes <- un/S
+una <- una, uno/GS
+unas <- unas, uno/GS
+uniformes <- uniforme/S
+uniforme <- uniforme/S
+uno <- uno, uno/GS, uno/S
+uso <- uso/CS
+uñas <- uña/S
+uña <- uña/S
+vacas <- vaca/S
+vaca <- vaca/S
+vacía <- vacío/SG
+vacío <- vacío/S, vacío/SG
+vacías <- vacío/SG
+vacunas <- vacuna/S, vacuno/GS
+vacuna <- vacuna/S, vacuno/GS
+vacuno <- vacuno/GS
+vagas <- vaga/S, vago/GS
+vaga <- vaga/S, vago/GS
+vago <- vago/GS
+vagares <- ?
+vales <- val/aS, vale/S
+vale <- vale, vale/S
+valía <- valía/S
+vallas <- valla/S
+valla <- valla/S
+valles <- valle/S
+valle <- valle/S
+valores <- valor/S
+valses <- vals/S
+valías <- valía/S
+vapores <- vapor/S
+vara <- vara/SN
+varas <- vara/SN
+veda <- veda/S
+vedas <- veda/S
+velas <- vela/S
+vela <- vela/S
+velo <- velo/CSN
+velares <- ?
+velos <- velo/CSN, velos/h
+vendas <- venda/S
+venda <- venda/S
+vendo <- vendo/CS
+vendí <- vendí/S
+vino <- vino/HNS
+viento <- viento/S, viento/Sra
+ventiscas <- ventisca/S
+ventisca <- ventisca/S
+veros <- vero/S
+verano <- verano/SN
+veraneo <- veraneo/S
+verso <- verso/S, verso/pSf
+versiones <- versión/akpSsf
+vistas <- vista/S, visto/GS, visto/SG
+visto <- visto/GS, visto/SG
+vista <- vista/H, vista/S, visto/GS, visto/SG
+vetas <- veta/S
+veta <- veta/S
+veto <- veto/S
+veces <- vez/S
+viaje <- viaje/S
+viajes <- viaje/S
+vicio <- vicio/S
+vidrio <- vidrio/S
+vigores <- vigor/S
+vinculares <- ?
+violas <- viola/S
+violares <- ?
+violenta <- violento/GS
+violentas <- violento/GS
+violento <- violento/GS
+viras <- vira/S
+vira <- vira/S
+visiones <- visión/Snopt
+visita <- visita/pS
+visitas <- visita/pS
+viva <- viva/q, vivo/qGS
+vivo <- vivo/S, vivo/qGS
+vivas <- vivo/qGS
+vuelo <- vuelo/S
+vuelco <- vuelco/S
+volteo <- volteo/S
+voto <- voto/gS
+vía <- vía, vía/dS
+yugulares <- ?
+zanjas <- zanja/S
+zanja <- zanja/S
+zarpas <- zarpa/S
+zarpa <- zarpa/S
+zumba <- zumba/S
+zumbas <- zumba/S
+zurdo <- zurdo/GS
+zurda <- zurdo/GS
+zurdas <- zurdo/GS
+zurras <- zurra/S
+zurra <- zurra/S

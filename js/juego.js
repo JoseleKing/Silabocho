@@ -9,10 +9,10 @@ const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
 
 let BOARDS = [];
-let S = {day:1, found:{}, cur:[], order:{}, revealed:{}, time:{}, racha:{}};   // time: segundos jugados por día; racha: días jugados en su día
+let S = {day:1, found:{}, extra:{}, cur:[], order:{}, revealed:{}, time:{}, racha:{}};   // time: segundos jugados por día; racha: días jugados en su día
 
-function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};S.time=s.time||{};S.racha=s.racha||{};} }catch(e){} }
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.extra=s.extra||{};S.revealed=s.revealed||{};S.time=s.time||{};S.racha=s.racha||{};} }catch(e){} }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,extra:S.extra,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
 
 // número de día según la fecha local (el 4 de octubre de 2026 es el 1)
 function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
@@ -27,13 +27,20 @@ const wordPoints = w => pointsFor(sylls(w).length) + (isStar(w[0])?5:0);
 function total(){ return words().reduce((a,w)=>a+wordPoints(w),0); }
 function myFound(){ return S.found[S.day] || (S.found[S.day]=[]); }
 function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0]===x); return a+(w?wordPoints(w):0); },0); }
+// palabras extra: válidas en el diccionario pero fuera de la lista del tablero; suman sus puntos
+// (sin bonus de Silabocho) y ayudan a subir de rango, pero no cuentan en el total
+const extras = () => B().extra || [];
+function myExtra(){ return S.extra[S.day] || (S.extra[S.day]=[]); }
+function extraScore(){ return myExtra().reduce((a,x)=>{ const w = extras().find(y=>y[0]===x); return a+(w?pointsFor(sylls(w).length):0); },0); }
+const allFound = () => myFound().length >= words().length;
 function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
-function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
+// Alejandrino solo si están todas las palabras del tablero; las extra ayudan hasta Octosílabo
+function rankIndex(){ if(allFound()) return RANKS.length-1; const frac = (score()+extraScore())/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return Math.min(k, RANKS.length-2); }
 
 // ---------- reloj: tiempo jugado en cada tablero ----------
 // Empieza al tocar la primera sílaba, solo corre con la app a la vista y se para al
 // completar el tablero (Alejandrino) o al ver las soluciones.
-const finished = () => !!S.revealed[S.day] || score() >= total();
+const finished = () => !!S.revealed[S.day] || allFound();
 const fmtTime = sec => { sec = Math.floor(sec); const m = Math.floor(sec/60), r = sec%60; return m+':'+(r<10?'0':'')+r; };
 let lastTick = 0, sinceSave = 0;
 const enPortada = () => { const el = document.getElementById('portada'); return !!el && !el.classList.contains('fuera'); };
@@ -92,7 +99,8 @@ function renderVerse(){
 function renderScore(){
   const k = rankIndex();
   document.getElementById('rankname').textContent = RANKS[k][0];
-  document.getElementById('pts').textContent = score()+' de '+total()+' puntos';
+  const ex = extraScore();
+  document.getElementById('pts').textContent = score()+' de '+total()+' puntos'+(ex ? ' · +'+ex+' extra' : '');
   document.getElementById('meter').innerHTML = RANKS.map((r,i)=>'<span class="'+(i<=k?'on':'')+(i===RANKS.length-1?' last':'')+'" title="'+r[0]+'"></span>').join('');
 }
 function renderWords(){
@@ -120,7 +128,10 @@ function renderWords(){
     return '<div class="grupo"><div class="grupo-head"><span class="grupo-n">'+n+' sílabas</span>'
       +'<span class="grupo-c'+(completo?' ok':'')+'" aria-label="'+halladas+' de '+todas.length+' encontradas">'+halladas+'/'+todas.length+(completo?' ✓':'')+'</span></div>'
       +(chips ? '<div class="chips">'+chips+'</div>' : '')+'</div>';
-  }).join('');
+  }).join('') + (myExtra().length ? '<div class="grupo extra"><div class="grupo-head"><span class="grupo-n">Palabras extra</span>'
+      +'<span class="grupo-c">'+myExtra().length+'</span></div><div class="chips">'
+      +myExtra().slice().sort((a,b)=>a.localeCompare(b,'es')).map(x=>{ const w = extras().find(y=>y[0]===x);
+        return '<span class="w x">'+(w ? w[1].split('-').join('·') : x)+'</span>'; }).join('')+'</div></div>' : '');
 }
 function renderNav(){
   const t = today();
@@ -140,10 +151,19 @@ function submit(){
   if(cur.length<2){ toast('Tiene que tener al menos dos sílabas','bad'); return clear(); }
   if(!cur.includes(B().central)){ toast('Falta la sílaba central','bad'); return clear(); }
   const w = words().find(y=>y[0]===joined && y[1]===cur.join('-'));
-  if(!w){ toast('No está en la lista','bad'); return clear(); }
-  if(myFound().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
+  const ex = w ? null : extras().find(y=>y[0]===joined && y[1]===cur.join('-'));
+  if(!w && !ex){ toast('No está en la lista','bad'); return clear(); }
+  if(myFound().includes(joined) || myExtra().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
   if(S.revealed[S.day]){ toast('Las soluciones ya están a la vista','bad'); return clear(); }
   const antes = rankIndex();
+  if(ex){
+    myExtra().push(joined);
+    if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }
+    save();
+    const k = rankIndex(), pts = pointsFor(cur.length);
+    toast('¡Palabra extra! +'+pts+(k>antes ? ' · ¡Ya eres '+RANKS[k][0]+'!' : ''), 'star');
+    clear(); renderScore(); renderWords(); return;
+  }
   myFound().push(joined);
   if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
   save();
@@ -169,7 +189,7 @@ function shareText(){
   const barra = RANKS.map((r,i)=>i<=k?'▰':'▱').join('');
   const lineas = [
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
-    barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+star,
+    barra+'  '+score()+'/'+total()+' puntos'+(extraScore() ? ' (+'+extraScore()+' extra)' : '')+' · '+f.length+(f.length===1?' palabra':' palabras')+star,
   ];
   const r = rachaActual(), extra = [];
   if(S.time[S.day] !== undefined) extra.push('⏳ '+fmtTime(S.time[S.day]));

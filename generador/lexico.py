@@ -1,8 +1,14 @@
 """Léxico jugable de Silabocho.
 
 Reglas (no cambiarlas sin consultar):
-- Palabras del diccionario Hunspell es (wooorm/dictionaries) expandido, cruzadas con las
-  TOP más frecuentes de FrequencyWords (2018/es). Sin nombres propios.
+- Palabras del diccionario Hunspell es (wooorm/dictionaries) expandido. Sin nombres propios.
+- Dos niveles:
+  · LEX (núcleo): las que cuentan para el total del tablero. Sustantivos, adjetivos y demás:
+    la familia entera (ratero, ratera, rateros, rateras) si alguna forma está entre las TOP más
+    frecuentes de FrequencyWords (2018/es, es_50k.txt). Infinitivos y participios: solo si esa
+    forma concreta está entre las TOP (así no entran costadas, datadas… por ser frecuente el verbo).
+  · EXTRA: el resto de palabras válidas del diccionario. Se aceptan como «palabras extra»:
+    suman puntos, pero no cuentan en el total.
 - De 2 a 7 sílabas según silabas.silabear.
 - Sin formas verbales conjugadas (se admiten infinitivos y participios): ver noverb.py
   y formas_verbales.txt, que recoge las formas irregulares que el diccionario trae sueltas.
@@ -11,10 +17,10 @@ Reglas (no cambiarlas sin consultar):
 """
 import os, re, collections, unicodedata
 from silabas import expand, silabear, DIC_PATH, AFF_PATH, FREQ_PATH
-from noverb import NOVERB
+from noverb import NOVERB, FAMILIAS
 
 DIR = os.path.dirname(os.path.abspath(__file__))
-TOP = 30000
+TOP = 50000
 
 
 def leer_lista(nombre):
@@ -74,27 +80,43 @@ def vetada(w):
     return w in VETO_EXACTO or w.startswith(VETO_PREFIJO)
 
 # ---------- léxico ----------
-def construir(top=TOP, verbose=True):
-    ok = re.compile('^[a-zñáéíóúü]+$')
-    lex, motivo = {}, collections.Counter()
-    for w in FREQ[:top]:
-        if not ok.match(w) or w not in DIC:
-            continue
-        s = silabear(w)
-        if not s or not (2 <= len(s) <= 7):
-            continue
-        if vetada(w):
-            motivo['vetada'] += 1
-        elif w in EXCLUIDAS:
-            motivo['excluida'] += 1
-        elif es_enclitico(w):
-            motivo['enclítico'] += 1
-        elif w not in NOVERB or w in FORMAS_VERBALES:
-            motivo['conjugada'] += 1
-        else:
-            lex[w] = s
-    if verbose:
-        print('léxico:', len(lex), dict(motivo))
-    return lex
+_ok = re.compile('^[a-zñáéíóúü]+$')
 
-LEX = construir(verbose=False)
+def valida(w, motivo=None):
+    """Sílabas de w si es jugable según las reglas; None si no (y anota el motivo)."""
+    if not _ok.match(w) or w not in DIC:
+        return None
+    s = silabear(w)
+    if not s or not (2 <= len(s) <= 7):
+        return None
+    m = ('vetada' if vetada(w) else 'excluida' if w in EXCLUIDAS else 'enclítico' if es_enclitico(w)
+         else 'conjugada' if w not in NOVERB or w in FORMAS_VERBALES else None)
+    if m:
+        if motivo is not None:
+            motivo[m] += 1
+        return None
+    return s
+
+def construir(top=TOP, verbose=True):
+    """Devuelve (núcleo, extra): dos dicts palabra → sílabas."""
+    frecuentes = set(FREQ[:top])
+    cache, motivo = {}, collections.Counter()
+    def v(w):
+        if w not in cache:
+            cache[w] = valida(w, motivo)
+        return cache[w]
+    nucleo, extra = {}, {}
+    for forms, es_verbo in FAMILIAS:
+        familia_frecuente = not frecuentes.isdisjoint(forms)
+        for w in forms:
+            s = v(w)
+            if s:
+                frecuente = w in frecuentes if es_verbo else familia_frecuente
+                (nucleo if frecuente else extra)[w] = s
+    for w in nucleo:
+        extra.pop(w, None)
+    if verbose:
+        print(f'léxico: {len(nucleo)} en el núcleo, {len(extra)} extra; descartadas: {dict(motivo)}')
+    return nucleo, extra
+
+LEX, EXTRA = construir(verbose=False)

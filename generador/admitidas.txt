@@ -1,0 +1,11 @@
+# Palabras que el diccionario trae sueltas (sin marcas) y que coinciden con una forma verbal,
+# pero que tienen una lectura no verbal clara: se admiten. Las demás palabras sueltas que
+# coinciden con una forma verbal se consideran verbales (hinchan, suele, eras…). Ver noverb.py.
+# Una o varias por línea; # para comentarios.
+
+# preposiciones, adverbios, conjunciones, interjecciones
+para como entre consigo así abajo arriba acerca adelante encima enfrente apenas ora
+aúpa upa hala
+# sustantivos y adjetivos
+una unas tía destino marzo marzas sede debe desuso desvelo recelo recuadro rebato aplomo
+amago aje bruces cercas completas cosquillas entretela garantías guayas manías tupí enrase

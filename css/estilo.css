@@ -88,6 +88,8 @@ h1 .met{color:var(--accent-text)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .w{font-size:.9rem;padding:3px 9px;border-radius:999px;background:var(--bg);font-variant-numeric:tabular-nums}
 .w.star{background:var(--star-soft);color:var(--fg);font-weight:700}
+.w.x{background:transparent;border:1px solid var(--accent);color:var(--fg)}
+.grupo.extra{padding-top:8px;border-top:1px dashed var(--line)}
 .w.missed{color:var(--muted);border:1px dashed var(--line);background:transparent}
 .empty{font-size:.88rem;color:var(--muted)}
 .foot{display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--muted)}

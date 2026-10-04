@@ -43,4 +43,6 @@ with open(os.path.join(OUT, 'tableros.txt'), 'w', encoding='utf-8') as f:
     for i, t in enumerate(tab, 1):
         f.write(f"\nnº {i}: {t['central'].upper()} | {' '.join(t['exterior']).upper()} | ★ {', '.join(t['estrellas'])}\n")
         f.write('  ' + ', '.join(w + (' (v)' if w in homo else '') for w, _ in t['palabras']) + '\n')
+        if t.get('extra'):
+            f.write('  extra: ' + ', '.join(w for w, _ in t['extra']) + '\n')
 print(f'{len(homo)} homógrafos; revisión escrita en {os.path.relpath(OUT)}/')
