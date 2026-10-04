@@ -41,6 +41,6 @@ tab = json.load(open(os.path.join(DIR, '..', 'data', 'tableros.json'), encoding=
 with open(os.path.join(OUT, 'tableros.txt'), 'w', encoding='utf-8') as f:
     f.write('# Palabras de cada tablero. (v) = también es forma verbal conjugada.\n')
     for i, t in enumerate(tab, 1):
-        f.write(f"\nnº {i}: {t['central'].upper()} | {' '.join(t['exterior']).upper()} | ★ {t['estrella']}\n")
+        f.write(f"\nnº {i}: {t['central'].upper()} | {' '.join(t['exterior']).upper()} | ★ {', '.join(t['estrellas'])}\n")
         f.write('  ' + ', '.join(w + (' (v)' if w in homo else '') for w, _ in t['palabras']) + '\n')
 print(f'{len(homo)} homógrafos; revisión escrita en {os.path.relpath(OUT)}/')

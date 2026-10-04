@@ -20,7 +20,10 @@ function dateOf(day){ const d = new Date(START + (day-1)*864e5); return new Date
 const B = () => BOARDS[(S.day-1) % BOARDS.length];
 const words = () => B().palabras;
 const sylls = w => w[1].split('-');
-const wordPoints = w => pointsFor(sylls(w).length) + (w[0]===B().estrella?5:0);
+// palabras estrella («Silabochos»): las que empatan con el máximo de sílabas; cada una suma 5 más
+const stars = () => B().estrellas || [B().estrella];
+const isStar = x => stars().includes(x);
+const wordPoints = w => pointsFor(sylls(w).length) + (isStar(w[0])?5:0);
 function total(){ return words().reduce((a,w)=>a+wordPoints(w),0); }
 function myFound(){ return S.found[S.day] || (S.found[S.day]=[]); }
 function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0]===x); return a+(w?wordPoints(w):0); },0); }
@@ -78,11 +81,13 @@ function renderWords(){
   const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
   document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
   document.getElementById('foundtotal').textContent = 'de '+words().length;
-  // distintivo de la palabra estrella: hallada o pendiente (sin decir cuál es)
-  const hallada = f.includes(B().estrella), est = document.getElementById('estrella');
-  est.textContent = hallada ? '★ Estrella hallada' : '☆ Estrella pendiente';
-  est.className = 'estrella' + (hallada ? ' si' : '');
-  est.setAttribute('aria-label', hallada ? 'Has encontrado la palabra estrella' : 'Aún no has encontrado la palabra estrella');
+  // distintivo de los Silabochos: hallados o pendientes (sin decir cuáles son)
+  const n = stars().length, k = stars().filter(x=>f.includes(x)).length, est = document.getElementById('estrella');
+  if(n===1) est.textContent = k ? '★ Silabocho hallado' : '☆ Silabocho pendiente';
+  else est.textContent = (k===n ? '★ Silabochos hallados' : (k ? '★ ' : '☆ ')+'Silabochos pendientes')+' · '+k+' de '+n;
+  est.className = 'estrella' + (k===n ? ' si' : k ? ' medio' : '');
+  est.setAttribute('aria-label', n===1 ? (k ? 'Has encontrado el Silabocho' : 'Aún no has encontrado el Silabocho')
+    : 'Has encontrado '+k+' de '+n+' Silabochos');
   const shown = (rev ? words() : words().filter(w=>f.includes(w[0])));
   if(!shown.length){ list.innerHTML = '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>'; return; }
   // agrupadas por número de sílabas (de menos a más) y, dentro de cada grupo, por orden alfabético
@@ -90,8 +95,8 @@ function renderWords(){
   shown.forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
   list.innerHTML = Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
     const chips = grupos[n].sort((a,b)=>a[0].localeCompare(b[0],'es')).map(w=>{
-      const x = w[0], cls = x===B().estrella?' star':(!f.includes(x)?' missed':'');
-      return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(x===B().estrella?' ★':'')+'</span>'; }).join('');
+      const x = w[0], cls = isStar(x)?' star':(!f.includes(x)?' missed':'');
+      return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(isStar(x)?' ★':'')+'</span>'; }).join('');
     return '<div class="grupo"><span class="grupo-n">'+n+' sílabas</span><div class="chips">'+chips+'</div></div>';
   }).join('');
 }
@@ -119,7 +124,7 @@ function submit(){
   const antes = rankIndex();
   myFound().push(joined); save();
   const n = cur.length, pts = wordPoints(w), k = rankIndex();
-  if(joined===B().estrella) toast('¡Palabra estrella! +'+pts,'star');
+  if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
@@ -135,11 +140,12 @@ function reveal(){
 
 // ---------- compartir (rango y puntos, sin palabras) ----------
 function shareText(){
-  const k = rankIndex(), f = myFound(), star = f.includes(B().estrella);
+  const k = rankIndex(), f = myFound(), n = stars().length, ks = stars().filter(x=>f.includes(x)).length;
+  const star = !ks ? '' : n===1 ? ' ★' : ' ★ '+ks+'/'+n;
   const barra = RANKS.map((r,i)=>i<=k?'▰':'▱').join('');
   const lineas = [
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
-    barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+(star?' ★':''),
+    barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+star,
   ];
   if(S.time[S.day] !== undefined) lineas.push('⏳ '+fmtTime(S.time[S.day]));
   if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');

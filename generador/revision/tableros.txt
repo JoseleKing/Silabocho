@@ -1,31 +1,31 @@
 # Palabras de cada tablero. (v) = también es forma verbal conjugada.
 
-nº 1: RA | DO DE CIÓN PE MO O DU | ★ operadora
-  operadora, demorado, moderación, moderado, operación, operado, duradera, demora (v), duración, durado, morado, oración, dorado, dura (v), mora (v), ora (v), pera, ración, ramo, rara
+nº 1: RA | DO DA PA DOS SE DAS PRE | ★ preparada, preparadas, preparado, preparados, separada, separadas, separado, separados
+  preparada, preparadas, preparado, preparados, separada, separadas, separado, separados, dorada, doradas, dorados, parada, paradas, parado, parados, dorado, para (v), sera, rara
 
-nº 2: NA | DO CIÓN MI NO GA CE VE | ★ dominación
-  dominación, navegación, nominación, nominado, dominado, cenado, docena, donación, ganado, minado, novena, venado, donado, cena (v), dona (v), gana (v), mina (v), nación, nave, vena, nana
+nº 2: TA | DO A DOS GO COS TEN PAR | ★ acostado, agotado, agotados, apartado, atentado, atentados
+  acostado, agotado, agotados, apartado, atentado, atentados, atado, atados, atenta (v), costado, costados, tentado, dotado, costa, gota, parta (v), tacos, tapar
 
-nº 3: TA | DO A DA GO COS POR PAR | ★ acostada
-  acostada, acostado, agotada, agotado, apartada, apartado, atada, atado, costado, portada, portado, dotado, costa, data (v), gota, parta (v), porta (v), tacos, tapar
+nº 3: GA | DA PE DOS EN CAR TRE ÑA | ★ encargada, encargados, engañada, engañados, entregada, entregados
+  encargada, encargados, engañada, engañados, entregada, entregados, cargada, cargados, entrega (v), pegada, pegados, carga (v), daga, pega (v), gaga
 
-nº 4: MO | DO TA RA DE TOS TAS LES | ★ demorado
-  demorado, moderado, molestado, demora (v), molesta (v), molestas (v), molestos, morado, morales, demo, domo (v), modo, mora (v), mota, motos, ramo, momo
+nº 4: TA | DA PA DOS CON E TRA COR | ★ contratada, contratados
+  contratada, contratados, contada, contados, cortada, cortados, etapa, patada, tratada, tratados, patata, corta (v), data (v), eta, pata, tapa (v), trata (v)
 
-nº 5: RA | DO DA PA MO DOS SE JU | ★ separada
-  separada, separado, separados, dorada, dorados, jurada, jurado, jurados, morada, morado, parada, parado, parados, dorado, jura (v), mora (v), para (v), ramo, sera, rara
+nº 5: RA | DO A DA TI MO PU JU | ★ adorada, apurada, apurado, adorado
+  adorada, apurada, apurado, adorado, arado, dorada, jurada, jurado, morada, morado, tirada, tirado, dorado, jura (v), mora (v), pura, ramo, tira (v), rara
 
-nº 6: GA | DO A PA DOS DAS CAR MAR | ★ amargado
+nº 6: NA | DO CIÓN MI SE CE VE TOR | ★ dominación, dominado
+  dominación, dominado, cenado, docena, donación, minado, senado, tornado, venado, donado, cena (v), dona (v), mina (v), nación, nave, sena, torna (v), vena, nana
+
+nº 7: MO | TI TO RE MEN TOS VER NU | ★ momentito, monumento, monumentos
+  momentito, monumento, monumentos, momento, momentos, remoto, remotos, remover, moto, motos, mover, remo (v), timo (v), tomo (v), momo
+
+nº 8: TA | DO DE PA ES LLA QUI RRO | ★ derrotado, detallado, estallado
+  derrotado, detallado, estallado, derrota (v), estado, quitado, tallado, tapado, taquilla, dotado, patata, esta, pata, quita (v), talla (v), tapa (v), tarro
+
+nº 9: GA | DO A PA DOS DAS CAR MAR | ★ amargado, apagadas, apagado, apagados
   amargado, apagadas, apagado, apagados, amarga (v), cargadas, cargado, cargados, pagadas, pagado, pagados, carga (v), marga (v), paga (v), gaga
 
-nº 7: TA | DO PA CON RES TRA COS POR | ★ contadores
-  contadores, contratado, portadores, contado, costado, portado, tapado, tratado, dotado, patata, costa, pata, porta (v), resta (v), tacos, tapa (v), trata (v)
-
-nº 8: CA | RA RO SE JE RAS ROS LLE | ★ callejera
-  callejera, callejero, callejeros, cajera, cajero, cajeros, casera, caseras, casero, caseros, calle (v), cara, caras, caro, caros, roca, seca (v)
-
-nº 9: GA | DA PE DOS EN CAR TRE LLE | ★ encargada
-  encargada, encargados, entregada, entregados, cargada, cargados, entrega (v), llegada, llegados, pegada, pegados, carga (v), daga, llega (v), pega (v), gaga
-
-nº 10: RA | DO A DA TI CU CHA PU | ★ adorada
-  adorada, apurada, apurado, cucharada, adorado, arado, cuchara (v), curada, curado, dorada, tirada, tirado, dorado, cura (v), pura, racha (v), tira (v), rara
+nº 10: RA | DO DA DE CIÓN MO CU CLA | ★ declaración, declarada, declarado, demorado, moderación, moderado
+  declaración, declarada, declarado, demorado, moderación, moderado, curación, curada, curado, demora (v), dorada, morada, morado, dorado, clara, cura (v), mora (v), ración, ramo, rara

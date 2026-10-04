@@ -2,7 +2,7 @@
 
 Uso:  python3 gen.py [--tableros 10] [--candidatos 30] [--semilla 2026]
 
-Se generan «candidatos» tableros compatibles entre sí (poco solapamiento, estrella distinta);
+Se generan «candidatos» tableros compatibles entre sí (poco solapamiento, estrellas distintas);
 se quedan los «tableros» mejores. Los 3 mejores van primero (días 1, 2 y 3) y el resto se
 baraja con la semilla fija, para que no salgan los mejores al principio y los flojos al final.
 """
@@ -48,8 +48,13 @@ def sol_central(S, c):
     return [w for w, m in POR[c] if m & ~S == 0]
 
 def orden_estrella(w):
-    """La estrella es la primera: más sílabas, luego más sílabas distintas, luego alfabético."""
+    """Orden de las soluciones: más sílabas, luego más sílabas distintas, luego alfabético."""
     return (-len(LEX[w]), -len(set(LEX[w])), w)
+
+def estrellas_de(sol):
+    """Palabras estrella («Silabochos»): todas las que empatan con el máximo de sílabas."""
+    m = max(len(LEX[w]) for w in sol)
+    return sorted((w for w in sol if len(LEX[w]) == m), key=orden_estrella)
 
 def evaluar(S, usos, estrellas):
     best = None
@@ -58,7 +63,7 @@ def evaluar(S, usos, estrellas):
             sol = sol_central(S, c)
             if not any(len(LEX[w]) >= 4 for w in sol):
                 continue
-            if min(sol, key=orden_estrella) in estrellas:   # la estrella no puede repetirse
+            if not estrellas.isdisjoint(estrellas_de(sol)):   # ninguna estrella puede repetirse
                 continue
             n = len(sol)
             # objetivo: muchas palabras, pero penalizando sílabas ya usadas en otros tableros
@@ -97,10 +102,10 @@ def puntos(sil):
     return 1 if n <= 2 else 2 if n == 3 else 4 if n == 4 else 6
 
 def calidad(t):
-    """Para elegir los mejores: palabras (hasta 45), luego largas (4+ sílabas), luego estrella larga."""
+    """Para elegir los mejores: palabras (hasta 45), luego largas (4+ sílabas), luego estrellas largas."""
     pal = t['palabras']
     largas = sum(1 for s in pal.values() if len(s) >= 4)
-    return (min(len(pal), 45) + 2 * largas, len(pal[t['estrella']]))
+    return (min(len(pal), 45) + 2 * largas, len(pal[t['estrellas'][0]]))
 
 # ---------- generación ----------
 tableros, usos, estrellas = [], collections.Counter(), set()
@@ -113,16 +118,16 @@ while len(tableros) < CANDIDATOS:
     if any(jaccard(S, t['mask']) > MAX_JACCARD for t in tableros):
         continue
     sol.sort(key=orden_estrella)
-    estrella = sol[0]
+    est = estrellas_de(sol)
     exterior = [SYLS[i] for i in range(len(SYLS)) if S >> i & 1 and i != c]
-    tableros.append(dict(mask=S, central=SYLS[c], exterior=exterior, estrella=estrella,
+    tableros.append(dict(mask=S, central=SYLS[c], exterior=exterior, estrellas=est,
                          palabras={w: LEX[w] for w in sol}))
-    estrellas.add(estrella)
+    estrellas.update(est)
     for i in range(len(SYLS)):
         if S >> i & 1:
             usos[i] += 1
     print(f"{len(tableros):3d} [{len(sol):2d}] {SYLS[c].upper():5s} | {' '.join(x.upper() for x in exterior)} "
-          f"| ★ {estrella}  ({intentos} intentos, {time.time() - t0:.0f} s)", file=sys.stderr)
+          f"| ★ {', '.join(est)}  ({intentos} intentos, {time.time() - t0:.0f} s)", file=sys.stderr)
 
 # ---------- selección y orden ----------
 tableros.sort(key=calidad, reverse=True)
@@ -136,7 +141,7 @@ resto = [t for t in elegidos if t not in primeros]
 random.Random(args.semilla).shuffle(resto)
 elegidos = primeros + resto
 
-out = [{'central': t['central'], 'exterior': t['exterior'], 'estrella': t['estrella'],
+out = [{'central': t['central'], 'exterior': t['exterior'], 'estrellas': t['estrellas'],
         'palabras': [[w, '-'.join(s)] for w, s in t['palabras'].items()]} for t in elegidos]
 os.makedirs(os.path.dirname(args.salida), exist_ok=True)
 with open(args.salida, 'w', encoding='utf-8') as f:
@@ -145,6 +150,6 @@ with open(args.salida, 'w', encoding='utf-8') as f:
 print(f'\n{len(out)} tableros guardados en {os.path.relpath(args.salida)} '
       f'({len(tableros)} candidatos, {intentos} intentos, {time.time() - t0:.0f} s)')
 for i, t in enumerate(out, 1):
-    pts = sum(puntos(s.split('-')) for _, s in t['palabras']) + 5
+    pts = sum(puntos(s.split('-')) for _, s in t['palabras']) + 5 * len(t['estrellas'])
     print(f"día {i:2d}: {t['central'].upper():5s} | {' '.join(x.upper() for x in t['exterior'])} "
-          f"| {len(t['palabras']):2d} palabras, {pts:3d} puntos | ★ {t['estrella']}")
+          f"| {len(t['palabras']):2d} palabras, {pts:3d} puntos | ★ {', '.join(t['estrellas'])}")
