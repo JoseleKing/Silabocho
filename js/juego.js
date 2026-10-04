@@ -78,6 +78,11 @@ function renderWords(){
   const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
   document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
   document.getElementById('foundtotal').textContent = 'de '+words().length;
+  // distintivo de la palabra estrella: hallada o pendiente (sin decir cuál es)
+  const hallada = f.includes(B().estrella), est = document.getElementById('estrella');
+  est.textContent = hallada ? '★ Estrella hallada' : '☆ Estrella pendiente';
+  est.className = 'estrella' + (hallada ? ' si' : '');
+  est.setAttribute('aria-label', hallada ? 'Has encontrado la palabra estrella' : 'Aún no has encontrado la palabra estrella');
   const shown = (rev ? words() : words().filter(w=>f.includes(w[0])));
   if(!shown.length){ list.innerHTML = '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>'; return; }
   // agrupadas por número de sílabas (de menos a más) y, dentro de cada grupo, por orden alfabético

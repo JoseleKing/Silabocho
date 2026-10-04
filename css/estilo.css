@@ -63,6 +63,9 @@ h1 .met{color:var(--accent-text)}
 .found{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
 .found-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem;color:var(--muted)}
 .found-head b{color:var(--fg);font-family:var(--display);font-size:1rem}
+.found-head{align-items:center;gap:8px}
+.estrella{flex:none;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted);white-space:nowrap}
+.estrella.si{background:var(--accent);border:1px solid var(--accent);color:var(--accent-ink)}
 .words{display:flex;flex-direction:column;gap:10px}
 .grupo{display:flex;flex-direction:column;gap:5px}
 .grupo-n{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
