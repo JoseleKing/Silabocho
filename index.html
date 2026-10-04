@@ -45,7 +45,10 @@
   </header>
   <div class="sub">
     <p class="fecha" id="fecha"></p>
+    <span class="chips-sub">
+    <button class="racha" id="racha" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M13.6 2c.4 3-.9 4.8-2.3 6.4-.6-1.1-1.5-1.9-2.7-2.3.5 2-.4 3.5-1.5 5.1C6.1 12.6 5.3 14.1 5.3 16c0 3.6 3 6.2 6.7 6.2s6.7-2.6 6.7-6.2c0-2.7-1.3-4.8-2.5-6.8-1.2-1.9-2.3-3.9-2.6-7.2zM12 20.4c-1.7 0-3-1.2-3-2.8 0-1.4.9-2.4 1.8-3.5.3.8.8 1.3 1.5 1.6.1-1.2.5-2.3 1.1-3.3.9 1.4 1.6 2.9 1.6 4.6 0 2-1.3 3.4-3 3.4z"/></svg><span id="rachan">0</span></button>
     <span class="timer" id="timer" role="timer" aria-label="Tiempo jugado"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 15C19 10 17 3 12 3S5 10 12 15C19 20 17 27 12 27S5 20 12 15Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg><span id="time">0:00</span></span>
+    </span>
   </div>
 
   <section class="rank" aria-live="polite">
@@ -82,6 +85,7 @@
         <li>Las palabras estrella, los <b>Silabochos</b>, son las más largas del tablero (puede haber una o varias). Cada una suma 5 puntos extra. Junto a tus palabras verás cuántos llevas (★) y si quedan pendientes (☆).</li>
         <li>Los rangos van de Bisílabo a Octosílabo. Si las encuentras todas, llegas a Alejandrino.</li>
         <li>Cada día hay un tablero nuevo. Con ◀ puedes jugar los de días anteriores.</li>
+        <li>La racha (llama) cuenta los días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar días anteriores no la cambia.</li>
         <li>El reloj cuenta el tiempo que llevas jugando cada tablero desde que tocas la primera sílaba. Se detiene mientras no estás en la app y se queda fijo al completar el tablero o al ver las soluciones.</li>
       </ul>
     </details>

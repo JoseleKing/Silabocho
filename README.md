@@ -9,8 +9,9 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - Rangos según el porcentaje de puntos: Bisílabo 0 %, Trisílabo 5 %, Tetrasílabo 12 %, Pentasílabo 22 %, Hexasílabo 35 %, Heptasílabo 50 %, Octosílabo 70 %, Alejandrino 100 %.
 - Un tablero por día. El **nº 1 es el 4 de octubre de 2026**. Con ◀ se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
 - Un reloj cuenta el tiempo jugado en cada tablero (minutos y segundos). Empieza al tocar la primera sílaba, se detiene mientras la app no está a la vista y se queda fijo al completar el tablero o al ver las soluciones.
-- El progreso y el tiempo se guardan en el dispositivo (`localStorage`).
-- «Compartir resultado» copia o comparte el rango, los puntos y el tiempo del día, sin revelar palabras.
+- **Racha** (llama junto a la fecha): días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar el archivo no cuenta. Si hoy aún no has jugado pero sí ayer, la racha sigue viva (borde discontinuo) hasta medianoche. Al tocarla se ve también la mejor racha.
+- El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
+- «Compartir resultado» copia o comparte el rango, los puntos, el tiempo y la racha, sin revelar palabras.
 - Es una PWA: se puede instalar en el móvil y funciona sin conexión.
 
 ## Estructura

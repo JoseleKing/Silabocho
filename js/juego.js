@@ -9,10 +9,10 @@ const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
 
 let BOARDS = [];
-let S = {day:1, found:{}, cur:[], order:{}, revealed:{}, time:{}};   // time: segundos jugados por día
+let S = {day:1, found:{}, cur:[], order:{}, revealed:{}, time:{}, racha:{}};   // time: segundos jugados por día; racha: días jugados en su día
 
-function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};S.time=s.time||{};} }catch(e){} }
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed,time:S.time})); }catch(e){} }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};S.revealed=s.revealed||{};S.time=s.time||{};S.racha=s.racha||{};} }catch(e){} }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
 
 // número de día según la fecha local (el 4 de octubre de 2026 es el 1)
 function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
@@ -51,6 +51,24 @@ function renderClock(){
   document.getElementById('time').textContent = fmtTime(t || 0);
   el.className = 'timer' + (t !== undefined && finished() ? ' done' : clockRunning() ? ' run' : '');
   el.setAttribute('aria-label', 'Tiempo jugado: ' + fmtTime(t || 0).replace(':', ' minutos y ') + ' segundos');
+}
+
+// ---------- racha: días seguidos jugando el tablero del día ----------
+// Sigue viva si hoy aún no has jugado pero sí ayer; se rompe al saltarte un día entero.
+function rachaActual(){ const t = today(); let d = S.racha[t] ? t : t-1, n = 0; while(d >= 1 && S.racha[d]){ n++; d--; } return n; }
+function rachaMejor(){ let mejor = 0, n = 0; const t = today(); for(let d = 1; d <= t; d++){ n = S.racha[d] ? n+1 : 0; mejor = Math.max(mejor, n); } return mejor; }
+function renderRacha(){
+  const r = rachaActual(), hoy = !!S.racha[today()], el = document.getElementById('racha');
+  document.getElementById('rachan').textContent = r;
+  el.className = 'racha' + (hoy ? ' hoy' : r ? ' pendiente' : '');
+  el.setAttribute('aria-label', 'Racha: '+r+(r===1?' día seguido':' días seguidos')+(hoy || !r ? '' : '. Juega hoy para mantenerla'));
+}
+function toastRacha(){
+  const r = rachaActual(), m = rachaMejor(), hoy = !!S.racha[today()];
+  const txt = r ? 'Racha: '+r+(r===1?' día':' días')+' · Mejor: '+m+(hoy ? '' : ' · ¡Juega hoy para mantenerla!')
+                : m ? 'Sin racha ahora · Mejor: '+m+(m===1?' día':' días')+' · ¡Juega hoy para empezar otra!'
+                    : 'Encuentra una palabra del tablero de hoy para empezar una racha';
+  toast(txt, r ? 'star' : '');
 }
 
 function tileEl(s, isCenter, x, y){
@@ -126,7 +144,9 @@ function submit(){
   if(myFound().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
   if(S.revealed[S.day]){ toast('Las soluciones ya están a la vista','bad'); return clear(); }
   const antes = rankIndex();
-  myFound().push(joined); save();
+  myFound().push(joined);
+  if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
+  save();
   const n = cur.length, pts = wordPoints(w), k = rankIndex();
   if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
@@ -151,7 +171,10 @@ function shareText(){
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
     barra+'  '+score()+'/'+total()+' puntos · '+f.length+(f.length===1?' palabra':' palabras')+star,
   ];
-  if(S.time[S.day] !== undefined) lineas.push('⏳ '+fmtTime(S.time[S.day]));
+  const r = rachaActual(), extra = [];
+  if(S.time[S.day] !== undefined) extra.push('⏳ '+fmtTime(S.time[S.day]));
+  if(r >= 1) extra.push('🔥 '+r+(r===1?' día':' días'));
+  if(extra.length) lineas.push(extra.join(' · '));
   if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
   lineas.push(URL_JUEGO);
   return lineas.join('\n');
@@ -174,12 +197,13 @@ async function share(){
 function renderAll(){
   const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
   b.textContent = S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
-  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock();
+  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
 }
 function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
 function start(){
   load(); S.day = today();
+  if(!Object.keys(S.racha).length && (S.found[S.day]||[]).length) S.racha[S.day] = 1;   // progreso anterior a la racha
   document.getElementById('prev').onclick = ()=>go(-1);
   document.getElementById('next').onclick = ()=>go(1);
   document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
@@ -187,6 +211,7 @@ function start(){
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
   document.getElementById('share').onclick = share;
+  document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); }
@@ -198,7 +223,7 @@ function start(){
     if(document.visibilityState!=='visible'){ tickClock(); save(); renderClock(); return; }
     lastTick = performance.now();
     const t = today(); if(t===ultimoHoy) return;
-    if(S.day===ultimoHoy){ S.day = t; renderAll(); } else renderNav();
+    if(S.day===ultimoHoy){ S.day = t; renderAll(); } else { renderNav(); renderRacha(); }
     ultimoHoy = t;
   });
   window.addEventListener('pagehide', ()=>{ tickClock(); save(); });
