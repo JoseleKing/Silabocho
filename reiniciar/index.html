@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reiniciar Silabocho</title>
+<style>
+  :root{--bg:#F6F1E7;--fg:#1E2A3A;--muted:#5E6470}
+  @media (prefers-color-scheme: dark){:root{--bg:#131B26;--fg:#F6F1E7;--muted:#A7AEB9}}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;padding:16px}
+  img{width:64px;height:64px}
+  p{margin:0} .sub{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<img src="../icons/favicon.svg" alt="">
+<p id="msg"><b>Reiniciando Silabocho…</b></p>
+<p class="sub" id="sub">Se borran tus palabras, tiempos y soluciones vistas en este dispositivo.</p>
+<script>
+// Borra todo lo que Silabocho guarda en este dispositivo (progreso y copia sin conexión)
+// y vuelve al juego como la primera vez.
+(async () => {
+  try { Object.keys(localStorage).filter(k => k.startsWith('silabocho')).forEach(k => localStorage.removeItem(k)); } catch (e) {}
+  try { sessionStorage.clear(); } catch (e) {}
+  try { if (window.caches) for (const k of await caches.keys()) if (k.startsWith('silabocho')) await caches.delete(k); } catch (e) {}
+  try { if (navigator.serviceWorker) for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister(); } catch (e) {}
+  document.getElementById('msg').innerHTML = '<b>Listo: Silabocho está como nuevo.</b>';
+  document.getElementById('sub').textContent = 'Volviendo al juego…';
+  setTimeout(() => location.replace('../'), 900);
+})();
+</script>
+</body>
+</html>

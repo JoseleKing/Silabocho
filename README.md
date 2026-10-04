@@ -17,6 +17,7 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 
 ```
 index.html              página del juego
+reiniciar/index.html    borra el progreso guardado en el dispositivo (/reiniciar)
 css/estilo.css          estilos (modo claro y oscuro; paleta del logo: ocre #E8A33D, azul marino #1E2A3A, crema #F6F1E7)
 js/juego.js             lógica del juego
 data/tableros.json      tableros generados (el juego los lee de aquí)
@@ -48,6 +49,8 @@ python3 -m http.server 8000
 ```
 
 y abrir <http://localhost:8000>.
+
+Para empezar de cero, abre <http://localhost:8000/reiniciar>. Borra el progreso, los tiempos y las soluciones vistas de este navegador, además de la copia sin conexión del service worker, y vuelve al juego. Así también se cargan los archivos recién cambiados. En GitHub Pages funciona igual (`…/Silabocho/reiniciar`) y solo afecta al dispositivo de quien la abre.
 
 ## Regenerar los tableros
 
