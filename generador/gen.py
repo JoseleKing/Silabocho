@@ -1,16 +1,20 @@
 """Genera los tableros de Silabocho (7 sílabas + 1 central) y los guarda en data/tableros.json.
 
-Uso:  python3 gen.py [--tableros 10] [--candidatos 30] [--semilla 2026]
+Uso:  python3 gen.py [--tableros 10] [--candidatos 30] [--semilla 2026] [--reusar]
 
 Se generan «candidatos» tableros compatibles entre sí (poco solapamiento, estrellas distintas);
-se quedan los «tableros» mejores. Los 3 mejores van primero (días 1, 2 y 3) y el resto se
-baraja con la semilla fija, para que no salgan los mejores al principio y los flojos al final.
+se quedan los «tableros» mejores. Los 3 primeros días son los elegidos en primeros.txt (o, si no,
+los mejores según calidad) y el resto se baraja con la semilla fija, para que no salgan los mejores al principio y los flojos al final.
+
+Los candidatos se guardan en candidatos.json; con --reusar se vuelve a hacer solo la selección
+(útil para ajustar la calidad sin esperar a la búsqueda), siempre que el léxico no haya cambiado.
 """
-import argparse, collections, json, os, random, sys, time
+import argparse, collections, hashlib, json, os, random, re, sys, time
 from lexico import LEX, construir
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(DIR, '..', 'data', 'tableros.json')
+CACHE = os.path.join(DIR, 'candidatos.json')
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--tableros', type=int, default=10, help='tableros que se guardan')
@@ -18,6 +22,7 @@ ap.add_argument('--candidatos', type=int, default=None, help='tableros que se ge
 ap.add_argument('--semilla', type=int, default=2026)
 ap.add_argument('--primeros', type=int, default=3, help='cuántos de los mejores van al principio sin barajar')
 ap.add_argument('--salida', default=SALIDA)
+ap.add_argument('--reusar', action='store_true', help='reutiliza los candidatos guardados en candidatos.json')
 args = ap.parse_args()
 CANDIDATOS = args.candidatos or 3 * args.tableros
 
@@ -101,15 +106,38 @@ def puntos(sil):
     n = len(sil)
     return 1 if n <= 2 else 2 if n == 3 else 4 if n == 4 else 6
 
+def familia(w):
+    """Raíz aproximada para no contar dos veces el mismo vocablo (preparada, preparados → prepar)."""
+    return re.sub(r'(as|os|es|a|o|s)$', '', w)
+
 def calidad(t):
-    """Para elegir los mejores: palabras (hasta 45), luego largas (4+ sílabas), luego estrellas largas."""
+    """Lo interesante que es un tablero, para elegir los mejores y ponerlos en los primeros días.
+    Premia la variedad: familias de palabras distintas (hasta 30), familias largas (4+ sílabas),
+    variedad de longitudes y una palabra de 5 sílabas o más. Penaliza los tableros llenos de
+    participios (cenado, minado, donado…) y los que tienen más de 3 Silabochos."""
     pal = t['palabras']
-    largas = sum(1 for s in pal.values() if len(s) >= 4)
-    return (min(len(pal), 45) + 2 * largas, len(pal[t['estrellas'][0]]))
+    familias = {familia(w) for w in pal}
+    largas = {familia(w) for w, s in pal.items() if len(s) >= 4}
+    participios = {familia(w) for w in pal if re.search(r'(ad|id)[oa]s?$', w)}
+    longitudes = {len(s) for s in pal.values()}
+    return (min(len(familias), 30) + 2 * len(largas) + 2 * len(longitudes) + 6 * (max(longitudes) >= 5)
+            - max(0, len(participios) - 3) - 2 * max(0, len(t['estrellas']) - 3))
 
 # ---------- generación ----------
+# huella de lo que determina los candidatos: si cambia, los guardados ya no valen
+HUELLA = hashlib.sha1(json.dumps([sorted(LEX.items()), args.semilla, CANDIDATOS, MIN_PALABRAS, MAX_PALABRAS, MAX_JACCARD],
+                                 ensure_ascii=False).encode()).hexdigest()
 tableros, usos, estrellas = [], collections.Counter(), set()
 intentos, t0 = 0, time.time()
+if args.reusar:
+    try:
+        guardado = json.load(open(CACHE, encoding='utf-8'))
+    except FileNotFoundError:
+        sys.exit('No hay candidatos guardados: ejecuta gen.py sin --reusar.')
+    if guardado['huella'] != HUELLA:
+        sys.exit('Los candidatos guardados no corresponden al léxico u opciones actuales: ejecuta gen.py sin --reusar.')
+    tableros = guardado['tableros']
+    print(f'{len(tableros)} candidatos reutilizados de {os.path.relpath(CACHE)}', file=sys.stderr)
 while len(tableros) < CANDIDATOS:
     intentos += 1
     S, (sc, c, sol) = buscar(usos, estrellas)
@@ -129,15 +157,30 @@ while len(tableros) < CANDIDATOS:
     print(f"{len(tableros):3d} [{len(sol):2d}] {SYLS[c].upper():5s} | {' '.join(x.upper() for x in exterior)} "
           f"| ★ {', '.join(est)}  ({intentos} intentos, {time.time() - t0:.0f} s)", file=sys.stderr)
 
+if not args.reusar:
+    with open(CACHE, 'w', encoding='utf-8') as f:
+        json.dump({'huella': HUELLA, 'tableros': tableros}, f, ensure_ascii=False)
+
 # ---------- selección y orden ----------
 tableros.sort(key=calidad, reverse=True)
-elegidos = tableros[:args.tableros]
-# los primeros: los mejores, pero sin repetir sílaba central entre ellos
+# los primeros días: los indicados en primeros.txt (por una de sus estrellas) y, si faltan,
+# los mejores según calidad, sin repetir sílaba central entre ellos
+fijos = []
+if os.path.exists(os.path.join(DIR, 'primeros.txt')):
+    from lexico import leer_lista
+    fijos = leer_lista('primeros.txt')[:args.primeros]
 primeros = []
-for t in elegidos:
-    if len(primeros) < args.primeros and all(t['central'] != p['central'] for p in primeros):
+for w in fijos:
+    t = next((t for t in tableros if w in t['estrellas'] and t not in primeros), None)
+    if t:
         primeros.append(t)
-resto = [t for t in elegidos if t not in primeros]
+    else:
+        print(f'aviso: «{w}» (primeros.txt) no es estrella de ningún candidato; ese día se elige solo', file=sys.stderr)
+for t in tableros:
+    if len(primeros) < args.primeros and t not in primeros and all(t['central'] != p['central'] for p in primeros):
+        primeros.append(t)
+elegidos = primeros + [t for t in tableros if t not in primeros][:args.tableros - len(primeros)]
+resto = elegidos[len(primeros):]
 random.Random(args.semilla).shuffle(resto)
 elegidos = primeros + resto
 

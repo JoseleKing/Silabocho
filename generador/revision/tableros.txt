@@ -1,31 +1,31 @@
 # Palabras de cada tablero. (v) = también es forma verbal conjugada.
 
-nº 1: RA | DO DA PA DOS SE DAS PRE | ★ preparada, preparadas, preparado, preparados, separada, separadas, separado, separados
-  preparada, preparadas, preparado, preparados, separada, separadas, separado, separados, dorada, doradas, dorados, parada, paradas, parado, parados, dorado, para (v), sera, rara
+nº 1: TE | RA MA MEN EN CAN POR CHO | ★ enteramente
+  enteramente, raramente, cantera, chocante, entera (v), machote, portera, tetera, cante (v), ente, mate (v), mente, porte (v), techo (v), tema (v)
 
-nº 2: TA | DO A DOS GO COS TEN PAR | ★ acostado, agotado, agotados, apartado, atentado, atentados
-  acostado, agotado, agotados, apartado, atentado, atentados, atado, atados, atenta (v), costado, costados, tentado, dotado, costa, gota, parta (v), tacos, tapar
+nº 2: CA | DO A DA SA BO LLA BRA | ★ abracadabra
+  abracadabra, acabo (v), bocado, callada, callado, casada, casado, sacada, sacado, boca, cabo, cabra, cada, casa (v), saca (v)
 
-nº 3: GA | DA PE DOS EN CAR TRE ÑA | ★ encargada, encargados, engañada, engañados, entregada, entregados
-  encargada, encargados, engañada, engañados, entregada, entregados, cargada, cargados, entrega (v), pegada, pegados, carga (v), daga, pega (v), gaga
-
-nº 4: TA | DA PA DOS CON E TRA COR | ★ contratada, contratados
-  contratada, contratados, contada, contados, cortada, cortados, etapa, patada, tratada, tratados, patata, corta (v), data (v), eta, pata, tapa (v), trata (v)
-
-nº 5: RA | DO A DA TI MO PU JU | ★ adorada, apurada, apurado, adorado
-  adorada, apurada, apurado, adorado, arado, dorada, jurada, jurado, morada, morado, tirada, tirado, dorado, jura (v), mora (v), pura, ramo, tira (v), rara
-
-nº 6: NA | DO CIÓN MI SE CE VE TOR | ★ dominación, dominado
-  dominación, dominado, cenado, docena, donación, minado, senado, tornado, venado, donado, cena (v), dona (v), mina (v), nación, nave, sena, torna (v), vena, nana
-
-nº 7: MO | TI TO RE MEN TOS VER NU | ★ momentito, monumento, monumentos
-  momentito, monumento, monumentos, momento, momentos, remoto, remotos, remover, moto, motos, mover, remo (v), timo (v), tomo (v), momo
-
-nº 8: TA | DO DE PA ES LLA QUI RRO | ★ derrotado, detallado, estallado
+nº 3: TA | DO DE PA ES LLA QUI RRO | ★ derrotado, detallado, estallado
   derrotado, detallado, estallado, derrota (v), estado, quitado, tallado, tapado, taquilla, dotado, patata, esta, pata, quita (v), talla (v), tapa (v), tarro
 
-nº 9: GA | DO A PA DOS DAS CAR MAR | ★ amargado, apagadas, apagado, apagados
-  amargado, apagadas, apagado, apagados, amarga (v), cargadas, cargado, cargados, pagadas, pagado, pagados, carga (v), marga (v), paga (v), gaga
-
-nº 10: RA | DO DA DE CIÓN MO CU CLA | ★ declaración, declarada, declarado, demorado, moderación, moderado
+nº 4: RA | DO DA DE CIÓN MO CU CLA | ★ declaración, declarada, declarado, demorado, moderación, moderado
   declaración, declarada, declarado, demorado, moderación, moderado, curación, curada, curado, demora (v), dorada, morada, morado, dorado, clara, cura (v), mora (v), ración, ramo, rara
+
+nº 5: MA | A TE CA RE RO NO LO | ★ camarero, camarote
+  camarero, camarote, aroma (v), manolo, marea (v), remate, romano (v), ama (v), cama, malo, mano (v), mate (v), roma, tema (v), mama (v)
+
+nº 6: CA | SA VA RI ZA BO BE ÑO | ★ cariñosa
+  cariñosa, bocaza, cabeza, caribe, cariño (v), beca (v), boca, cabe (v), cabo, casa (v), cava (v), caza (v), caño, rica, saca (v), vaca (v)
+
+nº 7: MA | TE LA RO NO LE TAS RIA | ★ maletero
+  maletero, malaria, maletas, mariano, materia, romano (v), lama (v), lema, mala, mano (v), matas (v), mate (v), roma, tema (v), mama (v)
+
+nº 8: TA | A DA PA E COS PAR LEN | ★ acostada, apartada
+  acostada, apartada, atada, etapa, patada, patata, costa, data (v), eta, lenta, parta (v), pata, tacos, tapa (v), tapar
+
+nº 9: CA | DO A ZA BO BE CER BAR | ★ acercado
+  acercado, abarca (v), acabar, acabo (v), acerca (v), barcaza, bocado, bocaza, cabeza, cazado, barca, beca (v), boca, cabe (v), cabo, caza (v), cerca (v)
+
+nº 10: NA | DO CIÓN MI SE CE VE TOR | ★ dominación, dominado
+  dominación, dominado, cenado, docena, donación, minado, senado, tornado, venado, donado, cena (v), dona (v), mina (v), nación, nave, sena, torna (v), vena, nana

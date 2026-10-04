@@ -8,24 +8,24 @@ Al final están los cambios que sí he hecho por mi cuenta, porque eran fallos c
 
 ## 1. En los 10 tableros actuales
 
-Estas son las que más importan, porque son las que verá quien juegue.
+Estas son las que más importan, porque son las que verá quien juegue. Las de los días 1 a 3 aparecen primero, porque son los tableros que tienen que enganchar.
 
 | palabra | tablero | duda |
 |---|---|---|
-| ora | nº 1 | Solo es conjunción literaria («ora… ora…»). El jugador la leerá como forma de *orar*. |
-| parta | nº 3 | El diccionario la admite como sustantivo raro, pero se lee como forma de *partir*. |
-| porta | nº 3, nº 7 | «Vena porta». Es rara sola y se lee como forma de *portar*. |
-| data | nº 3 | Sustantivo raro (fecha de un documento). Además puede parecer un anglicismo. |
-| llega | nº 9 | Sustantivo rarísimo; se lee como forma de *llegar*. |
-| gaga | nº 6, nº 9 | Femenino de *gago* (tartamudo, regional). Hoy se asocia más a Lady Gaga o a «chocho». |
-| marga | nº 6 | Correcta (tipo de roca), pero poco conocida. |
-| sera | nº 5 | Correcta (espuerta grande), pero poco conocida. |
-| momo | nº 4 | Correcta (mueca, burla), pero poco conocida. |
-| demo | nº 4 | Abreviatura coloquial o anglicismo. |
-| dona | nº 2 | «Donas» (regalos de boda) o «dona» (rosquilla en América). Rara en España. |
-| durado | nº 1 | Participio válido por las reglas, pero suena raro suelto. |
-
-Las demás palabras de los tableros que también son forma verbal (cena, gana, mina, carga, paga, calle, cura, tira, racha…) tienen una lectura de sustantivo clara y las doy por buenas. La lista completa, tablero a tablero, está en `tableros.txt`.
+| acabo | **nº 2**, nº 9 | El diccionario lo admite como sustantivo («acabo», raro), pero se lee como forma de *acabar*. |
+| quita | **nº 3** | Sustantivo rarísimo (perdón de una deuda); se lee como forma de *quitar*. |
+| esta | **nº 3** | Demostrativo. Es correcto, pero «esta/está» puede confundir. |
+| manolo | nº 5 | Nombre propio en minúscula (el diccionario lo trae como «majo, chulapo»). |
+| mariano | nº 7 | Igual: suena a nombre propio (como adjetivo es «de la Virgen María»). |
+| mama | nº 5, nº 7 | Correcta (glándula mamaria), pero se lee como «mamá» sin tilde. |
+| roma | nº 5, nº 7 | Adjetivo «roma» (chata). Se lee como la ciudad. |
+| cabe | nº 6, nº 9 | Preposición antigua («cabe la fuente»); se lee como forma de *caber*. |
+| parta | nº 8 | El diccionario la admite como sustantivo raro, pero se lee como forma de *partir*. |
+| data | nº 8 | Sustantivo raro (fecha de un documento). Además puede parecer un anglicismo. |
+| eta | nº 8 | Letra griega. Es correcta, pero se asocia a la banda terrorista. |
+| torna | nº 10 | «Volver las tornas». Rara sola y se lee como forma de *tornar*. |
+| sena | nº 10 | Correcta (planta; seis en el dado), pero poco conocida. |
+| dona | nº 10 | «Donas» (regalos de boda) o «dona» (rosquilla en América). Rara en España. |
 
 ## 2. Nombres propios, unidades y anglicismos que se cuelan
 

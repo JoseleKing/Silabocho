@@ -2,3 +2,4 @@ generador/fuentes/
 __pycache__/
 *.pyc
 .DS_Store
+generador/candidatos.json

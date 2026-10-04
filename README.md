@@ -31,6 +31,7 @@ generador/              scripts de Python que generan los tableros
   gen.py                búsqueda de tableros
   comprobar.py          comprueba que data/tableros.json sigue cuadrando con el léxico
   revisar.py            escribe en revision/ las listas para revisar palabras
+  primeros.txt          tableros elegidos para los días 1, 2 y 3
   vetadas.txt           palabras vetadas (malsonantes u ofensivas)
   formas_verbales.txt   formas verbales irregulares que el diccionario trae sueltas
   excluidas.txt         palabras que se quitan a mano tras la revisión
@@ -66,14 +67,17 @@ Opciones de `gen.py`:
 | `--candidatos N` | 3 × tableros | tableros que se generan antes de quedarse con los mejores |
 | `--primeros N` | 3 | cuántos de los mejores van al principio, sin barajar |
 | `--semilla N` | 2026 | semilla fija: la misma semilla da los mismos tableros |
+| `--reusar` | — | reutiliza los candidatos de `candidatos.json` y solo rehace la selección (segundos en vez de minutos); se niega si el léxico ha cambiado |
 
 Cómo trabaja:
 
 1. Construye el léxico (ver reglas abajo) y toma las ~220 sílabas más frecuentes.
 2. Busca conjuntos de 8 sílabas por búsqueda local (*hill climbing*), eligiendo la central que da más palabras y penalizando las sílabas ya muy usadas en otros tableros.
 3. Acepta un tablero si tiene 15–80 palabras, al menos una de 4 sílabas o más, poco solapamiento con los demás (Jaccard ≤ 0,45) y ninguna palabra estrella que haya salido en otro tablero.
-4. Sigue hasta tener todos los candidatos (no hay tope de intentos; los últimos cuestan más). Con los valores por defecto tarda unos 8 minutos.
-5. Ordena los candidatos por calidad (palabras, palabras largas, longitud de las estrellas), se queda con los mejores, pone primero los 3 mejores (sin repetir sílaba central) y baraja el resto con la semilla.
+4. Sigue hasta tener todos los candidatos (no hay tope de intentos; los últimos cuestan más). Con los valores por defecto tarda unos 13 minutos.
+5. Ordena los candidatos por calidad, es decir, por lo interesantes que son: variedad de familias de palabras (preparada y preparados cuentan como una), familias largas, variedad de longitudes y alguna palabra de 5 sílabas o más; penaliza los tableros llenos de participios o con más de 3 Silabochos. Se queda con los mejores.
+6. Los días 1, 2 y 3, los que tienen que enganchar, son los tableros indicados en `primeros.txt` (por una de sus palabras estrella; ahora enteramente, abracadabra y derrotado). Si falta alguno, se elige automáticamente el mejor sin repetir sílaba central. El resto se baraja con la semilla.
+7. Guarda los candidatos en `candidatos.json` (no va al repositorio) para poder repetir la selección con `--reusar`.
 
 **Después de regenerar**, sube `VERSION` en `sw.js` (por ejemplo, `silabocho-v2`) para que los móviles que ya tienen la app instalada reciban los tableros nuevos.
 

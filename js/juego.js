@@ -88,16 +88,20 @@ function renderWords(){
   est.className = 'estrella' + (k===n ? ' si' : k ? ' medio' : '');
   est.setAttribute('aria-label', n===1 ? (k ? 'Has encontrado el Silabocho' : 'Aún no has encontrado el Silabocho')
     : 'Has encontrado '+k+' de '+n+' Silabochos');
-  const shown = (rev ? words() : words().filter(w=>f.includes(w[0])));
-  if(!shown.length){ list.innerHTML = '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>'; return; }
-  // agrupadas por número de sílabas (de menos a más) y, dentro de cada grupo, por orden alfabético
+  // un grupo por número de sílabas (de menos a más), con «halladas/total»; dentro, orden alfabético
   const grupos = {};
-  shown.forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
-  list.innerHTML = Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
-    const chips = grupos[n].sort((a,b)=>a[0].localeCompare(b[0],'es')).map(w=>{
+  words().forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
+  const vacio = !f.length && !rev ? '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>' : '';
+  list.innerHTML = vacio + Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
+    const todas = grupos[n], halladas = todas.filter(w=>f.includes(w[0])).length;
+    const shown = (rev ? todas : todas.filter(w=>f.includes(w[0]))).sort((a,b)=>a[0].localeCompare(b[0],'es'));
+    const chips = shown.map(w=>{
       const x = w[0], cls = isStar(x)?' star':(!f.includes(x)?' missed':'');
       return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(isStar(x)?' ★':'')+'</span>'; }).join('');
-    return '<div class="grupo"><span class="grupo-n">'+n+' sílabas</span><div class="chips">'+chips+'</div></div>';
+    const completo = halladas===todas.length;
+    return '<div class="grupo"><div class="grupo-head"><span class="grupo-n">'+n+' sílabas</span>'
+      +'<span class="grupo-c'+(completo?' ok':'')+'" aria-label="'+halladas+' de '+todas.length+' encontradas">'+halladas+'/'+todas.length+(completo?' ✓':'')+'</span></div>'
+      +(chips ? '<div class="chips">'+chips+'</div>' : '')+'</div>';
   }).join('');
 }
 function renderNav(){
@@ -179,7 +183,7 @@ function start(){
   document.getElementById('prev').onclick = ()=>go(-1);
   document.getElementById('next').onclick = ()=>go(1);
   document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
-  document.getElementById('shuffle').onclick = ()=>{ const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
+  document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
   document.getElementById('share').onclick = share;

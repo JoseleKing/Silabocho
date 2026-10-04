@@ -1,0 +1,7 @@
+# Tableros de los primeros días (los que más tienen que enganchar), en orden: día 1, día 2…
+# Cada línea es una palabra estrella del tablero elegido, de entre los candidatos de gen.py.
+# Si una no aparece entre los candidatos, ese día se elige automáticamente (el mejor según calidad).
+# Vacía o borra las líneas para que la elección sea del todo automática.
+enteramente
+abracadabra
+derrotado
