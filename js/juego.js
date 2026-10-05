@@ -146,8 +146,8 @@ function renderWords(){
   ult.classList.toggle('completo', lleno); ult.title = lleno ? 'Tablero completo: has encontrado todas las palabras' : '';
   // distintivo de los Silabochos: hallados o pendientes (sin decir cuáles son)
   const n = stars().length, k = stars().filter(x=>f.includes(x)).length, est = document.getElementById('estrella');
-  if(n===1) est.textContent = k ? '★ Silabocho hallado' : '☆ Silabocho pendiente';
-  else est.textContent = (k===n ? '★ Silabochos hallados' : (k ? '★ ' : '☆ ')+'Silabochos pendientes')+' · '+k+' de '+n;
+  // «Silabochos ★☆☆☆»: una estrella por Silabocho, rellena si ya lo tienes
+  est.textContent = (n===1 ? 'Silabocho ' : 'Silabochos ') + '★'.repeat(k) + '☆'.repeat(n-k);
   est.className = 'estrella' + (k===n ? ' si' : k ? ' medio' : '');
   est.setAttribute('aria-label', n===1 ? (k ? 'Has encontrado el Silabocho' : 'Aún no has encontrado el Silabocho')
     : 'Has encontrado '+k+' de '+n+' Silabochos');
