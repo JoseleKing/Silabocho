@@ -27,7 +27,7 @@ js/juego.js             lógica del juego
 data/tableros.json      tableros generados (el juego los lee de aquí)
 manifest.webmanifest    datos de la app instalable
 sw.js                   service worker (funcionamiento sin conexión)
-icons/                  logo e iconos de la app (favicon.svg es el original)
+icons/                  logo e iconos de la app (favicon.svg es el original); og.png es la vista previa al compartir el enlace, generada desde og-fuente.html
 fonts/                  Bricolage Grotesque y Atkinson Hyperlegible, alojadas aquí para ir sin conexión
 generador/              scripts de Python que generan los tableros
   silabas.py            expansión del diccionario Hunspell y silabeador

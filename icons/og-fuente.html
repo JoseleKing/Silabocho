@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Fuente de icons/og.png, la imagen de vista previa (Open Graph) de 1200×630.
+     Para regenerarla: abrir con Chrome sin ventana a 1200×630 y hacer captura, p. ej.
+     chrome --headless=new --window-size=1200,630 --hide-scrollbars --screenshot=icons/og.png icons/og-fuente.html -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:"Bricolage Grotesque";font-weight:200 800;src:url(../fonts/bricolage.woff2) format("woff2")}
+  @font-face{font-family:"Atkinson Hyperlegible";font-weight:700;src:url(../fonts/atkinson-700.woff2) format("woff2")}
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+  body{background:#E8A33D;color:#1E2A3A;font-family:"Atkinson Hyperlegible",sans-serif;display:flex;align-items:center;gap:56px;padding:0 90px;box-sizing:border-box}
+  .reloj{width:330px;height:330px;flex:none}
+  .reloj .contorno{fill:none;stroke:#1E2A3A;stroke-width:4;stroke-linejoin:round}
+  .reloj rect,.reloj line{fill:#F6F1E7;stroke:#F6F1E7}
+  .texto{display:flex;flex-direction:column;gap:18px}
+  h1{margin:0;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:132px;letter-spacing:-.03em;line-height:.95}
+  h1 .met{color:#F6F1E7}
+  .lema{margin:0;font-size:40px;font-weight:700;line-height:1.15;white-space:nowrap}
+  .fichas{display:flex;gap:12px;margin-top:14px}
+  .fichas span{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:#F6F1E7;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:28px}
+  .fichas span.c{background:#1E2A3A;color:#E8A33D}
+</style>
+</head>
+<body>
+  <svg class="reloj" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <clipPath id="a"><path d="M50,50 C78,30 70,10 50,10 C30,10 22,30 50,50 Z"/></clipPath>
+      <clipPath id="b"><path d="M50,50 C78,70 70,90 50,90 C30,90 22,70 50,50 Z"/></clipPath>
+    </defs>
+    <rect x="20" y="36" width="60" height="16" clip-path="url(#a)"/>
+    <rect x="20" y="72" width="60" height="20" clip-path="url(#b)"/>
+    <line x1="50" y1="52" x2="50" y2="72" stroke-width="2"/>
+    <path class="contorno" d="M50,50 C78,30 70,10 50,10 C30,10 22,30 50,50 C78,70 70,90 50,90 C30,90 22,70 50,50 Z"/>
+  </svg>
+  <div class="texto">
+    <h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1>
+    <p class="lema">Ocho sílabas, muchas palabras</p>
+    <div class="fichas" aria-hidden="true"><span>TA</span><span>LA</span><span class="c">CA</span><span>BO</span><span>ZO</span></div>
+  </div>
+</body>
+</html>
