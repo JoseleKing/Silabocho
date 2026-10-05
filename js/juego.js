@@ -244,8 +244,8 @@ function renderEst(){
   const llegados = RANKS.map(()=>0);
   for(let d = 1; d <= t; d++){
     const b = BOARDS[(d-1) % BOARDS.length], f = S.found[d] || [], e = b.estrellas || [b.estrella];
+    if(!f.length) continue;                          // solo cuentan los días jugados (también para los Silabochos)
     estTot += e.length; est += e.filter(x=>f.includes(x)).length;
-    if(!f.length) continue;
     jugados.push(d); palabras += f.length;
     const r = datosDia(d); if(r.lleno) completos++;
     const k = RANKS.findIndex(x=>x[0]===r.rango);
@@ -254,7 +254,7 @@ function renderEst(){
   const cifra = (n, txt) => '<div class="est-cifra"><b>'+n+'</b><span>'+txt+'</span></div>';
   document.getElementById('est-cifras').innerHTML =
     cifra(jugados.length, jugados.length===1?'día jugado':'días jugados') + cifra(rachaActual(), 'racha actual') + cifra(rachaMejor(), 'mejor racha')
-    + cifra(completos, completos===1?'tablero completo':'tableros completos') + cifra(est+'<small>/'+estTot+'</small>', 'Silabochos') + cifra(palabras, 'palabras');
+    + cifra(completos, completos===1?'tablero completo':'tableros completos') + cifra(est+'<small>/'+estTot+'</small>', 'Silabochos de tus días') + cifra(palabras, 'palabras');
   const max = Math.max(1, ...llegados.slice(1));
   document.getElementById('est-niveles').innerHTML = RANKS.slice(1).map((r,j)=>{ const n = llegados[j+1];
     return '<div class="est-nivel'+(j+1===RANKS.length-1?' ultimo':'')+'"><span class="est-nombre">'+r[0]+'</span><span class="est-barra"><i style="width:'+(n ? Math.max(6, 100*n/max) : 0)+'%"></i></span><span class="est-n">'+n+'</span></div>'; }).join('')
