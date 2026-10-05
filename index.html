@@ -143,6 +143,7 @@
   <div class="pestanas" role="tablist">
     <button type="button" role="tab" id="tab-cal" aria-controls="panel-cal" aria-selected="true">Calendario</button>
     <button type="button" role="tab" id="tab-sil" aria-controls="panel-sil" aria-selected="false">Silabochario</button>
+    <button type="button" role="tab" id="tab-est" aria-controls="panel-est" aria-selected="false">Estadísticas</button>
   </div>
   <div class="panel" id="panel-cal" role="tabpanel" aria-labelledby="tab-cal">
   <div class="cal-head">
@@ -159,6 +160,12 @@
   <div class="panel" id="panel-sil" role="tabpanel" aria-labelledby="tab-sil" hidden>
     <p class="sil-cuenta" id="sil-cuenta"></p>
     <div class="sil-lista" id="sil-lista"></div>
+  </div>
+  <!-- Estadísticas: vista de conjunto de todos los días jugados -->
+  <div class="panel" id="panel-est" role="tabpanel" aria-labelledby="tab-est" hidden>
+    <div class="est-cifras" id="est-cifras"></div>
+    <h3 class="est-titulo">Días en que llegaste a cada nivel</h3>
+    <div class="est-niveles" id="est-niveles"></div>
   </div>
   <button class="btn" id="cal-cerrar" type="button">Cerrar</button>
 </dialog>

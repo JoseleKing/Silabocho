@@ -158,12 +158,26 @@ h1 .met{color:var(--accent-text)}
 .cal-mes{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:1.2rem;line-height:1;cursor:pointer;touch-action:manipulation}
 .cal-mes:disabled{visibility:hidden}
 /* pestañas del calendario: Calendario | Silabochario */
-.pestanas{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:3px;border-radius:999px;background:var(--bg)}
-.pestanas button{font:inherit;font-size:.88rem;font-weight:700;padding:7px 8px;border:none;border-radius:999px;background:none;color:var(--muted);cursor:pointer;touch-action:manipulation}
+.pestanas{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:3px;border-radius:999px;background:var(--bg)}
+.pestanas button{font:inherit;font-size:.82rem;font-weight:700;padding:7px 4px;border:none;border-radius:999px;background:none;color:var(--muted);cursor:pointer;touch-action:manipulation}
 .pestanas button[aria-selected="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(19,27,38,.15)}
 .pestanas button:focus-visible{outline:3px solid var(--fg);outline-offset:1px}
 .panel{display:flex;flex-direction:column;gap:10px}
 .panel[hidden]{display:none}
+/* estadísticas */
+.est-cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.est-cifra{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:12px;background:var(--bg);text-align:center}
+.est-cifra b{font-family:var(--display);font-size:1.5rem;font-weight:800;line-height:1}
+.est-cifra b small{font-size:.8rem;color:var(--muted)}
+.est-cifra span{font-size:.72rem;color:var(--muted);line-height:1.2}
+.est-titulo{margin:4px 0 0;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.est-niveles{display:flex;flex-direction:column;gap:5px}
+.est-nivel{display:grid;grid-template-columns:6.4em 1fr 2ch;align-items:center;gap:8px;font-size:.85rem}
+.est-barra{height:10px;border-radius:5px;background:var(--bg);overflow:hidden}
+.est-barra i{display:block;height:100%;border-radius:5px;background:var(--fg)}
+.est-nivel.ultimo .est-barra i{background:var(--accent)}
+.est-n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.est-vacio{margin:0;font-size:.85rem;color:var(--muted);text-align:center}
 .sil-cuenta{margin:0;text-align:center;font-family:var(--display);font-weight:700}
 .sil-lista{display:flex;flex-direction:column;gap:6px;max-height:min(52vh,420px);overflow-y:auto;margin-inline:-4px;padding-inline:4px}
 .sil-dia{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;text-align:left;cursor:pointer;touch-action:manipulation}

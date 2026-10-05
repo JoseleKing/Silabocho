@@ -13,6 +13,7 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - **Pistas** (botón bajo «Compartir»): tabla de las palabras que faltan por sílaba inicial y número de sílabas, y, si se pide, cómo empiezan los Silabochos pendientes. No quitan puntos ni dejan huella. No hay forma de rendirse en el tablero de hoy: las soluciones solo se pueden ver en los días pasados, desde la misma ventana de pistas.
 - **Resumen de ayer**: al abrir el juego en un día nuevo, si ayer se jugó, una franja discreta dice «Ayer: Hexasílabo · 18 de 26 palabras · Ver soluciones». Sale una vez al día; «Ver soluciones» lleva al tablero de ayer con las soluciones abiertas.
 - **Silabochario** (segunda pestaña del calendario, o tocando el distintivo de Silabochos): todos los Silabochos de cada día; los encontrados se ven enteros, los que faltan como huecos (una raya por sílaba) y los de días con las soluciones vistas, en gris.
+- **Estadísticas** (tercera pestaña del calendario): días jugados, racha actual y mejor racha, tableros completos, Silabochos y palabras encontradas, y una barra por nivel con los días en que se llegó a él (llegar a Hexasílabo cuenta también para los niveles de abajo).
 - El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
 - «Compartir resultado» copia o comparte el rango, los puntos, el tiempo y la racha, sin revelar palabras.
 - Es una PWA: se puede instalar en el móvil y funciona sin conexión.

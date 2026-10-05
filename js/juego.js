@@ -223,8 +223,33 @@ function quizaReglas(){ try{ if(localStorage.getItem(REGLAS_VISTAS)) return; loc
 function abrirCal(cual){ const f = dateOf(S.day); calMes = {y:f.getFullYear(), m:f.getMonth()}; renderCal(); document.getElementById('calendario').showModal();
   pestana(cual || 'cal'); const a = cual==='sil' ? document.getElementById('tab-sil') : document.querySelector('.cal-dia.actual'); if(a) a.focus({focusVisible:false}); }
 function pestana(cual){
-  ['cal','sil'].forEach(p=>{ document.getElementById('tab-'+p).setAttribute('aria-selected', p===cual); document.getElementById('panel-'+p).hidden = p!==cual; });
+  ['cal','sil','est'].forEach(p=>{ document.getElementById('tab-'+p).setAttribute('aria-selected', p===cual); document.getElementById('panel-'+p).hidden = p!==cual; });
   if(cual==='sil') renderSil();
+  if(cual==='est') renderEst();
+}
+
+// ---------- estadísticas: días jugados, rachas, tableros completos y niveles alcanzados ----------
+function renderEst(){
+  const t = today(), jugados = [];
+  let completos = 0, palabras = 0, est = 0, estTot = 0;
+  const llegados = RANKS.map(()=>0);
+  for(let d = 1; d <= t; d++){
+    const b = BOARDS[(d-1) % BOARDS.length], f = S.found[d] || [], e = b.estrellas || [b.estrella];
+    estTot += e.length; est += e.filter(x=>f.includes(x)).length;
+    if(!f.length) continue;
+    jugados.push(d); palabras += f.length;
+    const r = datosDia(d); if(r.lleno) completos++;
+    const k = RANKS.findIndex(x=>x[0]===r.rango);
+    for(let i = 1; i <= k; i++) llegados[i]++;      // llegar a Hexasílabo cuenta también para los de abajo
+  }
+  const cifra = (n, txt) => '<div class="est-cifra"><b>'+n+'</b><span>'+txt+'</span></div>';
+  document.getElementById('est-cifras').innerHTML =
+    cifra(jugados.length, jugados.length===1?'día jugado':'días jugados') + cifra(rachaActual(), 'racha actual') + cifra(rachaMejor(), 'mejor racha')
+    + cifra(completos, completos===1?'tablero completo':'tableros completos') + cifra(est+'<small>/'+estTot+'</small>', 'Silabochos') + cifra(palabras, 'palabras');
+  const max = Math.max(1, ...llegados.slice(1));
+  document.getElementById('est-niveles').innerHTML = RANKS.slice(1).map((r,j)=>{ const n = llegados[j+1];
+    return '<div class="est-nivel'+(j+1===RANKS.length-1?' ultimo':'')+'"><span class="est-nombre">'+r[0]+'</span><span class="est-barra"><i style="width:'+(n ? Math.max(6, 100*n/max) : 0)+'%"></i></span><span class="est-n">'+n+'</span></div>'; }).join('')
+    + (jugados.length ? '' : '<p class="est-vacio">Aún no has jugado ningún tablero. ¡Empieza hoy!</p>');
 }
 
 // ---------- Silabochario: los Silabochos de todos los días, de hoy hacia atrás ----------
@@ -412,6 +437,7 @@ function start(){
   document.getElementById('pistas-cerrar').onclick = ()=>pistasv.close();
   document.getElementById('tab-cal').onclick = ()=>pestana('cal');
   document.getElementById('tab-sil').onclick = ()=>pestana('sil');
+  document.getElementById('tab-est').onclick = ()=>pestana('est');
   document.getElementById('sil-lista').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
   document.getElementById('estrella').onclick = ()=>abrirCal('sil');   // atajo: el distintivo de Silabochos abre el Silabochario
   document.getElementById('rank').onclick = abrirRangos;
