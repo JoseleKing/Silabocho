@@ -155,14 +155,14 @@ button.cal-dia.completo{background:var(--accent);color:var(--accent-ink)}
 .portada{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   background:#E8A33D;color:#1E2A3A;cursor:pointer;transition:opacity .45s ease,visibility .45s;padding:16px}
 .portada.fuera{opacity:0;visibility:hidden;pointer-events:none}
-.reloj{width:min(46vw,210px);height:auto;overflow:visible;animation:latido 1.9s ease-in-out both}
+.reloj{width:min(46vw,210px);height:auto;overflow:visible;animation:latido 2.6s ease-in-out both}
 .reloj .contorno{fill:none;stroke:#1E2A3A;stroke-width:4;stroke-linejoin:round}
 .reloj rect{fill:#F6F1E7}
-.reloj .chorro{stroke:#F6F1E7;stroke-width:2;stroke-dasharray:1.6 2.4;animation:chorro .35s linear infinite,chorro-fin 1.9s ease-in both}
-.arena-arriba{animation:vaciar 1.8s cubic-bezier(.45,.05,.55,.95) both}
-.arena-abajo{animation:llenar 1.8s cubic-bezier(.45,.05,.55,.95) both}
-.portada-nombre{margin:14px 0 0;font-family:var(--display);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;animation:asoma .6s .25s ease-out both}
-.portada-lema{margin:0;font-size:.95rem;font-weight:700;animation:asoma-lema .6s .45s ease-out both}
+.reloj .chorro{stroke:#F6F1E7;stroke-width:2;stroke-dasharray:1.6 2.4;animation:chorro .35s linear infinite,chorro-fin 2.6s ease-in both}
+.arena-arriba{animation:vaciar 2.5s cubic-bezier(.45,.05,.55,.95) both}
+.arena-abajo{animation:llenar 2.5s cubic-bezier(.45,.05,.55,.95) both}
+.portada-nombre{margin:14px 0 0;font-family:var(--display);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;animation:asoma .7s .35s ease-out both}
+.portada-lema{margin:0;font-size:.95rem;font-weight:700;animation:asoma-lema .7s .6s ease-out both}
 /* la arena de arriba baja de nivel hasta vaciarse; la de abajo sube */
 @keyframes vaciar{from{transform:translateY(5px)}to{transform:translateY(23px)}}
 @keyframes llenar{from{transform:translateY(19px)}to{transform:translateY(3px)}}

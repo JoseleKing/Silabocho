@@ -285,7 +285,7 @@ function start(){
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
   [cal, reglas, rangos].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
-  document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
+  document.getElementById('del').onclick = ()=>{ S.cur = []; renderVerse(); };   // borra la palabra entera (con el teclado, Retroceso quita solo la última sílaba)
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
@@ -314,7 +314,7 @@ function start(){
 // ---------- portada ----------
 // Se queda lo justo para ver caer la arena (o menos si se toca) y se va cuando el juego está listo.
 const portada = document.getElementById('portada');
-const T0 = performance.now(), DURA = matchMedia('(prefers-reduced-motion: reduce)').matches ? 700 : 2000;
+const T0 = performance.now(), DURA = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1000 : 2800;
 let listo = false, tocada = false;
 function quitarPortada(){
   if(!portada || portada.classList.contains('fuera')) return;
