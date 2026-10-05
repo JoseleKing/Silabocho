@@ -327,9 +327,17 @@ function quizaResumen(){
   el.hidden = false;
 }
 function cerrarResumen(){ document.getElementById('resumen').hidden = true; try{ localStorage.setItem(RESUMEN_VISTO, String(today())); }catch(e){} }
+// como en Pistas, ver las soluciones pide un segundo toque: después ya no se suman puntos en ese tablero
+let confirmAyer = false, ayerTimer;
 function verAyer(){
-  const ayer = today() - 1; cerrarResumen();
-  if(!S.revealed[ayer]){ S.revealed[ayer] = true; save(); }   // ayer ya pasó: se pueden ver sin más confirmación
+  const ayer = today() - 1, b = document.getElementById('resumen-ver');
+  if(!S.revealed[ayer] && !confirmAyer){
+    confirmAyer = true; b.textContent = 'Toca otra vez: ya no sumarás puntos ayer'; b.classList.add('warn');
+    clearTimeout(ayerTimer); ayerTimer = setTimeout(()=>{ confirmAyer = false; b.textContent = 'Ver soluciones'; b.classList.remove('warn'); }, 5000);
+    return;
+  }
+  clearTimeout(ayerTimer); confirmAyer = false; cerrarResumen();
+  if(!S.revealed[ayer]){ S.revealed[ayer] = true; save(); }
   if(S.day === ayer) renderAll(); else irA(ayer);
   document.getElementById('found').open = true;
 }

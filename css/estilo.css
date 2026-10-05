@@ -45,6 +45,7 @@ h1 .met{color:var(--accent-text)}
 .resumen #resumen-txt b{color:var(--fg)}
 .resumen-ver{flex:none;font:inherit;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent-text);cursor:pointer;touch-action:manipulation}
 .resumen-ver[hidden]{display:none}
+.resumen-ver.warn{background:var(--bad);border-color:var(--bad);color:#FFFFFF}
 .resumen-cerrar{flex:none;width:26px;height:26px;border:none;border-radius:50%;background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;touch-action:manipulation}
 .resumen button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .otro-dia button{flex:none;font:inherit;font-weight:700;padding:4px 12px;border-radius:999px;border:none;background:var(--fg);color:var(--bg);cursor:pointer;touch-action:manipulation}
