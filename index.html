@@ -36,22 +36,25 @@
 </div>
 <div class="app">
   <header>
-    <div class="brand"><img src="icons/favicon.svg" alt="" width="44" height="44"><div class="titulo"><h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1><p class="fecha" id="fecha"></p></div></div>
-    <button class="ayuda" id="ayuda" type="button" aria-haspopup="dialog" aria-label="Cómo se juega" title="Cómo se juega">?</button>
-  </header>
-  <div class="sub">
-    <button class="pasados" id="pasados" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Juegos pasados</button>
+    <div class="brand"><img src="icons/favicon.svg" alt="" width="36" height="36"><h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1></div>
+    <div class="barra">
+    <button class="redondo" id="pasados" type="button" aria-haspopup="dialog" aria-label="Juegos pasados" title="Juegos pasados"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>
     <button class="racha" id="racha" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M13.6 2c.4 3-.9 4.8-2.3 6.4-.6-1.1-1.5-1.9-2.7-2.3.5 2-.4 3.5-1.5 5.1C6.1 12.6 5.3 14.1 5.3 16c0 3.6 3 6.2 6.7 6.2s6.7-2.6 6.7-6.2c0-2.7-1.3-4.8-2.5-6.8-1.2-1.9-2.3-3.9-2.6-7.2zM12 20.4c-1.7 0-3-1.2-3-2.8 0-1.4.9-2.4 1.8-3.5.3.8.8 1.3 1.5 1.6.1-1.2.5-2.3 1.1-3.3.9 1.4 1.6 2.9 1.6 4.6 0 2-1.3 3.4-3 3.4z"/></svg><span id="rachan">0</span></button>
     <span class="timer" id="timer" role="timer" aria-label="Tiempo jugado"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 15C19 10 17 3 12 3S5 10 12 15C19 20 17 27 12 27S5 20 12 15Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg><span id="time">0:00</span></span>
+    <button class="redondo ayuda" id="ayuda" type="button" aria-haspopup="dialog" aria-label="Cómo se juega" title="Cómo se juega">?</button>
+    </div>
+  </header>
+  <!-- Solo cuando se juega un día anterior -->
+  <div class="otro-dia" id="otrodia" hidden><span id="otrodia-txt"></span><button type="button" id="volver">Volver a hoy</button></div>
+
+  <!-- Rango en una línea; al tocarlo, la tabla de rangos -->
+  <button class="rank" id="rank" type="button" aria-haspopup="dialog"><span class="rank-name" id="rankname">Bisílabo</span><span class="meter" id="meter"></span><span class="rank-pts" id="pts">0</span></button>
+
+  <!-- La palabra que se escribe; los avisos salen en su sitio -->
+  <div class="entrada" id="entrada">
+    <div class="verse" id="verse" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status"></div>
   </div>
-
-  <section class="rank" aria-live="polite">
-    <div class="rank-top"><span class="rank-name" id="rankname">Bisílabo</span><span class="rank-pts" id="pts">0 puntos</span></div>
-    <div class="meter" id="meter"></div>
-  </section>
-
-  <div class="verse" id="verse" aria-live="polite"></div>
-  <div class="toast" id="toast" role="status"></div>
 
   <div class="rose" id="rose"></div>
 
@@ -89,6 +92,13 @@
       </ul>
   <button class="btn primary" id="reglas-cerrar" type="button">¡A jugar!</button>
 </dialog>
+<!-- Rangos: puntos necesarios para cada uno en este tablero -->
+<dialog class="ventana rangos" id="rangos" aria-labelledby="rangos-titulo">
+  <h2 id="rangos-titulo">Rangos</h2>
+  <p class="rangos-pts" id="rangos-pts"></p>
+  <ol class="rangos-lista" id="rangos-lista"></ol>
+  <button class="btn" id="rangos-cerrar" type="button">Cerrar</button>
+</dialog>
 <!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
 <dialog class="ventana calendario" id="calendario" aria-labelledby="cal-titulo">
   <div class="cal-head">
@@ -96,6 +106,7 @@
     <h2 id="cal-titulo">octubre de 2026</h2>
     <button class="cal-mes" id="cal-next" type="button" aria-label="Mes siguiente">›</button>
   </div>
+  <p class="cal-fecha" id="fecha"></p>
   <div class="cal-dias" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
   <div class="cal-grid" id="cal-grid"></div>
   <div class="cal-leyenda"><span><i class="l-jugado"></i>Jugado</span><span><i class="l-completo"></i>Alejandrino</span><span><i class="l-visto"></i>Soluciones vistas</span></div>

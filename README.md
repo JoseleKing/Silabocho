@@ -6,10 +6,10 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - Se forman palabras de 2 o más sílabas tocando las fichas; las sílabas se pueden repetir.
 - Toda palabra debe contener la sílaba central.
 - Puntos: 2 sílabas = 1; 3 = 2; 4 = 4; 5 o más = 6. Las **palabras estrella** o **Silabochos** (todas las que empatan con el máximo de sílabas del tablero; puede haber una o varias) suman 5 más cada una. El juego muestra cuántos llevas («1 de 2») sin decir cuáles son.
-- Rangos según el porcentaje de puntos: Bisílabo 0 %, Trisílabo 5 %, Tetrasílabo 12 %, Pentasílabo 22 %, Hexasílabo 35 %, Heptasílabo 50 %, Octosílabo 70 %, Alejandrino 100 %.
+- Rangos según el porcentaje de puntos: Bisílabo 0 %, Trisílabo 5 %, Tetrasílabo 12 %, Pentasílabo 22 %, Hexasílabo 35 %, Heptasílabo 50 %, Octosílabo 70 %, Alejandrino 100 %. Tocando la línea del rango se ven los puntos que pide cada uno en ese tablero.
 - Un tablero por día. El **nº 1 es el 4 de octubre de 2026**. Con «Juegos pasados» (calendario) se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
 - Un reloj cuenta el tiempo jugado en cada tablero (minutos y segundos). Empieza al tocar la primera sílaba, se detiene mientras la app no está a la vista y se queda fijo al completar el tablero o al ver las soluciones.
-- **Racha** (llama junto a la fecha): días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar el archivo no cuenta. Si hoy aún no has jugado pero sí ayer, la racha sigue viva (borde discontinuo) hasta medianoche. Al tocarla se ve también la mejor racha.
+- **Racha** (llama en la barra de arriba): días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar el archivo no cuenta. Si hoy aún no has jugado pero sí ayer, la racha sigue viva (borde discontinuo) hasta medianoche. Al tocarla se ve también la mejor racha.
 - El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
 - «Compartir resultado» copia o comparte el rango, los puntos, el tiempo y la racha, sin revelar palabras.
 - Es una PWA: se puede instalar en el móvil y funciona sin conexión.

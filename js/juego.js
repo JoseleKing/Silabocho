@@ -97,7 +97,8 @@ function renderVerse(){
 function renderScore(){
   const k = rankIndex();
   document.getElementById('rankname').textContent = RANKS[k][0];
-  document.getElementById('pts').textContent = score()+' de '+total()+' puntos';
+  document.getElementById('pts').textContent = score();
+  document.getElementById('rank').setAttribute('aria-label', 'Rango: '+RANKS[k][0]+', '+score()+' de '+total()+' puntos. Ver los rangos');
   document.getElementById('meter').innerHTML = RANKS.map((r,i)=>'<span class="'+(i<=k?'on':'')+(i===RANKS.length-1?' last':'')+'" title="'+r[0]+'"></span>').join('');
 }
 function renderWords(){
@@ -133,6 +134,9 @@ function renderNav(){
   const t = today();
   const fecha = dateOf(S.day).toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
   document.getElementById('fecha').textContent = (S.day===t ? 'Hoy, ' : '')+fecha+' · nº '+S.day;
+  // aviso cuando se juega un día anterior, con atajo para volver al de hoy
+  document.getElementById('otrodia').hidden = S.day===t;
+  document.getElementById('otrodia-txt').textContent = 'Nº '+S.day+' · '+fecha;
 }
 
 // ---------- calendario de juegos pasados ----------
@@ -158,6 +162,16 @@ function renderCal(){
   }
   document.getElementById('cal-grid').innerHTML = html;
 }
+// ---------- rangos ----------
+function abrirRangos(){
+  const k = rankIndex(), tot = total();
+  document.getElementById('rangos-pts').textContent = 'Llevas '+score()+' de '+tot+' puntos en este tablero.';
+  document.getElementById('rangos-lista').innerHTML = RANKS.map((r,i)=>'<li class="'+(i<k?'hecho':i===k?'actual':'')+'"><span>'+r[0]+'</span><span>'
+    +(i===RANKS.length-1 ? 'todas las palabras' : Math.ceil(r[1]*tot-1e-9)+(Math.ceil(r[1]*tot-1e-9)===1?' punto':' puntos'))+'</span></li>').join('');
+  document.getElementById('rangos').showModal();
+  document.getElementById('rangos-cerrar').focus({focusVisible:false});
+}
+
 // ---------- reglas ----------
 const REGLAS_VISTAS = 'silabocho-reglas-vistas';
 function abrirReglas(){ const d = document.getElementById('reglas'); if(d.open) return; d.showModal(); document.getElementById('reglas-cerrar').focus({focusVisible:false}); }
@@ -170,7 +184,12 @@ function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d
 function irA(n){ n = Math.min(today(), Math.max(1, n)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
 let tt;
-function toast(msg, kind){ const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast'+(kind?' '+kind:''); clearTimeout(tt); if(msg) tt=setTimeout(()=>{t.textContent='';},2200); }
+// los avisos salen en el hueco de la palabra y la tapan mientras se ven
+function toast(msg, kind){
+  const t = document.getElementById('toast'), e = document.getElementById('entrada');
+  t.textContent = msg; t.className = 'toast'+(kind?' '+kind:''); e.classList.toggle('aviso', !!msg);
+  clearTimeout(tt); if(msg) tt=setTimeout(()=>{ t.textContent=''; e.classList.remove('aviso'); },2200);
+}
 
 function submit(){
   const cur = S.cur; if(!cur.length) return;
@@ -255,10 +274,13 @@ function start(){
   document.getElementById('cal-next').onclick = ()=>moverMes(1);
   document.getElementById('cal-cerrar').onclick = ()=>cal.close();
   document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
-  const reglas = document.getElementById('reglas');
+  const reglas = document.getElementById('reglas'), rangos = document.getElementById('rangos');
+  document.getElementById('rank').onclick = abrirRangos;
+  document.getElementById('rangos-cerrar').onclick = ()=>rangos.close();
+  document.getElementById('volver').onclick = ()=>irA(today());
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
-  [cal, reglas].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
+  [cal, reglas, rangos].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
   document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
@@ -267,7 +289,7 @@ function start(){
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
-    if(cal.open || reglas.open) return;
+    if(cal.open || reglas.open || rangos.open) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); }
     else if(e.key==='Backspace'){ S.cur.pop(); renderVerse(); }
   });
