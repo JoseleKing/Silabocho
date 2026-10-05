@@ -2,7 +2,7 @@
 // Silabocho: un tablero por día. El día 1 es el 1 de octubre de 2026; si hay menos tableros
 // que días, se vuelve a empezar por el primero.
 
-const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.55],["Alejandrino",.75]];
+const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.50],["Alejandrino",.70]];
 const START = Date.UTC(2026, 9, 1);
 const INICIO = '2026-10-01';   // se guarda con el progreso para saber con qué numeración se jugó
 const ORDEN = 2;                // versión del orden de tableros (2: catarata pasó del día 4 al 7)
@@ -47,7 +47,7 @@ function myFound(){ return S.found[S.day] || (S.found[S.day]=[]); }
 function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0]===x); return a+(w?wordPoints(w):0); },0); }
 const allFound = () => myFound().length >= words().length;
 function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
-// el rango va por porcentaje de puntos (Alejandrino, el 75 %); encontrarlas todas da aparte el «Tablero completo»
+// el rango va por porcentaje de puntos (Alejandrino, el 70 %, como el «Genius» de Spelling Bee); encontrarlas todas da aparte el «Tablero completo»
 function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
 
 // ---------- reloj: tiempo jugado en cada tablero ----------
