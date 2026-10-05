@@ -2,7 +2,8 @@
 // Silabocho: un tablero por día. El día 1 es el 1 de octubre de 2026; si hay menos tableros
 // que días, se vuelve a empezar por el primero.
 
-const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.50],["Alejandrino",.70]];
+// Monosílabo es el punto de partida (0 puntos, barra vacía); desde el primer punto, Bisílabo
+const RANKS = [["Monosílabo",0],["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.50],["Alejandrino",.70]];
 const START = Date.UTC(2026, 9, 1);
 const INICIO = '2026-10-01';   // se guarda con el progreso para saber con qué numeración se jugó
 const ORDEN = 2;                // versión del orden de tableros (2: catarata pasó del día 4 al 7)
@@ -48,7 +49,9 @@ function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0
 const allFound = () => myFound().length >= words().length;
 function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
 // el rango va por porcentaje de puntos (Alejandrino, el 70 %, como el «Genius» de Spelling Bee); encontrarlas todas da aparte el «Tablero completo»
-function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
+function rankIndex(){ if(!score()) return 0; const frac = score()/total(); let k = 1; RANKS.forEach((r,i)=>{ if(i && frac>=r[1]-1e-9) k=i; }); return k; }
+// puntos que pide cada nivel en este tablero (Bisílabo, al menos 1)
+const puntosRango = (i, tot) => i===0 ? 0 : Math.max(1, Math.ceil(RANKS[i][1]*tot-1e-9));
 
 // ---------- reloj: tiempo jugado en cada tablero ----------
 // Empieza al tocar la primera sílaba, solo corre con la app a la vista y se para al
@@ -134,7 +137,8 @@ function renderScore(){
   document.getElementById('rankname').textContent = RANKS[k][0];
   document.getElementById('pts').textContent = score();
   document.getElementById('rank').setAttribute('aria-label', 'Rango: '+RANKS[k][0]+', '+score()+' de '+total()+' puntos. Ver los rangos');
-  document.getElementById('meter').innerHTML = RANKS.map((r,i)=>'<span class="'+(i<=k?'on':'')+(i===RANKS.length-1?' last':'')+'" title="'+r[0]+'"></span>').join('');
+  // un tramo por nivel desde Bisílabo: con Monosílabo (0 puntos) la barra está vacía
+  document.getElementById('meter').innerHTML = RANKS.slice(1).map((r,j)=>'<span class="'+(j+1<=k?'on':'')+(j+1===RANKS.length-1?' last':'')+'" title="'+r[0]+'"></span>').join('');
 }
 function renderWords(){
   const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
@@ -205,7 +209,7 @@ function abrirRangos(){
   document.getElementById('rangos-pts').textContent = 'Llevas '+score()+' de '+tot+' puntos en este tablero.'
     +(allFound() ? ' ★ ¡Tablero completo!' : ' Si encuentras todas las palabras, consigues además el distintivo ★ Tablero completo.');
   document.getElementById('rangos-lista').innerHTML = RANKS.map((r,i)=>'<li class="'+(i<k?'hecho':i===k?'actual':'')+'"><span>'+r[0]+'</span><span>'
-    +Math.ceil(r[1]*tot-1e-9)+(Math.ceil(r[1]*tot-1e-9)===1?' punto':' puntos')+'</span></li>').join('');
+    +puntosRango(i,tot)+(puntosRango(i,tot)===1?' punto':' puntos')+'</span></li>').join('');
   document.getElementById('rangos').showModal();
   document.getElementById('rangos-cerrar').focus({focusVisible:false});
 }
@@ -329,7 +333,7 @@ function reveal(){
 function shareText(){
   const k = rankIndex(), f = myFound(), n = stars().length, ks = stars().filter(x=>f.includes(x)).length;
   const star = !ks ? '' : n===1 ? ' ★' : ' ★ '+ks+'/'+n;
-  const barra = RANKS.map((r,i)=>i<=k?'▰':'▱').join('');
+  const barra = RANKS.slice(1).map((r,j)=>j+1<=k?'▰':'▱').join('');
   const lineas = [
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
     barra+'  '+score()+'/'+total()+' puntos'+' · '+f.length+(f.length===1?' palabra':' palabras')+star,
