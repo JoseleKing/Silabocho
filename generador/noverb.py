@@ -1,5 +1,7 @@
-"""NOVERB: palabras del diccionario que no son formas verbales conjugadas.
-Se admiten sustantivos, adjetivos, etc. con sus plurales y femeninos, más infinitivos y participios.
+"""NOVERB: palabras del diccionario que no son formas verbales.
+Se admiten sustantivos, adjetivos, etc. con sus femeninos, y de los verbos solo el infinitivo
+(decidido el 2026-10-05). Los participios no valen como tales (cantado, alejada); sí los que el
+diccionario trae como palabra propia por ser también sustantivo o adjetivo (comida, salida, helado).
 
 Una palabra que es a la vez forma verbal y otra cosa (casa, llama, paso) vale, salvo que esa
 otra lectura solo salga de aplicar un prefijo (a+cabe → acabe, de+bes → debes) o de la regla de
@@ -54,8 +56,7 @@ for ln in open(DIC_PATH, encoding='utf-8').read().split('\n')[1:]:
         continue
     if esverbo:
         VERB |= forms
-        NOVERB.add(stem)
-        NOVERB |= forms & participios(stem)
+        NOVERB.add(stem)          # solo el infinitivo
     else:
         NOVERB |= forms - debiles
         DEBILES |= debiles
@@ -67,4 +68,23 @@ NOVERB |= DEBILES - VERB
 _adm = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'admitidas.txt')
 ADMITIDAS = {w for ln in open(_adm, encoding='utf-8') for w in ln.split('#', 1)[0].lower().split()}
 NOVERB -= {w for w in (SUELTAS - CON_MARCAS) & VERB
-           if w not in ADMITIDAS and not re.search(r'(ar|er|ir|ír)$', w) and not re.search(r'(ad|id|íd)[oa]s?$', w)}
+           if w not in ADMITIDAS and not re.search(r'(ar|er|ir|ír)$', w)}
+
+# formas de verbos defectivos o irregulares que el diccionario trae sueltas (abolieras, garantirás,
+# erguís): raíz de un infinitivo + terminación de la conjugación regular. Para no confundir palabras
+# como «entre» o «sobre», solo cuentan las terminaciones de 3 letras o más, o con tilde.
+def _terminaciones():
+    lineas = {ln.partition('/')[0]: ln for ln in open(DIC_PATH, encoding='utf-8').read().split('\n')[1:] if ln}
+    out = set()
+    for v in ('amar', 'temer', 'partir'):
+        stem, _, fl = lineas[v].partition('/')
+        for f in fl.split()[0]:
+            for w, _, kind, _ in apply(stem, f, rules):
+                if kind == 'SFX' and w.startswith(stem[:-2]):
+                    out.add(w[len(stem) - 2:])
+    return {e for e in out if (len(e) >= 3 or re.search('[áéíóú]', e)) and e != 'ible'}
+_TERM = _terminaciones()
+_RAICES = {w[:-2] for w in CON_MARCAS | SUELTAS if re.search(r'(ar|er|ir)$', w) and len(w) > 3}
+def _conjugada_suelta(w):
+    return any(w[:i] in _RAICES and w[i:] in _TERM for i in range(2, len(w) - 1))
+NOVERB -= {w for w in SUELTAS - CON_MARCAS if w not in ADMITIDAS and _conjugada_suelta(w)}
