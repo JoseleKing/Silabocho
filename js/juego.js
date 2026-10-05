@@ -107,6 +107,8 @@ function renderWords(){
   const f = myFound(), list = document.getElementById('words'), rev = S.revealed[S.day];
   document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
   document.getElementById('foundtotal').textContent = 'de '+words().length;
+  // línea plegada: las últimas que has encontrado, de la más reciente a la más antigua
+  document.getElementById('ultimas').textContent = rev ? 'Soluciones a la vista' : f.length ? f.slice().reverse().join(', ') : '';
   // distintivo de los Silabochos: hallados o pendientes (sin decir cuáles son)
   const n = stars().length, k = stars().filter(x=>f.includes(x)).length, est = document.getElementById('estrella');
   if(n===1) est.textContent = k ? '★ Silabocho hallado' : '☆ Silabocho pendiente';
@@ -162,6 +164,12 @@ function renderCal(){
   }
   document.getElementById('cal-grid').innerHTML = html;
 }
+// ---------- reglas ----------
+const REGLAS_VISTAS = 'silabocho-reglas-vistas';
+function abrirReglas(){ const d = document.getElementById('reglas'); if(d.open) return; d.showModal(); document.getElementById('reglas-cerrar').focus({focusVisible:false}); }
+// la primera vez que se juega, las reglas se abren solas al irse la portada
+function quizaReglas(){ try{ if(localStorage.getItem(REGLAS_VISTAS)) return; localStorage.setItem(REGLAS_VISTAS, '1'); }catch(e){ return; } abrirReglas(); }
+
 function abrirCal(){ const f = dateOf(S.day); calMes = {y:f.getFullYear(), m:f.getMonth()}; renderCal(); document.getElementById('calendario').showModal();
   const a = document.querySelector('.cal-dia.actual'); if(a) a.focus({focusVisible:false}); }
 function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d.getFullYear(), m:d.getMonth()}; renderCal(); }
@@ -211,6 +219,7 @@ function reveal(){
     clearTimeout(revealTimer); revealTimer = setTimeout(()=>{ if(confirmReveal && !S.revealed[S.day]){ confirmReveal = false; b.classList.remove('warn'); b.textContent = revealText(); } }, 5000);   // si no confirma, vuelve a su estado
     return; }
   S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
+  document.getElementById('found').open = true;   // las soluciones están en la lista
 }
 
 // ---------- compartir (rango y puntos, sin palabras) ----------
@@ -261,7 +270,10 @@ function start(){
   document.getElementById('cal-next').onclick = ()=>moverMes(1);
   document.getElementById('cal-cerrar').onclick = ()=>cal.close();
   document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
-  cal.addEventListener('click', e=>{ if(e.target===cal) cal.close(); });   // tocar fuera lo cierra
+  const reglas = document.getElementById('reglas');
+  document.getElementById('ayuda').onclick = abrirReglas;
+  document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
+  [cal, reglas].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
   document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
@@ -270,7 +282,7 @@ function start(){
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
-    if(cal.open) return;
+    if(cal.open || reglas.open) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); }
     else if(e.key==='Backspace'){ S.cur.pop(); renderVerse(); }
   });
@@ -296,6 +308,7 @@ let listo = false, tocada = false;
 function quitarPortada(){
   if(!portada || portada.classList.contains('fuera')) return;
   portada.classList.add('fuera');
+  if(listo) quizaReglas();
   setTimeout(()=>portada.remove(), 500);
 }
 function quizaQuitarPortada(){ if(listo && (tocada || performance.now()-T0 >= DURA)) quitarPortada(); }

@@ -37,6 +37,7 @@
 <div class="app">
   <header>
     <div class="brand"><img src="icons/favicon.svg" alt="" width="44" height="44"><div class="titulo"><h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1><p class="fecha" id="fecha"></p></div></div>
+    <button class="ayuda" id="ayuda" type="button" aria-haspopup="dialog" aria-label="Cómo se juega" title="Cómo se juega">?</button>
   </header>
   <div class="sub">
     <button class="pasados" id="pasados" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Juegos pasados</button>
@@ -60,17 +61,21 @@
     <button class="btn primary" id="send">Enviar</button>
   </div>
 
-  <section class="found">
-    <div class="found-head"><span><b id="foundcount">0 palabras</b> <span id="foundtotal"></span></span><span class="estrella" id="estrella" role="status"></span></div>
-    <div class="words" id="words"></div>
-  </section>
+  <!-- Palabras halladas: plegadas en una línea (cuántas y las últimas); al abrir, los grupos por sílabas -->
+  <details class="found" id="found">
+    <summary><span class="found-n"><b id="foundcount">0 palabras</b> <span id="foundtotal"></span></span><span class="found-ultimas" id="ultimas"></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="found-body">
+      <span class="estrella" id="estrella" role="status"></span>
+      <div class="words" id="words"></div>
+    </div>
+  </details>
 
   <button class="btn share" id="share">Compartir resultado</button>
   <button class="btn primary reveal" id="reveal">Rendirse y ver soluciones</button>
-
-  <div class="foot">
-    <details>
-      <summary>Cómo se juega</summary>
+</div>
+<!-- Reglas: se abren solas la primera vez y luego con el botón «?» -->
+<dialog class="ventana reglas" id="reglas" aria-labelledby="reglas-titulo">
+  <h2 id="reglas-titulo">Cómo se juega</h2>
       <ul>
         <li>Toca las sílabas para formar palabras de dos sílabas o más. Puedes repetir sílabas.</li>
         <li>Todas las palabras deben llevar la sílaba central.</li>
@@ -83,11 +88,10 @@
         <li>La racha (llama) cuenta los días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar días anteriores no la cambia.</li>
         <li>El reloj cuenta el tiempo que llevas jugando cada tablero desde que tocas la primera sílaba. Se detiene mientras no estás en la app y se queda fijo al completar el tablero o al ver las soluciones.</li>
       </ul>
-    </details>
-  </div>
-</div>
+  <button class="btn primary" id="reglas-cerrar" type="button">¡A jugar!</button>
+</dialog>
 <!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
-<dialog class="calendario" id="calendario" aria-labelledby="cal-titulo">
+<dialog class="ventana calendario" id="calendario" aria-labelledby="cal-titulo">
   <div class="cal-head">
     <button class="cal-mes" id="cal-prev" type="button" aria-label="Mes anterior">‹</button>
     <h2 id="cal-titulo">octubre de 2026</h2>

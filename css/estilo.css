@@ -29,6 +29,7 @@ h1 .met{color:var(--accent-text)}
   border:1px solid var(--line);border-radius:999px;background:var(--panel);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .pasados svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .titulo{display:flex;flex-direction:column;min-width:0}
+.ayuda{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-family:var(--display);font-weight:800;font-size:1.1rem;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .sub{display:flex;align-items:stretch;gap:8px}
 .fecha{margin:0;font-size:.82rem;line-height:1.25;color:var(--muted)}
 .racha{display:inline-flex;align-items:center;gap:4px;font:inherit;font-size:.85rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;
@@ -60,7 +61,7 @@ h1 .met{color:var(--accent-text)}
 .tile{position:absolute;width:24%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:1.5px solid var(--line);background:var(--panel);color:var(--fg);font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,5.2vw,1.4rem);text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s ease,left .3s ease,top .3s ease;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .tile:active{transform:translate(-50%,-50%) scale(.92)}
 .tile.center{width:28%;background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:800}
-.tile:focus-visible,.btn:focus-visible,.pasados:focus-visible,.cal-mes:focus-visible,.cal-dia:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.tile:focus-visible,.btn:focus-visible,.pasados:focus-visible,.ayuda:focus-visible,.cal-mes:focus-visible,.cal-dia:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .btn{border:1.5px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:11px 8px;font-family:var(--body);font-weight:700;font-size:.92rem;cursor:pointer}
 .btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -70,14 +71,19 @@ h1 .met{color:var(--accent-text)}
 .btn.icono.gira svg{animation:gira .45s ease}
 @keyframes gira{to{transform:rotate(180deg)}}
 .btn.share{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.found{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.found-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem;color:var(--muted)}
-.found-head b{color:var(--fg);font-family:var(--display);font-size:1rem}
-.found-head{align-items:center;gap:8px}
+.found{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.found summary{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-size:.85rem;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.found summary::-webkit-details-marker{display:none}
+.found summary:focus-visible{outline:3px solid var(--fg);outline-offset:2px;border-radius:14px}
+.found-n{flex:none}
+.found-n b{color:var(--fg);font-family:var(--display);font-size:1rem}
+.found-ultimas{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--fg)}
+.found .chevron{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s ease}
+.found[open] .chevron{transform:rotate(180deg)}
+.found-body{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 14px 14px}
 .estrella{flex:none;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted);white-space:nowrap}
 .estrella.si{background:var(--accent);border:1px solid var(--accent);color:var(--accent-ink)}
 .estrella.medio{border:1px solid var(--accent);color:var(--accent-text)}
-.found-head{flex-wrap:wrap}
 .words{display:flex;flex-direction:column;gap:10px}
 .grupo{display:flex;flex-direction:column;gap:5px}
 .grupo-n{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
@@ -91,18 +97,18 @@ h1 .met{color:var(--accent-text)}
 .grupo.extra{padding-top:8px;border-top:1px dashed var(--line)}
 .w.missed{color:var(--muted);border:1px dashed var(--line);background:transparent}
 .empty{font-size:.88rem;color:var(--muted)}
-.foot{display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--muted)}
-.foot details summary{cursor:pointer;font-weight:700;color:var(--fg)}
-.foot ul{margin:6px 0 0;padding-left:18px}
 .btn.reveal{margin-top:-6px}
 .btn.reveal.warn{background:var(--bad);border-color:var(--bad);color:#FFFFFF}
 .btn.reveal.visto{opacity:.55;cursor:default}
 
-/* ---------- calendario de juegos pasados ---------- */
-.calendario{width:min(360px,calc(100vw - 32px));box-sizing:border-box;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--fg);
+/* ---------- ventanas (reglas y calendario) ---------- */
+.ventana{width:min(360px,calc(100vw - 32px));box-sizing:border-box;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--fg);
   font-family:var(--body);box-shadow:0 18px 50px rgba(19,27,38,.25)}
-.calendario[open]{display:flex;flex-direction:column;gap:10px}
-.calendario::backdrop{background:rgba(19,27,38,.45)}
+.ventana[open]{display:flex;flex-direction:column;gap:10px}
+.ventana::backdrop{background:rgba(19,27,38,.45)}
+.reglas{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow-y:auto}
+.reglas h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.reglas ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cal-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.15rem}
 .cal-head h2::first-letter{text-transform:uppercase}
@@ -127,7 +133,7 @@ button.cal-dia.completo{background:var(--accent);color:var(--accent-ink)}
 .l-jugado{background:var(--accent-text);transform:scale(.6)}
 .l-completo{background:var(--accent)}
 .l-visto{border:1.5px dashed var(--muted);box-sizing:border-box}
-@media (prefers-reduced-motion: reduce){.tile{transition:none}.btn.icono.gira svg{animation:none}}
+@media (prefers-reduced-motion: reduce){.tile{transition:none}.found .chevron{transition:none}.btn.icono.gira svg{animation:none}}
 
 /* ---------- portada fugaz ---------- */
 /* Pantalla de marca (igual en claro y oscuro): fondo ocre, reloj azul marino, arena crema. */
