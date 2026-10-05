@@ -198,14 +198,17 @@ function submit(){
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
+  if(!confirmReveal) document.getElementById('reveal').textContent = revealText();
   clear(); renderScore(); renderWords(); renderClock();
 }
 let confirmReveal = false, revealTimer;
+// si aún faltan palabras, ver las soluciones es rendirse
+const revealText = () => S.revealed[S.day] ? 'Soluciones a la vista' : allFound() ? 'Ver soluciones' : 'Rendirse y ver soluciones';
 function reveal(){
   const b = document.getElementById('reveal');
   if(S.revealed[S.day]) return;
   if(!confirmReveal){ confirmReveal = true; b.textContent = 'Toca otra vez para confirmar: ya no podrás sumar puntos en este tablero'; b.classList.add('warn');
-    clearTimeout(revealTimer); revealTimer = setTimeout(()=>{ if(confirmReveal && !S.revealed[S.day]){ confirmReveal = false; b.classList.remove('warn'); b.textContent = 'Ver soluciones'; } }, 5000);   // si no confirma, vuelve a su estado
+    clearTimeout(revealTimer); revealTimer = setTimeout(()=>{ if(confirmReveal && !S.revealed[S.day]){ confirmReveal = false; b.classList.remove('warn'); b.textContent = revealText(); } }, 5000);   // si no confirma, vuelve a su estado
     return; }
   S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
 }
@@ -244,7 +247,7 @@ async function share(){
 
 function renderAll(){
   const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
-  b.textContent = S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
+  b.textContent = revealText();
   b.classList.toggle('visto', !!S.revealed[S.day]); b.disabled = !!S.revealed[S.day];
   S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
 }

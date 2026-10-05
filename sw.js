@@ -1,6 +1,6 @@
 // Service worker de Silabocho: guarda el juego en el dispositivo para que funcione sin conexión.
 // Al cambiar cualquier archivo del juego, sube VERSION para que los móviles reciban la nueva versión.
-const VERSION = 'silabocho-v11';
+const VERSION = 'silabocho-v12';
 const ARCHIVOS = [
   './', 'index.html', 'css/estilo.css', 'js/juego.js', 'data/tableros.json', 'manifest.webmanifest',
   'fonts/bricolage.woff2', 'fonts/atkinson-400.woff2', 'fonts/atkinson-700.woff2',
