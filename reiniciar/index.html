@@ -6,22 +6,34 @@
 <meta name="robots" content="noindex">
 <title>Reiniciar Silabocho</title>
 <style>
-  :root{--bg:#F6F1E7;--fg:#1E2A3A;--muted:#5E6470}
-  @media (prefers-color-scheme: dark){:root{--bg:#131B26;--fg:#F6F1E7;--muted:#A7AEB9}}
+  :root{--bg:#F6F1E7;--fg:#1E2A3A;--muted:#5E6470;--panel:#FFFCF5;--line:#E2D8C5;--bad:#B42335}
+  @media (prefers-color-scheme: dark){:root{--bg:#131B26;--fg:#F6F1E7;--muted:#A7AEB9;--panel:#1E2A3A;--line:#2E3B4E;--bad:#C93246}}
   body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
     background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;padding:16px}
   img{width:64px;height:64px}
-  p{margin:0} .sub{color:var(--muted);font-size:.9rem}
+  p{margin:0} .sub{color:var(--muted);font-size:.9rem;max-width:32em}
+  .botones{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+  .botones[hidden]{display:none}
+  button,a.btn{font:inherit;font-weight:700;padding:11px 20px;border-radius:999px;cursor:pointer;text-decoration:none;border:1.5px solid var(--line);background:var(--panel);color:var(--fg)}
+  button.borrar{background:var(--bad);border-color:var(--bad);color:#FFFFFF}
+  button:focus-visible,a.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 </style>
 </head>
 <body>
 <img src="../icons/favicon.svg" alt="">
-<p id="msg"><b>Reiniciando Silabocho…</b></p>
-<p class="sub" id="sub">Se borran tus partidas (palabras, tiempos y soluciones vistas), tu racha y tus ajustes en este dispositivo.</p>
+<p id="msg"><b>¿Estás seguro? Todo tu progreso se perderá.</b></p>
+<p class="sub" id="sub">Se borrarán tus partidas (palabras, tiempos y soluciones vistas), tu racha, tu Silabochario y tus ajustes en este dispositivo. No se puede deshacer.</p>
+<div class="botones" id="botones">
+  <a class="btn" href="../">Cancelar</a>
+  <button class="borrar" id="borrar" type="button">Sí, borrar todo</button>
+</div>
 <script>
 // Borra todo lo que Silabocho guarda en este dispositivo (progreso y copia sin conexión)
-// y vuelve al juego como la primera vez.
-(async () => {
+// y vuelve al juego como la primera vez. Antes pide confirmación.
+document.getElementById('borrar').onclick = async () => {
+  document.getElementById('botones').hidden = true;
+  document.getElementById('msg').innerHTML = '<b>Reiniciando Silabocho…</b>';
+  document.getElementById('sub').textContent = '';
   try { Object.keys(localStorage).filter(k => k.startsWith('silabocho')).forEach(k => localStorage.removeItem(k)); } catch (e) {}
   try { sessionStorage.clear(); } catch (e) {}
   try { if (window.caches) for (const k of await caches.keys()) if (k.startsWith('silabocho')) await caches.delete(k); } catch (e) {}
@@ -29,7 +41,7 @@
   document.getElementById('msg').innerHTML = '<b>Listo: Silabocho está como nuevo.</b>';
   document.getElementById('sub').textContent = 'Volviendo al juego…';
   setTimeout(() => location.replace('../'), 900);
-})();
+};
 </script>
 </body>
 </html>
