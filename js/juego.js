@@ -2,7 +2,7 @@
 // Silabocho: un tablero por día. El día 1 es el 1 de octubre de 2026; si hay menos tableros
 // que días, se vuelve a empezar por el primero.
 
-const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.12],["Pentasílabo",.22],["Hexasílabo",.35],["Heptasílabo",.5],["Octosílabo",.7],["Alejandrino",1]];
+const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.55],["Alejandrino",.75]];
 const START = Date.UTC(2026, 9, 1);
 const INICIO = '2026-10-01';   // se guarda con el progreso para saber con qué numeración se jugó
 const URL_JUEGO = 'https://joseleking.github.io/Silabocho/';
@@ -36,12 +36,12 @@ function myFound(){ return S.found[S.day] || (S.found[S.day]=[]); }
 function score(){ return myFound().reduce((a,x)=>{ const w = words().find(y=>y[0]===x); return a+(w?wordPoints(w):0); },0); }
 const allFound = () => myFound().length >= words().length;
 function outer(){ return S.order[S.day] || (S.order[S.day]=B().exterior.slice()); }
-// Alejandrino solo si están todas las palabras del tablero
-function rankIndex(){ if(allFound()) return RANKS.length-1; const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return Math.min(k, RANKS.length-2); }
+// el rango va por porcentaje de puntos (Alejandrino, el 75 %); encontrarlas todas da aparte el «Tablero completo»
+function rankIndex(){ const frac = score()/total(); let k = 0; RANKS.forEach((r,i)=>{ if(frac>=r[1]-1e-9) k=i; }); return k; }
 
 // ---------- reloj: tiempo jugado en cada tablero ----------
 // Empieza al tocar la primera sílaba, solo corre con la app a la vista y se para al
-// completar el tablero (Alejandrino) o al ver las soluciones.
+// completar el tablero (todas las palabras) o al ver las soluciones.
 const finished = () => !!S.revealed[S.day] || allFound();
 const fmtTime = sec => { sec = Math.floor(sec); const m = Math.floor(sec/60), r = sec%60; return m+':'+(r<10?'0':'')+r; };
 let lastTick = 0, sinceSave = 0;
@@ -110,7 +110,9 @@ function renderWords(){
   document.getElementById('foundcount').textContent = f.length+(f.length===1?' palabra':' palabras');
   document.getElementById('foundtotal').textContent = 'de '+words().length;
   // línea plegada: las últimas que has encontrado, de la más reciente a la más antigua
-  document.getElementById('ultimas').textContent = rev ? 'Soluciones a la vista' : f.length ? f.slice().reverse().join(', ') : '';
+  const ult = document.getElementById('ultimas'), lleno = allFound() && !rev;
+  ult.textContent = lleno ? '★ Completo' : rev ? 'Soluciones a la vista' : f.length ? f.slice().reverse().join(', ') : '';
+  ult.classList.toggle('completo', lleno); ult.title = lleno ? 'Tablero completo: has encontrado todas las palabras' : '';
   // distintivo de los Silabochos: hallados o pendientes (sin decir cuáles son)
   const n = stars().length, k = stars().filter(x=>f.includes(x)).length, est = document.getElementById('estrella');
   if(n===1) est.textContent = k ? '★ Silabocho hallado' : '☆ Silabocho pendiente';
@@ -161,7 +163,7 @@ function renderCal(){
     const d = Math.round((Date.UTC(y, m, n) - START)/864e5) + 1;
     if(d < 1 || d > t){ html += '<button class="cal-dia" type="button" disabled>'+n+'</button>'; continue; }
     const e = estadoDia(d), cls = (e.completo?' completo':'')+(e.jugado?' jugado':'')+(e.visto?' visto':'')+(d===t?' hoy':'')+(d===S.day?' actual':'');
-    const desc = 'nº '+d+(d===t?', hoy':'')+(e.completo?', Alejandrino':e.jugado?', jugado':'')+(e.visto?', soluciones vistas':'');
+    const desc = 'nº '+d+(d===t?', hoy':'')+(e.completo?', tablero completo':e.jugado?', jugado':'')+(e.visto?', soluciones vistas':'');
     html += '<button class="cal-dia'+cls+'" type="button" data-dia="'+d+'" aria-label="'+n+' de '+primero.toLocaleDateString('es-ES',{month:'long'})+', '+desc+'"'+(d===S.day?' aria-current="date"':'')+'>'+n+'</button>';
   }
   document.getElementById('cal-grid').innerHTML = html;
@@ -169,9 +171,10 @@ function renderCal(){
 // ---------- rangos ----------
 function abrirRangos(){
   const k = rankIndex(), tot = total();
-  document.getElementById('rangos-pts').textContent = 'Llevas '+score()+' de '+tot+' puntos en este tablero.';
+  document.getElementById('rangos-pts').textContent = 'Llevas '+score()+' de '+tot+' puntos en este tablero.'
+    +(allFound() ? ' ★ ¡Tablero completo!' : ' Si encuentras todas las palabras, consigues además el distintivo ★ Tablero completo.');
   document.getElementById('rangos-lista').innerHTML = RANKS.map((r,i)=>'<li class="'+(i<k?'hecho':i===k?'actual':'')+'"><span>'+r[0]+'</span><span>'
-    +(i===RANKS.length-1 ? 'todas las palabras' : Math.ceil(r[1]*tot-1e-9)+(Math.ceil(r[1]*tot-1e-9)===1?' punto':' puntos'))+'</span></li>').join('');
+    +Math.ceil(r[1]*tot-1e-9)+(Math.ceil(r[1]*tot-1e-9)===1?' punto':' puntos')+'</span></li>').join('');
   document.getElementById('rangos').showModal();
   document.getElementById('rangos-cerrar').focus({focusVisible:false});
 }
@@ -210,7 +213,8 @@ function submit(){
   if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
   save();
   const n = cur.length, pts = wordPoints(w), k = rankIndex();
-  if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
+  if(allFound()) toast('★ ¡Tablero completo! +'+pts,'star');
+  else if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
@@ -243,6 +247,7 @@ function shareText(){
   if(S.time[S.day] !== undefined) extra.push('⏳ '+fmtTime(S.time[S.day]));
   if(r >= 1) extra.push('🔥 '+r+(r===1?' día':' días'));
   if(extra.length) lineas.push(extra.join(' · '));
+  if(allFound() && !S.revealed[S.day]) lineas.push('★ Tablero completo');
   if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
   lineas.push(URL_JUEGO);
   return lineas.join('\n');
