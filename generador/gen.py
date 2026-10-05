@@ -16,7 +16,7 @@ Los candidatos se guardan en candidatos.json; con --reusar se vuelve a hacer sol
 (útil para ajustar la calidad sin esperar a la búsqueda), siempre que el léxico no haya cambiado.
 """
 import argparse, collections, hashlib, json, os, random, re, sys, time
-from lexico import LEX, EXTRA
+from lexico import LEX, EXTRA, cabe
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(DIR, '..', 'data', 'tableros.json')
@@ -204,8 +204,8 @@ if not args.reusar and not args.ampliar:
 tableros.sort(key=calidad, reverse=True)
 TODAS = {**LEX, **EXTRA}
 def soluciones(t):
-    sil = set(t['exterior']) | {t['central']}
-    return sorted((w for w, s in TODAS.items() if t['central'] in s and set(s) <= sil), key=lambda w: (-len(TODAS[w]), -len(set(TODAS[w])), w))
+    fichas = t['exterior'] + [t['central']]
+    return sorted((w for w, s in TODAS.items() if cabe(s, t['central'], fichas)), key=lambda w: (-len(TODAS[w]), -len(set(TODAS[w])), w))
 def estrellas_finales(sol):
     m = len(TODAS[sol[0]])
     return [w for w in sol if len(TODAS[w]) == m]

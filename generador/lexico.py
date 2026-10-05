@@ -81,6 +81,16 @@ EXCLUIDAS = set(leer_lista('excluidas.txt'))
 def vetada(w):
     return w in VETO_EXACTO or w.startswith(VETO_PREFIJO)
 
+# ---------- sílabas y fichas ----------
+# Una ficha vale para la misma sílaba con o sin tilde: la ficha «o» sirve para la «ó» de «ópera».
+def sin_acento(s):
+    return unicodedata.normalize('NFC', unicodedata.normalize('NFD', s).replace('\u0301', ''))
+
+def cabe(silabas, central, fichas):
+    """¿Se forma la palabra (lista de sílabas) con estas fichas, usando la central?"""
+    sil = [sin_acento(x) for x in silabas]
+    return sin_acento(central) in sil and set(sil) <= {sin_acento(x) for x in fichas}
+
 # ---------- plurales ----------
 # Plural = acaba en -s y su singular existe como palabra no verbal: casa → casas, café → cafés
 # (con -s la tilde no cambia), canción → canciones y lápiz → lápices (con -es puede cambiar),
