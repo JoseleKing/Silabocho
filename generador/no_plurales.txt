@@ -1,0 +1,23 @@
+# Palabras que acaban en -s pero no son plurales (o son plurales lexicalizados que se aceptan).
+# Sin esta lista, la regla de plurales de lexico.py las descartaría porque su «singular» existe.
+antes
+entonces
+mientras
+quizás
+ananás
+ambos
+pelvis
+sosias
+marcapasos
+microondas
+catavinos
+cuclillas
+tanganillas
+tirillas
+vilos
+posaderas
+tragaderas
+tendederas
+predicaderas
+boceras
+celos

@@ -147,7 +147,8 @@ if args.ampliar:
     for t in EXISTENTES:
         S = 0
         for x in [t['central']] + t['exterior']:
-            S |= 1 << IDX[x]
+            if x in IDX:      # una sílaba que ya no está entre las más frecuentes no cuenta para el solapamiento
+                S |= 1 << IDX[x]
         MASCARAS_FIJAS.append(S)
         estrellas.update(estrellas_de(sol_central(S, IDX[t['central']])))
         estrellas.update(t['estrellas'])

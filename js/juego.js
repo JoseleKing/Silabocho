@@ -5,6 +5,7 @@
 const RANKS = [["Bisílabo",0],["Trisílabo",.05],["Tetrasílabo",.10],["Pentasílabo",.18],["Hexasílabo",.28],["Heptasílabo",.40],["Octosílabo",.55],["Alejandrino",.75]];
 const START = Date.UTC(2026, 9, 1);
 const INICIO = '2026-10-01';   // se guarda con el progreso para saber con qué numeración se jugó
+const ORDEN = 2;                // versión del orden de tableros (2: catarata pasó del día 4 al 7)
 const URL_JUEGO = 'https://joseleking.github.io/Silabocho/';
 const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
@@ -18,8 +19,18 @@ function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null');
   S.revealed=s.revealed||{};S.time=s.time||{};S.racha=s.racha||{};
   // el progreso guardado sin «inicio» es de cuando el día 1 era el 4 de octubre: se corre 3 días
   if(!s.inicio){ const correr = o => Object.fromEntries(Object.entries(o).map(([d,v])=>[+d+3, v]));
-    S.found=correr(S.found); S.revealed=correr(S.revealed); S.time=correr(S.time); S.racha=correr(S.racha); save(); } } }catch(e){} }
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify({inicio:INICIO,found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
+    S.found=correr(S.found); S.revealed=correr(S.revealed); S.time=correr(S.time); S.racha=correr(S.racha); save(); }
+  // orden 2: el tablero de catarata pasó del día 4 al 7 (y el 4 tiene uno nuevo); su progreso va con él (la racha no)
+  if((s.orden||1) < 2){ [S.found, S.revealed, S.time].forEach(o=>{ if(o[4] !== undefined){ o[7] = o[4]; delete o[4]; } }); save(); } } }catch(e){} }
+// quita del progreso las palabras que ya no valen en su tablero (p. ej., los plurales desde que no se admiten)
+function depurar(){
+  let cambio = false;
+  Object.keys(S.found).forEach(d=>{ const b = BOARDS[(d-1) % BOARDS.length]; if(!b) return;
+    const ok = new Set(b.palabras.map(w=>w[0])), f = S.found[d].filter(x=>ok.has(x));
+    if(f.length !== S.found[d].length){ S.found[d] = f; cambio = true; } });
+  if(cambio) save();
+}
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({inicio:INICIO,orden:ORDEN,found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
 
 // número de día según la fecha local (el 1 de octubre de 2026 es el 1)
 function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
@@ -355,7 +366,7 @@ function renderAll(){
 }
 
 function start(){
-  load(); S.day = today();
+  load(); depurar(); S.day = today();
   if(!Object.keys(S.racha).length && (S.found[S.day]||[]).length) S.racha[S.day] = 1;   // progreso anterior a la racha
   const cal = document.getElementById('calendario');
   document.getElementById('pasados').onclick = ()=>abrirCal();

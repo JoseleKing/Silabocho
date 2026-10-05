@@ -35,7 +35,8 @@ generador/              scripts de Python que generan los tableros
   gen.py                búsqueda de tableros
   comprobar.py          comprueba que data/tableros.json sigue cuadrando con el léxico
   revisar.py            escribe en revision/ las listas para revisar palabras
-  primeros.txt          tableros elegidos para los días 1, 2 y 3
+  primeros.txt          tableros elegidos a mano (ahora en los días 5, 6 y 7: calabozo, operadora, catarata)
+  no_plurales.txt       palabras en -s que no son plurales y sí valen
   vetadas.txt           palabras vetadas (malsonantes u ofensivas)
   formas_verbales.txt   formas verbales irregulares que el diccionario trae sueltas
   admitidas.txt         palabras sueltas que coinciden con un verbo pero valen (para, destino…)
@@ -100,6 +101,7 @@ Cómo trabaja:
   - Las formas irregulares que el diccionario trae sueltas (está, puede, hizo, huele…) están en `formas_verbales.txt`. Además, cualquier palabra suelta del diccionario que coincida con una forma verbal (hinchan, suele) se considera verbal, salvo las de `admitidas.txt` (para, destino, marzo…).
   - Si la única lectura no verbal sale de un prefijo (a + cabe → «acabe») o del femenino en -a de un adjetivo en -e (aparente → «aparenta»), la palabra se considera verbal.
 - Sin pronombres pegados al verbo (tenerlo, dámelo, dile, casarse).
+- **Sin plurales** (calabozos, alegres, cantados): una palabra en -s es plural si su singular existe como palabra no verbal (casa → casas, canción → canciones, lápiz → lápices). Las que acaban en -s sin ser plurales (antes, pelvis, microondas…) van en `no_plurales.txt`.
 - Sin palabras vetadas (`vetadas.txt`; una línea terminada en `*` veta un prefijo).
 - Para quitar una palabra concreta tras revisarla, añádela a `excluidas.txt` y ejecuta `python3 comprobar.py`: si avisa de diferencias, regenera.
 - `generador/revision/dudosas.md` recoge las palabras dudosas pendientes de decisión.

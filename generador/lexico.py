@@ -14,6 +14,8 @@ Reglas (no cambiarlas sin consultar):
   y formas_verbales.txt, que recoge las formas irregulares que el diccionario trae sueltas.
 - Sin pronombres pegados al verbo (tenerlo, dámelo, dile, casarse).
 - Sin palabras vetadas (vetadas.txt) ni excluidas a mano (excluidas.txt).
+- Sin plurales (decidido el 2026-10-05): ni de sustantivos y adjetivos (calabozos, alegres) ni de
+  participios (cantados). Ver es_plural(); las excepciones (antes, pelvis, microondas…) en no_plurales.txt.
 """
 import os, re, collections, unicodedata
 from silabas import expand, silabear, DIC_PATH, AFF_PATH, FREQ_PATH
@@ -79,6 +81,25 @@ EXCLUIDAS = set(leer_lista('excluidas.txt'))
 def vetada(w):
     return w in VETO_EXACTO or w.startswith(VETO_PREFIJO)
 
+# ---------- plurales ----------
+# Plural = acaba en -s y su singular existe como palabra no verbal: casa → casas, café → cafés
+# (con -s la tilde no cambia), canción → canciones y lápiz → lápices (con -es puede cambiar),
+# compungido → compungidas (femenino plural). Así «inglés» no pasa por plural de «ingle» ni
+# «apenas» por plural de «apena». Las excepciones a mano, en no_plurales.txt.
+NO_PLURALES = set(leer_lista('no_plurales.txt'))
+def sin_tildes(s):
+    return unicodedata.normalize('NFC', ''.join(c for c in unicodedata.normalize('NFD', s) if c == '\u0303' or unicodedata.category(c) != 'Mn'))
+_NOMINALES = {sin_tildes(w) for w in DIC if w in NOVERB}
+
+def es_plural(w):
+    if not w.endswith('s') or len(w) < 4 or w in NO_PLURALES:
+        return False
+    if w[:-1] in NOVERB:
+        return True
+    if w.endswith('es') and (sin_tildes(w[:-2]) in _NOMINALES or (w.endswith('ces') and sin_tildes(w[:-3] + 'z') in _NOMINALES)):
+        return True
+    return w.endswith('as') and w[:-2] + 'o' in NOVERB
+
 # ---------- léxico ----------
 _ok = re.compile('^[a-zñáéíóúü]+$')
 
@@ -90,7 +111,7 @@ def valida(w, motivo=None):
     if not s or not (2 <= len(s) <= 7):
         return None
     m = ('vetada' if vetada(w) else 'excluida' if w in EXCLUIDAS else 'enclítico' if es_enclitico(w)
-         else 'conjugada' if w not in NOVERB or w in FORMAS_VERBALES else None)
+         else 'conjugada' if w not in NOVERB or w in FORMAS_VERBALES else 'plural' if es_plural(w) else None)
     if m:
         if motivo is not None:
             motivo[m] += 1
