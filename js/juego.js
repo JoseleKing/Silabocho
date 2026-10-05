@@ -205,8 +205,63 @@ function abrirReglas(){ const d = document.getElementById('reglas'); if(d.open) 
 // la primera vez que se juega, las reglas se abren solas al irse la portada
 function quizaReglas(){ try{ if(localStorage.getItem(REGLAS_VISTAS)) return; localStorage.setItem(REGLAS_VISTAS, '1'); }catch(e){ return; } abrirReglas(); }
 
-function abrirCal(){ const f = dateOf(S.day); calMes = {y:f.getFullYear(), m:f.getMonth()}; renderCal(); document.getElementById('calendario').showModal();
-  const a = document.querySelector('.cal-dia.actual'); if(a) a.focus({focusVisible:false}); }
+function abrirCal(cual){ const f = dateOf(S.day); calMes = {y:f.getFullYear(), m:f.getMonth()}; renderCal(); document.getElementById('calendario').showModal();
+  pestana(cual || 'cal'); const a = cual==='sil' ? document.getElementById('tab-sil') : document.querySelector('.cal-dia.actual'); if(a) a.focus({focusVisible:false}); }
+function pestana(cual){
+  ['cal','sil'].forEach(p=>{ document.getElementById('tab-'+p).setAttribute('aria-selected', p===cual); document.getElementById('panel-'+p).hidden = p!==cual; });
+  if(cual==='sil') renderSil();
+}
+
+// ---------- Silabochario: los Silabochos de todos los días, de hoy hacia atrás ----------
+// Los encontrados se ven enteros; los que faltan, como huecos (uno por sílaba); con las soluciones vistas, en gris.
+function renderSil(){
+  const t = today(); let total = 0, hallados = 0, html = '';
+  for(let d = t; d >= 1; d--){
+    const b = BOARDS[(d-1) % BOARDS.length], f = S.found[d] || [], rev = !!S.revealed[d];
+    const est = b.estrellas || [b.estrella];
+    const chips = est.map(w=>{
+      const sil = (b.palabras.find(y=>y[0]===w) || [w, w])[1].split('-');
+      total++; if(f.includes(w)) hallados++;
+      return f.includes(w) ? '<span class="w star">'+sil.join('·')+' ★</span>'
+        : rev ? '<span class="w visto">'+sil.join('·')+'</span>'
+        : '<span class="w hueco" aria-label="Silabocho sin encontrar, de '+sil.length+' sílabas">'+sil.map(()=>'_').join('·')+'</span>';
+    }).join('');
+    const fecha = dateOf(d).toLocaleDateString('es-ES',{day:'numeric', month:'short'});
+    html += '<button class="sil-dia'+(d===S.day?' actual':'')+'" type="button" data-dia="'+d+'"><span class="sil-cab">nº '+d+' · '+fecha+(d===t?' · hoy':'')
+      +(!f.length && !rev ? ' <span class="sil-nota">sin jugar</span>' : '')+'</span><span class="chips">'+chips+'</span></button>';
+  }
+  document.getElementById('sil-cuenta').textContent = hallados+' de '+total+' Silabochos encontrados';
+  document.getElementById('sil-lista').innerHTML = html;
+}
+
+// ---------- pistas: las palabras que faltan, por sílaba inicial y número de sílabas ----------
+function abrirPistas(){
+  const f = myFound(), rev = !!S.revealed[S.day], faltan = words().filter(w=>!f.includes(w[0]));
+  const largos = [...new Set(words().map(w=>sylls(w).length))].sort((a,b)=>a-b);
+  const sub = document.getElementById('pistas-sub'), tabla = document.getElementById('pistas-tabla');
+  if(rev){ sub.textContent = 'Las soluciones de este tablero ya están a la vista.'; tabla.innerHTML = ''; }
+  else if(!faltan.length){ sub.textContent = '¡No te falta ninguna palabra!'; tabla.innerHTML = ''; }
+  else {
+    sub.textContent = 'Te '+(faltan.length===1?'falta 1 palabra':'faltan '+faltan.length+' palabras')+'. Así se reparten según su primera sílaba y su número de sílabas:';
+    const filas = {};
+    faltan.forEach(w=>{ const s = sylls(w), k = s[0]; (filas[k] = filas[k] || {})[s.length] = (filas[k][s.length]||0) + 1; });
+    const celda = n => '<td>'+(n || '<span class="cero">·</span>')+'</td>';
+    tabla.innerHTML = '<table><thead><tr><th scope="col"><span class="sr">Empieza por</span></th>'+largos.map(n=>'<th scope="col">'+n+'</th>').join('')+'<th scope="col">Σ</th></tr></thead><tbody>'
+      + Object.keys(filas).sort((a,b)=>a.localeCompare(b,'es')).map(k=>'<tr><th scope="row">'+k+'·</th>'+largos.map(n=>celda(filas[k][n])).join('')
+          +'<td class="suma">'+Object.values(filas[k]).reduce((a,b)=>a+b,0)+'</td></tr>').join('')
+      + '<tr class="suma"><th scope="row">Σ</th>'+largos.map(n=>celda(faltan.filter(w=>sylls(w).length===n).length)).join('')+'<td>'+faltan.length+'</td></tr></tbody></table>'
+      + '<p class="pistas-nota">Columnas: número de sílabas.</p>';
+  }
+  // pista extra: cómo empiezan los Silabochos que faltan (se descubre al tocar)
+  const pend = stars().filter(x=>!f.includes(x)), be = document.getElementById('pista-estrella'), ul = document.getElementById('pista-estrellas');
+  be.hidden = rev || !pend.length; be.disabled = false; ul.hidden = true; ul.innerHTML = '';
+  be.onclick = ()=>{ ul.innerHTML = pend.map(x=>{ const s = sylls(words().find(y=>y[0]===x)); return '<li>☆ '+[s[0], ...s.slice(1).map(()=>'_')].join('·')+'</li>'; }).join('');
+    ul.hidden = false; be.disabled = true; };
+  // en días pasados, las soluciones
+  document.getElementById('pistas-soluciones').hidden = S.day >= today() && !rev;
+  document.getElementById('pistasv').showModal();
+  document.getElementById('pistas-cerrar').focus({focusVisible:false});
+}
 function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d.getFullYear(), m:d.getMonth()}; renderCal(); }
 function irA(n){ n = Math.min(today(), Math.max(1, n)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
@@ -243,19 +298,19 @@ function submit(){
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
-  if(!confirmReveal) document.getElementById('reveal').textContent = revealText();
   clear(); renderScore(); renderWords(); renderClock();
 }
 let confirmReveal = false, revealTimer;
-// si aún faltan palabras, ver las soluciones es rendirse
-const revealText = () => S.revealed[S.day] ? 'Soluciones a la vista' : allFound() ? 'Ver soluciones' : 'Rendirse y ver soluciones';
+// las soluciones solo se pueden ver en tableros de días pasados (desde la ventana de pistas)
+const revealText = () => S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
 function reveal(){
   const b = document.getElementById('reveal');
-  if(S.revealed[S.day]) return;
+  if(S.revealed[S.day] || S.day >= today()) return;
   if(!confirmReveal){ confirmReveal = true; b.textContent = 'Toca otra vez para confirmar: ya no podrás sumar puntos en este tablero'; b.classList.add('warn');
     clearTimeout(revealTimer); revealTimer = setTimeout(()=>{ if(confirmReveal && !S.revealed[S.day]){ confirmReveal = false; b.classList.remove('warn'); b.textContent = revealText(); } }, 5000);   // si no confirma, vuelve a su estado
     return; }
   S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
+  document.getElementById('pistasv').close();
   document.getElementById('found').open = true;   // las soluciones están en la lista
 }
 
@@ -303,18 +358,24 @@ function start(){
   load(); S.day = today();
   if(!Object.keys(S.racha).length && (S.found[S.day]||[]).length) S.racha[S.day] = 1;   // progreso anterior a la racha
   const cal = document.getElementById('calendario');
-  document.getElementById('pasados').onclick = abrirCal;
+  document.getElementById('pasados').onclick = ()=>abrirCal();
   document.getElementById('cal-prev').onclick = ()=>moverMes(-1);
   document.getElementById('cal-next').onclick = ()=>moverMes(1);
   document.getElementById('cal-cerrar').onclick = ()=>cal.close();
   document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
-  const reglas = document.getElementById('reglas'), rangos = document.getElementById('rangos');
+  const reglas = document.getElementById('reglas'), rangos = document.getElementById('rangos'), pistasv = document.getElementById('pistasv');
+  document.getElementById('pistas').onclick = abrirPistas;
+  document.getElementById('pistas-cerrar').onclick = ()=>pistasv.close();
+  document.getElementById('tab-cal').onclick = ()=>pestana('cal');
+  document.getElementById('tab-sil').onclick = ()=>pestana('sil');
+  document.getElementById('sil-lista').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
+  document.getElementById('estrella').onclick = ()=>abrirCal('sil');   // atajo: el distintivo de Silabochos abre el Silabochario
   document.getElementById('rank').onclick = abrirRangos;
   document.getElementById('rangos-cerrar').onclick = ()=>rangos.close();
   document.getElementById('volver').onclick = ()=>irA(today());
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
-  [cal, reglas, rangos].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
+  [cal, reglas, rangos, pistasv].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
   document.getElementById('del').onclick = ()=>{ S.cur = ''; renderVerse(); };   // borra la palabra entera (con el teclado, Retroceso quita solo la última letra)
   // escribir: en el móvil, tocando el hueco de la palabra se abre el teclado; lo escrito pasa a la palabra en curso
   const inp = document.getElementById('escribe');
@@ -326,7 +387,7 @@ function start(){
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
-    if(cal.open || reglas.open || rangos.open) return;
+    if(cal.open || reglas.open || rangos.open || pistasv.open) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); return; }
     if(e.target===inp || e.metaKey || e.ctrlKey || e.altKey) return;   // en el campo de escribir, lo gestiona él
     if(e.key==='Backspace'){ e.preventDefault(); S.cur = S.cur.slice(0,-1); renderVerse(); }

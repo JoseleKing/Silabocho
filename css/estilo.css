@@ -109,7 +109,8 @@ h1 .met{color:var(--accent-text)}
 .w.star{background:var(--star-soft);color:var(--fg);font-weight:700}
 .w.missed{color:var(--muted);border:1px dashed var(--line);background:transparent}
 .empty{font-size:.88rem;color:var(--muted)}
-.btn.reveal{margin-top:-6px}
+.btn.pistas{margin-top:-6px}
+.btn.reveal{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .btn.reveal.warn{background:var(--bad);border-color:var(--bad);color:#FFFFFF}
 .btn.reveal.visto{opacity:.55;cursor:default}
 
@@ -118,7 +119,7 @@ h1 .met{color:var(--accent-text)}
   font-family:var(--body);box-shadow:0 18px 50px rgba(19,27,38,.25)}
 .ventana[open]{display:flex;flex-direction:column;gap:10px}
 .ventana::backdrop{background:rgba(19,27,38,.45)}
-.reglas{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow-y:auto}
+.reglas,.pistas-v{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow-y:auto}
 .reglas h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
 .reglas ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -126,6 +127,41 @@ h1 .met{color:var(--accent-text)}
 .cal-head h2::first-letter{text-transform:uppercase}
 .cal-mes{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:1.2rem;line-height:1;cursor:pointer;touch-action:manipulation}
 .cal-mes:disabled{visibility:hidden}
+/* pestañas del calendario: Calendario | Silabochario */
+.pestanas{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:3px;border-radius:999px;background:var(--bg)}
+.pestanas button{font:inherit;font-size:.88rem;font-weight:700;padding:7px 8px;border:none;border-radius:999px;background:none;color:var(--muted);cursor:pointer;touch-action:manipulation}
+.pestanas button[aria-selected="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(19,27,38,.15)}
+.pestanas button:focus-visible{outline:3px solid var(--fg);outline-offset:1px}
+.panel{display:flex;flex-direction:column;gap:10px}
+.panel[hidden]{display:none}
+.sil-cuenta{margin:0;text-align:center;font-family:var(--display);font-weight:700}
+.sil-lista{display:flex;flex-direction:column;gap:6px;max-height:min(52vh,420px);overflow-y:auto;margin-inline:-4px;padding-inline:4px}
+.sil-dia{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;text-align:left;cursor:pointer;touch-action:manipulation}
+.sil-dia.actual{border:2px solid var(--fg)}
+.sil-dia:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.sil-cab{font-size:.8rem;font-weight:700;color:var(--muted)}
+.sil-nota{font-weight:400;font-style:italic}
+.w.hueco{border:1px dashed var(--accent);background:transparent;color:var(--muted);letter-spacing:.08em}
+.w.visto{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+/* pistas */
+.pistas-v h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.pistas-sub{margin:0;font-size:.88rem;color:var(--muted)}
+.pistas-tabla table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.92rem}
+.pistas-tabla th,.pistas-tabla td{padding:5px 6px;text-align:center;border-bottom:1px solid var(--line)}
+.pistas-tabla thead th{font-size:.78rem;color:var(--muted)}
+.pistas-tabla tbody th{text-align:left;font-family:var(--display);text-transform:uppercase}
+.pistas-tabla .cero{color:var(--line)}
+.pistas-tabla .suma,.pistas-tabla tr.suma{font-weight:700}
+.pistas-tabla tr.suma th,.pistas-tabla tr.suma td{border-bottom:none}
+.pistas-nota{margin:4px 0 0;font-size:.75rem;color:var(--muted)}
+.pista-estrellas{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.pista-estrellas li{font-family:var(--display);font-weight:700;padding:3px 10px;border-radius:999px;border:1px dashed var(--accent);color:var(--accent-text);letter-spacing:.04em}
+.pista-estrellas[hidden],#pista-estrella[hidden]{display:none}
+.pistas-soluciones{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px dashed var(--line)}
+.pistas-soluciones[hidden]{display:none}
+.pistas-soluciones p{margin:0;font-size:.85rem;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.estrella{cursor:pointer}
 .cal-fecha{margin:-4px 0 0;text-align:center;font-size:.82rem;color:var(--muted)}
 .cal-fecha::first-letter{text-transform:uppercase}
 .rangos h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}

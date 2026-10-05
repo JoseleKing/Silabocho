@@ -10,6 +10,8 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - Un tablero por día. El **nº 1 es el 1 de octubre de 2026**. Con «Juegos pasados» (calendario) se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
 - Un reloj cuenta el tiempo jugado en cada tablero (minutos y segundos); se ve en la ventana de rangos y en el resultado compartido. Empieza al tocar la primera sílaba, se detiene mientras la app no está a la vista y se queda fijo al completar el tablero o al ver las soluciones.
 - **Racha** (llama en la barra de arriba): días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar el archivo no cuenta. Si hoy aún no has jugado pero sí ayer, la racha sigue viva (borde discontinuo) hasta medianoche. Al tocarla se ve también la mejor racha.
+- **Pistas** (botón bajo «Compartir»): tabla de las palabras que faltan por sílaba inicial y número de sílabas, y, si se pide, cómo empiezan los Silabochos pendientes. No quitan puntos ni dejan huella. No hay forma de rendirse en el tablero de hoy: las soluciones solo se pueden ver en los días pasados, desde la misma ventana de pistas.
+- **Silabochario** (segunda pestaña del calendario, o tocando el distintivo de Silabochos): todos los Silabochos de cada día; los encontrados se ven enteros, los que faltan como huecos (una raya por sílaba) y los de días con las soluciones vistas, en gris.
 - El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
 - «Compartir resultado» copia o comparte el rango, los puntos, el tiempo y la racha, sin revelar palabras.
 - Es una PWA: se puede instalar en el móvil y funciona sin conexión.

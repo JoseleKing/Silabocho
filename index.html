@@ -76,7 +76,7 @@
   </details>
 
   <button class="btn share" id="share">Compartir resultado</button>
-  <button class="btn primary reveal" id="reveal">Rendirse y ver soluciones</button>
+  <button class="btn primary pistas" id="pistas" type="button" aria-haspopup="dialog">Pistas</button>
 </div>
 <!-- Reglas: se abren solas la primera vez y luego con el botón «?» -->
 <dialog class="ventana reglas" id="reglas" aria-labelledby="reglas-titulo">
@@ -95,6 +95,19 @@
       </ul>
   <button class="btn primary" id="reglas-cerrar" type="button">¡A jugar!</button>
 </dialog>
+<!-- Pistas: lo que falta, por sílaba inicial y número de sílabas; en días pasados, también las soluciones -->
+<dialog class="ventana pistas-v" id="pistasv" aria-labelledby="pistas-titulo">
+  <h2 id="pistas-titulo">Pistas</h2>
+  <p class="pistas-sub" id="pistas-sub"></p>
+  <div class="pistas-tabla" id="pistas-tabla"></div>
+  <button class="btn" id="pista-estrella" type="button">Pista para los Silabochos</button>
+  <ul class="pista-estrellas" id="pista-estrellas" hidden></ul>
+  <div class="pistas-soluciones" id="pistas-soluciones" hidden>
+    <p>Este tablero ya es de un día pasado: puedes ver sus soluciones.</p>
+    <button class="btn reveal" id="reveal" type="button">Ver soluciones</button>
+  </div>
+  <button class="btn primary" id="pistas-cerrar" type="button">Cerrar</button>
+</dialog>
 <!-- Rangos: puntos necesarios para cada uno en este tablero -->
 <dialog class="ventana rangos" id="rangos" aria-labelledby="rangos-titulo">
   <h2 id="rangos-titulo">Rangos</h2>
@@ -104,7 +117,12 @@
   <button class="btn" id="rangos-cerrar" type="button">Cerrar</button>
 </dialog>
 <!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
-<dialog class="ventana calendario" id="calendario" aria-labelledby="cal-titulo">
+<dialog class="ventana calendario" id="calendario" aria-label="Juegos pasados">
+  <div class="pestanas" role="tablist">
+    <button type="button" role="tab" id="tab-cal" aria-controls="panel-cal" aria-selected="true">Calendario</button>
+    <button type="button" role="tab" id="tab-sil" aria-controls="panel-sil" aria-selected="false">Silabochario</button>
+  </div>
+  <div class="panel" id="panel-cal" role="tabpanel" aria-labelledby="tab-cal">
   <div class="cal-head">
     <button class="cal-mes" id="cal-prev" type="button" aria-label="Mes anterior">‹</button>
     <h2 id="cal-titulo">octubre de 2026</h2>
@@ -114,6 +132,12 @@
   <div class="cal-dias" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
   <div class="cal-grid" id="cal-grid"></div>
   <div class="cal-leyenda"><span><i class="l-jugado"></i>Jugado</span><span><i class="l-completo"></i>Tablero completo</span><span><i class="l-visto"></i>Soluciones vistas</span></div>
+  </div>
+  <!-- Silabochario: la colección de Silabochos de todos los días; los que faltan son huecos -->
+  <div class="panel" id="panel-sil" role="tabpanel" aria-labelledby="tab-sil" hidden>
+    <p class="sil-cuenta" id="sil-cuenta"></p>
+    <div class="sil-lista" id="sil-lista"></div>
+  </div>
   <button class="btn" id="cal-cerrar" type="button">Cerrar</button>
 </dialog>
 <noscript><p class="empty" style="text-align:center">Silabocho necesita JavaScript.</p></noscript>
