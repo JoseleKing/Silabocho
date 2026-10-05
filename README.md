@@ -7,7 +7,7 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - Toda palabra debe contener la sílaba central.
 - Puntos: 2 sílabas = 1; 3 = 2; 4 = 4; 5 o más = 6. Las **palabras estrella** o **Silabochos** (todas las que empatan con el máximo de sílabas del tablero; puede haber una o varias) suman 5 más cada una. El juego muestra cuántos llevas («1 de 2») sin decir cuáles son.
 - Rangos según el porcentaje de puntos: Bisílabo 0 %, Trisílabo 5 %, Tetrasílabo 12 %, Pentasílabo 22 %, Hexasílabo 35 %, Heptasílabo 50 %, Octosílabo 70 %, Alejandrino 100 %. Tocando la línea del rango se ven los puntos que pide cada uno en ese tablero.
-- Un tablero por día. El **nº 1 es el 4 de octubre de 2026**. Con «Juegos pasados» (calendario) se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
+- Un tablero por día. El **nº 1 es el 1 de octubre de 2026**. Con «Juegos pasados» (calendario) se juegan los días anteriores (archivo); no se puede adelantar a días futuros. Si hay menos tableros que días, se vuelve a empezar por el primero.
 - Un reloj cuenta el tiempo jugado en cada tablero (minutos y segundos). Empieza al tocar la primera sílaba, se detiene mientras la app no está a la vista y se queda fijo al completar el tablero o al ver las soluciones.
 - **Racha** (llama en la barra de arriba): días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar el archivo no cuenta. Si hoy aún no has jugado pero sí ayer, la racha sigue viva (borde discontinuo) hasta medianoche. Al tocarla se ve también la mejor racha.
 - El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
@@ -72,6 +72,7 @@ Opciones de `gen.py`:
 | `--candidatos N` | 3 × tableros | tableros que se generan antes de quedarse con los mejores |
 | `--primeros N` | 3 | cuántos de los mejores van al principio, sin barajar |
 | `--semilla N` | 2026 | semilla fija: la misma semilla da los mismos tableros |
+| `--ampliar ANTES DESPUÉS` | — | conserva los tableros de `data/tableros.json` en su sitio y añade tableros nuevos compatibles: ANTES delante y DESPUÉS detrás. Si ANTES no es 0, la numeración de los días se corre: hay que retrasar `START` en `js/juego.js` y migrar el progreso guardado (ver `load()`) |
 | `--reusar` | — | reutiliza los candidatos de `candidatos.json` y solo rehace la selección (segundos en vez de minutos); se niega si el léxico ha cambiado |
 
 Cómo trabaja:
@@ -81,7 +82,7 @@ Cómo trabaja:
 3. Acepta un tablero si tiene 15–80 palabras, al menos una de 4 sílabas o más, poco solapamiento con los demás (Jaccard ≤ 0,45) y ninguna palabra estrella que haya salido en otro tablero.
 4. Sigue hasta tener todos los candidatos (no hay tope de intentos; los últimos cuestan más). Con los valores por defecto tarda alrededor de un minuto; construir el léxico tarda unos 20 segundos más.
 5. Ordena los candidatos por calidad, es decir, por lo interesantes que son: variedad de familias de palabras (preparada y preparados cuentan como una), familias largas, variedad de longitudes y alguna palabra de 5 sílabas o más; penaliza los tableros llenos de participios o con más de 3 Silabochos. Se queda con los mejores.
-6. Los días 1, 2 y 3, los que tienen que enganchar, son los tableros indicados en `primeros.txt` (por una de sus palabras estrella; ahora catarata, calabozo y operadora). Si falta alguno, se elige automáticamente el mejor sin repetir sílaba central. El resto se baraja con la semilla.
+6. Al generar desde cero, los días 1, 2 y 3, los que tienen que enganchar, son los tableros indicados en `primeros.txt` (por una de sus palabras estrella; ahora catarata, calabozo y operadora). Si falta alguno, se elige automáticamente el mejor sin repetir sílaba central. El resto se baraja con la semilla.
 7. Guarda los candidatos en `candidatos.json` (no va al repositorio) para poder repetir la selección con `--reusar`.
 
 **Después de regenerar**, sube `VERSION` en `sw.js` (por ejemplo, `silabocho-v2`) para que los móviles que ya tienen la app instalada reciban los tableros nuevos.

@@ -1,10 +1,16 @@
 """Genera los tableros de Silabocho (7 sílabas + 1 central) y los guarda en data/tableros.json.
 
 Uso:  python3 gen.py [--tableros 10] [--candidatos 30] [--semilla 2026] [--reusar]
+      python3 gen.py --ampliar ANTES DESPUÉS   (añade tableros sin tocar los que ya hay)
 
 Se generan «candidatos» tableros compatibles entre sí (poco solapamiento, estrellas distintas);
 se quedan los «tableros» mejores. Los 3 primeros días son los elegidos en primeros.txt (o, si no,
 los mejores según calidad) y el resto se baraja con la semilla fija, para que no salgan los mejores al principio y los flojos al final.
+
+Con --ampliar, los tableros de data/tableros.json se conservan tal cual y en su orden; se generan
+ANTES + DESPUÉS tableros nuevos compatibles con ellos (poco solapamiento, ningún Silabocho repetido),
+se barajan y se colocan ANTES delante y DESPUÉS detrás. Ojo: los de delante desplazan la numeración
+de los días, así que hay que mover START en js/juego.js (y migrar el progreso guardado).
 
 Los candidatos se guardan en candidatos.json; con --reusar se vuelve a hacer solo la selección
 (útil para ajustar la calidad sin esperar a la búsqueda), siempre que el léxico no haya cambiado.
@@ -23,7 +29,12 @@ ap.add_argument('--semilla', type=int, default=2026)
 ap.add_argument('--primeros', type=int, default=3, help='cuántos de los mejores van al principio sin barajar')
 ap.add_argument('--salida', default=SALIDA)
 ap.add_argument('--reusar', action='store_true', help='reutiliza los candidatos guardados en candidatos.json')
+ap.add_argument('--ampliar', type=int, nargs=2, metavar=('ANTES', 'DESPUES'), help='añade tableros nuevos delante y detrás de los que ya hay')
 args = ap.parse_args()
+if args.ampliar:
+    args.tableros = sum(args.ampliar)
+    if args.reusar:
+        sys.exit('--ampliar no admite --reusar.')
 CANDIDATOS = args.candidatos or 3 * args.tableros
 
 random.seed(args.semilla)
@@ -129,6 +140,21 @@ HUELLA = hashlib.sha1(json.dumps([sorted(LEX.items()), args.semilla, CANDIDATOS,
                                  ensure_ascii=False).encode()).hexdigest()
 tableros, usos, estrellas = [], collections.Counter(), set()
 intentos, t0 = 0, time.time()
+EXISTENTES, MASCARAS_FIJAS = [], []
+if args.ampliar:
+    # los tableros que ya hay cuentan como ocupados: sus sílabas, su solapamiento y sus Silabochos
+    EXISTENTES = json.load(open(args.salida, encoding='utf-8'))
+    for t in EXISTENTES:
+        S = 0
+        for x in [t['central']] + t['exterior']:
+            S |= 1 << IDX[x]
+        MASCARAS_FIJAS.append(S)
+        estrellas.update(estrellas_de(sol_central(S, IDX[t['central']])))
+        estrellas.update(t['estrellas'])
+        for i in range(len(SYLS)):
+            if S >> i & 1:
+                usos[i] += 1
+    print(f'ampliando: {len(EXISTENTES)} tableros existentes se conservan', file=sys.stderr)
 if args.reusar:
     try:
         guardado = json.load(open(CACHE, encoding='utf-8'))
@@ -143,7 +169,7 @@ while len(tableros) < CANDIDATOS:
     S, (sc, c, sol) = buscar(usos, estrellas)
     if c is None or not (MIN_PALABRAS <= len(sol) <= MAX_PALABRAS):
         continue
-    if any(jaccard(S, t['mask']) > MAX_JACCARD for t in tableros):
+    if any(jaccard(S, m) > MAX_JACCARD for m in [t['mask'] for t in tableros] + MASCARAS_FIJAS):
         continue
     sol.sort(key=orden_estrella)
     est = estrellas_de(sol)
@@ -157,16 +183,36 @@ while len(tableros) < CANDIDATOS:
     print(f"{len(tableros):3d} [{len(sol):2d}] {SYLS[c].upper():5s} | {' '.join(x.upper() for x in exterior)} "
           f"| ★ {', '.join(est)}  ({intentos} intentos, {time.time() - t0:.0f} s)", file=sys.stderr)
 
-if not args.reusar:
+if not args.reusar and not args.ampliar:
     with open(CACHE, 'w', encoding='utf-8') as f:
         json.dump({'huella': HUELLA, 'tableros': tableros}, f, ensure_ascii=False)
 
 # ---------- selección y orden ----------
 tableros.sort(key=calidad, reverse=True)
+TODAS = {**LEX, **EXTRA}
+def soluciones(t):
+    sil = set(t['exterior']) | {t['central']}
+    return sorted((w for w, s in TODAS.items() if t['central'] in s and set(s) <= sil), key=lambda w: (-len(TODAS[w]), -len(set(TODAS[w])), w))
+def estrellas_finales(sol):
+    m = len(TODAS[sol[0]])
+    return [w for w in sol if len(TODAS[w]) == m]
+if args.ampliar:
+    # los mejores que no repitan Silabocho (contando ya las palabras raras), barajados con la semilla
+    usadas, nuevos = {w for t in EXISTENTES for w in t['estrellas']}, []
+    for t in tableros:
+        est = set(estrellas_finales(soluciones(t)))
+        if len(nuevos) < args.tableros and usadas.isdisjoint(est):
+            nuevos.append(t); usadas |= est
+    if len(nuevos) < args.tableros:
+        sys.exit(f'Solo hay {len(nuevos)} candidatos válidos de {args.tableros}: sube --candidatos.')
+    random.Random(args.semilla).shuffle(nuevos)
+    antes = args.ampliar[0]
+    tableros = elegidos_nuevos = nuevos
+
 # los primeros días: los indicados en primeros.txt (por una de sus estrellas) y, si faltan,
 # los mejores según calidad, sin repetir sílaba central entre ellos
 fijos = []
-if os.path.exists(os.path.join(DIR, 'primeros.txt')):
+if not args.ampliar and os.path.exists(os.path.join(DIR, 'primeros.txt')):
     from lexico import leer_lista
     fijos = leer_lista('primeros.txt')[:args.primeros]
 primeros = []
@@ -183,20 +229,18 @@ elegidos = primeros + [t for t in tableros if t not in primeros][:args.tableros 
 resto = elegidos[len(primeros):]
 random.Random(args.semilla).shuffle(resto)
 elegidos = primeros + resto
+if args.ampliar:
+    elegidos = elegidos_nuevos
 
 # El núcleo sirve para buscar y elegir los tableros; ya elegidos, se les añaden las demás palabras
 # válidas del diccionario (EXTRA), que cuentan igual que las otras, y se recalculan los Silabochos.
-TODAS = {**LEX, **EXTRA}
-def soluciones(t):
-    sil = set(t['exterior']) | {t['central']}
-    return sorted((w for w, s in TODAS.items() if t['central'] in s and set(s) <= sil), key=lambda w: (-len(TODAS[w]), -len(set(TODAS[w])), w))
-
 out = []
 for t in elegidos:
     sol = soluciones(t)
-    m = len(TODAS[sol[0]])
-    out.append({'central': t['central'], 'exterior': t['exterior'], 'estrellas': [w for w in sol if len(TODAS[w]) == m],
+    out.append({'central': t['central'], 'exterior': t['exterior'], 'estrellas': estrellas_finales(sol),
                 'palabras': [[w, '-'.join(TODAS[w])] for w in sol]})
+if args.ampliar:
+    out = out[:antes] + EXISTENTES + out[antes:]
 rep_est = collections.Counter(w for t in out for w in t['estrellas'])
 for w, n in rep_est.items():
     if n > 1:
