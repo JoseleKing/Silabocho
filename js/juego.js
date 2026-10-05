@@ -18,20 +18,47 @@ function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null');
   // antes había «palabras extra» aparte; ahora son del tablero, así que pasan a las halladas
   Object.entries(s.extra||{}).forEach(([d,ws])=>{ const f = S.found[d] || (S.found[d]=[]); ws.forEach(x=>{ if(!f.includes(x)) f.push(x); }); });
   S.revealed=s.revealed||{};S.time=s.time||{};S.racha=s.racha||{};
+  let migrado = false;
   // el progreso guardado sin «inicio» es de cuando el día 1 era el 4 de octubre: se corre 3 días
   if(!s.inicio){ const correr = o => Object.fromEntries(Object.entries(o).map(([d,v])=>[+d+3, v]));
-    S.found=correr(S.found); S.revealed=correr(S.revealed); S.time=correr(S.time); S.racha=correr(S.racha); save(); }
+    S.found=correr(S.found); S.revealed=correr(S.revealed); S.time=correr(S.time); S.racha=correr(S.racha); migrado = true; }
   // orden 2: el tablero de catarata pasó del día 4 al 7 (y el 4 tiene uno nuevo); su progreso va con él (la racha no)
-  if((s.orden||1) < 2){ [S.found, S.revealed, S.time].forEach(o=>{ if(o[4] !== undefined){ o[7] = o[4]; delete o[4]; } }); save(); } } }catch(e){} }
+  if((s.orden||1) < 2){ [S.found, S.revealed, S.time].forEach(o=>{ if(o[4] !== undefined){ o[7] = o[4]; delete o[4]; } }); migrado = true; }
+  if(migrado) save(true); } }catch(e){} }   // tras migrar se escribe sin fusionar con el formato antiguo
+// ¿vale la palabra x en el tablero del día d? (sin tableros cargados aún, se da por buena)
+function valeEn(d, x){ const b = BOARDS.length && BOARDS[(d-1) % BOARDS.length]; return !b || b.palabras.some(w=>w[0]===x); }
 // quita del progreso las palabras que ya no valen en su tablero (p. ej., los plurales desde que no se admiten)
 function depurar(){
   let cambio = false;
-  Object.keys(S.found).forEach(d=>{ const b = BOARDS[(d-1) % BOARDS.length]; if(!b) return;
-    const ok = new Set(b.palabras.map(w=>w[0])), f = S.found[d].filter(x=>ok.has(x));
+  Object.keys(S.found).forEach(d=>{ const f = S.found[d].filter(x=>valeEn(d, x));
     if(f.length !== S.found[d].length){ S.found[d] = f; cambio = true; } });
   if(cambio) save();
 }
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify({inicio:INICIO,orden:ORDEN,found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
+// ---------- guardar sin pisar a otras pestañas ----------
+// Si el juego está abierto en dos sitios (dos pestañas, o la app y el navegador), cada uno guarda su copia.
+// Para que el último en guardar no borre lo del otro, al guardar se une lo propio con lo ya guardado:
+// palabras halladas juntas, soluciones vistas y días de racha si cualquiera los tiene, y el tiempo mayor.
+// Solo se une lo que tenga el mismo formato (numeración y orden de tableros).
+function fusionar(otro){
+  if(!otro || otro.inicio !== INICIO || (otro.orden||1) !== ORDEN) return false;
+  let cambio = false;
+  Object.entries(otro.found||{}).forEach(([d,ws])=>{ const f = S.found[d] || (S.found[d] = []);
+    ws.forEach(x=>{ if(!f.includes(x) && valeEn(d, x)){ f.push(x); cambio = true; } }); });
+  [['revealed', S.revealed], ['racha', S.racha]].forEach(([k, mio])=>Object.entries(otro[k]||{}).forEach(([d,v])=>{ if(v && !mio[d]){ mio[d] = v; cambio = true; } }));
+  Object.entries(otro.time||{}).forEach(([d,v])=>{ if(typeof v === 'number' && !(S.time[d] >= v)){ S.time[d] = v; cambio = true; } });
+  return cambio;
+}
+function save(sobrescribir){ try{
+  if(!sobrescribir) fusionar(JSON.parse(localStorage.getItem(STORE)||'null'));
+  localStorage.setItem(STORE, JSON.stringify({inicio:INICIO,orden:ORDEN,found:S.found,revealed:S.revealed,time:S.time,racha:S.racha})); }catch(e){} }
+// cuando otra pestaña guarda, esta se pone al día al momento (sin tocar la palabra que se esté escribiendo);
+// si otra pestaña borra el progreso (/reiniciar), esta también se vacía, para no resucitarlo al guardar
+window.addEventListener('storage', e=>{
+  if(e.key !== STORE && e.key !== null) return;
+  if(e.newValue === null){ S.found = {}; S.revealed = {}; S.time = {}; S.racha = {}; }
+  else { let otro = null; try{ otro = JSON.parse(e.newValue); }catch(err){} if(!fusionar(otro)) return; }
+  if(BOARDS.length){ renderScore(); renderWords(); renderClock(); renderRacha(); renderNav(); }
+});
 
 // número de día según la fecha local (el 1 de octubre de 2026 es el 1)
 function today(){ const d = new Date(); return Math.max(1, Math.round((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - START)/864e5) + 1); }
