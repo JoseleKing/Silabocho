@@ -38,6 +38,15 @@ h1 .met{color:var(--accent-text)}
 /* en móviles muy estrechos, el logo deja sitio al nombre */
 .otro-dia{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:-4px;padding:6px 6px 6px 12px;border-radius:999px;background:var(--star-soft);font-size:.82rem}
 .otro-dia[hidden]{display:none}
+/* resumen de ayer: discreto, solo con borde */
+.resumen{display:flex;align-items:center;gap:8px;margin-top:-4px;padding:6px 6px 6px 12px;border:1px solid var(--line);border-radius:14px;line-height:1.3;font-size:.82rem;color:var(--muted)}
+.resumen[hidden]{display:none}
+.resumen #resumen-txt{flex:1;min-width:0}
+.resumen #resumen-txt b{color:var(--fg)}
+.resumen-ver{flex:none;font:inherit;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent-text);cursor:pointer;touch-action:manipulation}
+.resumen-ver[hidden]{display:none}
+.resumen-cerrar{flex:none;width:26px;height:26px;border:none;border-radius:50%;background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;touch-action:manipulation}
+.resumen button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .otro-dia button{flex:none;font:inherit;font-weight:700;padding:4px 12px;border-radius:999px;border:none;background:var(--fg);color:var(--bg);cursor:pointer;touch-action:manipulation}
 /* rango en una línea: nombre, barra y puntos */
 .rank{display:flex;align-items:center;gap:10px;width:100%;padding:4px 0;border:none;background:none;color:var(--fg);font:inherit;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:transparent}

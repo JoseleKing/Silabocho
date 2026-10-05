@@ -278,6 +278,28 @@ function abrirPistas(){
   document.getElementById('pistas-cerrar').focus({focusVisible:false});
 }
 function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d.getFullYear(), m:d.getMonth()}; renderCal(); }
+// ---------- resumen de ayer ----------
+// Al abrir el juego en un día nuevo, si ayer se jugó: «Ayer: Hexasílabo · 18 de 26 palabras · Ver soluciones».
+// Sale una vez al día (se recuerda en este navegador) y se va al cerrarlo o al ir a ver las soluciones.
+const RESUMEN_VISTO = 'silabocho-resumen';
+function datosDia(d){ const antes = S.day; S.day = d; const r = {rango: RANKS[rankIndex()][0], n: myFound().length, total: words().length, lleno: allFound(), visto: !!S.revealed[d]}; S.day = antes; return r; }
+function quizaResumen(){
+  const el = document.getElementById('resumen'), ayer = today() - 1;
+  let visto = null; try{ visto = localStorage.getItem(RESUMEN_VISTO); }catch(e){}
+  if(ayer < 1 || !(S.found[ayer]||[]).length || visto === String(today())){ el.hidden = true; return; }
+  const r = datosDia(ayer);
+  document.getElementById('resumen-txt').innerHTML = 'Ayer: <b>'+r.rango+'</b> · '+r.n+' de '+r.total+(r.total===1?' palabra':' palabras')+(r.lleno ? ' · ★ Tablero completo' : '');
+  document.getElementById('resumen-ver').hidden = r.lleno;
+  el.hidden = false;
+}
+function cerrarResumen(){ document.getElementById('resumen').hidden = true; try{ localStorage.setItem(RESUMEN_VISTO, String(today())); }catch(e){} }
+function verAyer(){
+  const ayer = today() - 1; cerrarResumen();
+  if(!S.revealed[ayer]){ S.revealed[ayer] = true; save(); }   // ayer ya pasó: se pueden ver sin más confirmación
+  if(S.day === ayer) renderAll(); else irA(ayer);
+  document.getElementById('found').open = true;
+}
+
 function irA(n){ n = Math.min(today(), Math.max(1, n)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
 let tt;
@@ -388,6 +410,8 @@ function start(){
   document.getElementById('rank').onclick = abrirRangos;
   document.getElementById('rangos-cerrar').onclick = ()=>rangos.close();
   document.getElementById('volver').onclick = ()=>irA(today());
+  document.getElementById('resumen-ver').onclick = verAyer;
+  document.getElementById('resumen-cerrar').onclick = cerrarResumen;
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
   [cal, reglas, rangos, pistasv].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
@@ -415,11 +439,12 @@ function start(){
     lastTick = performance.now();
     const t = today(); if(t===ultimoHoy) return;
     if(S.day===ultimoHoy){ S.day = t; renderAll(); } else { renderNav(); renderRacha(); }
+    quizaResumen();
     ultimoHoy = t;
   });
   window.addEventListener('pagehide', ()=>{ tickClock(); save(); });
   lastTick = performance.now(); setInterval(tickClock, 1000);
-  renderAll();
+  renderAll(); quizaResumen();
 }
 
 // ---------- portada ----------
