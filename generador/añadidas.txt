@@ -1,0 +1,7 @@
+# Palabras que están en el Diccionario de la lengua española (DLE) pero no en el diccionario
+# Hunspell del que sale el léxico. Se añaden tal cual (se silabean y pasan las vetadas y
+# excluidas): al núcleo si están entre las frecuentes, si no como palabras raras.
+# Encontradas el 2026-10-05 cruzando las combinaciones de sílabas de los tableros con el
+# Wikcionario en español; revisadas a mano (grupo «casi seguro en el DLE»).
+cado tacataca calaca camisaco cacota checheno chinaco compa demodé lépero locero macá
+mara naco payada rápita rodo rateramente sape tero totora yapa yarará amate

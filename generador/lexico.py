@@ -14,6 +14,7 @@ Reglas (no cambiarlas sin consultar):
   y formas_verbales.txt, que recoge las formas irregulares que el diccionario trae sueltas.
 - Sin pronombres pegados al verbo (tenerlo, dámelo, dile, casarse).
 - Sin palabras vetadas (vetadas.txt) ni excluidas a mano (excluidas.txt).
+- Palabras del DLE que Hunspell no trae, en añadidas.txt (cado, tacataca…).
 - Sin plurales (decidido el 2026-10-05): ni de sustantivos y adjetivos (calabozos, alegres) ni de
   participios (cantados). Ver es_plural(); las excepciones (antes, pelvis, microondas…) en no_plurales.txt.
 """
@@ -146,6 +147,12 @@ def construir(top=TOP, verbose=True):
                 (nucleo if frecuente else extra)[w] = s
     for w in nucleo:
         extra.pop(w, None)
+    # palabras del DLE que el diccionario Hunspell no trae (añadidas.txt)
+    for w in leer_lista('añadidas.txt'):
+        sil = silabear(w)
+        if w in nucleo or w in extra or not sil or not (2 <= len(sil) <= 7) or vetada(w) or w in EXCLUIDAS:
+            continue
+        (nucleo if w in frecuentes else extra)[w] = sil
     if verbose:
         print(f'léxico: {len(nucleo)} en el núcleo, {len(extra)} extra; descartadas: {dict(motivo)}')
     return nucleo, extra
