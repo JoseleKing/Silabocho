@@ -124,6 +124,11 @@ h1 .met{color:var(--accent-text)}
 .ventana::backdrop{background:rgba(19,27,38,.45)}
 .reglas,.pistas-v{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow-y:auto}
 .reglas h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
+/* tabla de puntos de las instrucciones */
+.tabla-puntos{margin-top:6px;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.85rem}
+.tabla-puntos th,.tabla-puntos td{padding:4px 9px;text-align:center;border:1px solid var(--line)}
+.tabla-puntos th{text-align:left;font-weight:700;color:var(--muted);background:var(--bg)}
+.tabla-puntos tr:last-child td{font-weight:700}
 .reglas ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cal-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.15rem}
