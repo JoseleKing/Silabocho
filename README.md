@@ -52,7 +52,7 @@ python3 -m http.server 8000
 
 y abrir <http://localhost:8000>.
 
-Para empezar de cero, abre <http://localhost:8000/reiniciar>. Borra el progreso, los tiempos y las soluciones vistas de este navegador, además de la copia sin conexión del service worker, y vuelve al juego. Así también se cargan los archivos recién cambiados. En GitHub Pages funciona igual (`…/Silabocho/reiniciar`) y solo afecta al dispositivo de quien la abre.
+Para empezar de cero, abre <http://localhost:8000/reiniciar>. Borra el progreso, los tiempos, las soluciones vistas, la racha y los ajustes (por ejemplo, que ya se vieron las reglas) de este navegador, además de la copia sin conexión del service worker, y vuelve al juego. Así también se cargan los archivos recién cambiados. En GitHub Pages funciona igual (`…/Silabocho/reiniciar`) y solo afecta al dispositivo de quien la abre.
 
 ## Regenerar los tableros
 
