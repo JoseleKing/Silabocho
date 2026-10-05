@@ -482,18 +482,21 @@ function start(){
     if(e.key==='Backspace'){ e.preventDefault(); S.cur = S.cur.slice(0,-1); renderVerse(); }
     else if(e.key.length===1 && limpiar(e.key)){ e.preventDefault(); startClock(); S.cur += limpiar(e.key); toast(''); renderVerse(); }
   });
-  // si la app queda abierta y cambia el día, al volver a ella se pasa al tablero nuevo
+  // cambio de día con la app abierta: se comprueba cada segundo (con el reloj) y al volver a la app.
+  // Si se estaba jugando el tablero de hoy, se pasa al nuevo; si se jugaba uno pasado, se queda en él.
   let ultimoHoy = S.day;
+  const cambioDeDia = ()=>{
+    const t = today(); if(t===ultimoHoy) return;
+    if(S.day===ultimoHoy){ tickClock(); save(); S.day = t; renderAll(); toast('¡Nuevo tablero del día!', 'star'); }
+    else { renderNav(); renderRacha(); }
+    ultimoHoy = t; quizaResumen();
+  };
   document.addEventListener('visibilitychange',()=>{
     if(document.visibilityState!=='visible'){ tickClock(); save(); renderClock(); return; }
-    lastTick = performance.now();
-    const t = today(); if(t===ultimoHoy) return;
-    if(S.day===ultimoHoy){ S.day = t; renderAll(); } else { renderNav(); renderRacha(); }
-    quizaResumen();
-    ultimoHoy = t;
+    lastTick = performance.now(); cambioDeDia();
   });
   window.addEventListener('pagehide', ()=>{ tickClock(); save(); });
-  lastTick = performance.now(); setInterval(tickClock, 1000);
+  lastTick = performance.now(); setInterval(()=>{ tickClock(); cambioDeDia(); }, 1000);
   renderAll(); quizaResumen();
 }
 
