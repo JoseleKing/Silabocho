@@ -116,6 +116,7 @@ h1 .met{color:var(--accent-text)}
 .btn.reveal.visto{opacity:.55;cursor:default}
 
 /* ---------- ventanas (reglas y calendario) ---------- */
+/* Los días del calendario van en la letra del título: la del texto tacha el cero (1Ø, 2Ø…) */
 .ventana{width:min(360px,calc(100vw - 32px));box-sizing:border-box;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--fg);
   font-family:var(--body);box-shadow:0 18px 50px rgba(19,27,38,.25)}
 .ventana[open]{display:flex;flex-direction:column;gap:10px}
@@ -175,7 +176,7 @@ h1 .met{color:var(--accent-text)}
 .cal-dias,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .cal-dias span{font-size:.72rem;font-weight:700;color:var(--muted)}
 .cal-dia{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid transparent;background:none;
-  color:var(--fg);font-family:var(--body);font-size:.95rem;font-variant-numeric:tabular-nums;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  color:var(--fg);font-family:var(--display);font-size:1rem;font-variant-numeric:tabular-nums;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .cal-dia.vacio{visibility:hidden}
 .cal-dia:disabled{color:var(--muted);opacity:.45}
 button.cal-dia:not(:disabled){cursor:pointer;background:var(--bg);font-weight:700}
