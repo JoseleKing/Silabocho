@@ -70,7 +70,6 @@ h1 .met{color:var(--accent-text)}
 /* la palabra y los avisos ocupan el mismo hueco: el aviso tapa la palabra mientras se ve */
 .entrada{display:grid;min-height:58px}
 .entrada>*{grid-area:1/1}
-.escribe{opacity:0;width:100%;height:100%;border:none;padding:0;font-size:16px;color:transparent;caret-color:transparent;background:transparent;cursor:text}
 .verse .cursor{display:inline-block;width:3px;height:1.1em;margin-left:3px;border-radius:2px;background:var(--accent);vertical-align:-.15em;animation:parpadeo 1.1s steps(1) infinite}
 .verse .crudo{color:var(--muted)}
 @keyframes parpadeo{50%{opacity:0}}

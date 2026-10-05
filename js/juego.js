@@ -144,9 +144,8 @@ function moverFichas(){
     const [x, y] = posicion(i); b.style.left = x+'%'; b.style.top = y+'%'; });
 }
 // ---------- la palabra en curso ----------
-// Es un texto: se escribe tocando sílabas o con el teclado. Para comprobarla no cuentan las tildes ni la diéresis.
+// Es un texto: se escribe solo tocando sílabas. Para comprobarla no cuentan las tildes ni la diéresis.
 const norm = s => s.normalize('NFD').replace(/[\u0301\u0308]/g,'').normalize('NFC').toLowerCase();
-const limpiar = s => s.toLowerCase().replace(/[^a-záéíóúüñ]/g,'');
 // divide el texto en sílabas del tablero (prefiriendo una división con la central); null si no se puede
 function trocear(txt){
   const sy = [B().central, ...outer()], memo = {};
@@ -161,8 +160,7 @@ function trocear(txt){
   return todas.find(d=>d.includes(B().central)) || todas[0] || null;
 }
 function renderVerse(){
-  const v = document.getElementById('verse'), inp = document.getElementById('escribe');
-  if(inp.value !== S.cur) inp.value = S.cur;
+  const v = document.getElementById('verse');
   const trozos = S.cur && trocear(norm(S.cur)), cursor = '<span class="cursor" aria-hidden="true"></span>';
   if(!S.cur){ v.innerHTML = cursor; return; }
   v.innerHTML = (trozos ? trozos.map(s=>'<span'+(s===B().central?' class="c"':'')+'>'+s+'</span>').join('<span class="dot">·</span>')
@@ -528,10 +526,7 @@ function start(){
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
   [cal, reglas, rangos, pistasv].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
-  document.getElementById('del').onclick = ()=>{ S.cur = ''; renderVerse(); };   // borra la palabra entera (con el teclado, Retroceso quita solo la última letra)
-  // escribir: en el móvil, tocando el hueco de la palabra se abre el teclado; lo escrito pasa a la palabra en curso
-  const inp = document.getElementById('escribe');
-  inp.addEventListener('input', ()=>{ const v = limpiar(inp.value); if(v) startClock(); S.cur = v; toast(''); renderVerse(); });
+  document.getElementById('del').onclick = ()=>{ S.cur = ''; renderVerse(); };   // borra la palabra entera
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} moverFichas(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
@@ -540,10 +535,7 @@ function start(){
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
     if(cal.open || reglas.open || rangos.open || pistasv.open) return;
-    if(e.key==='Enter'){ e.preventDefault(); submit(); return; }
-    if(e.target===inp || e.metaKey || e.ctrlKey || e.altKey) return;   // en el campo de escribir, lo gestiona él
-    if(e.key==='Backspace'){ e.preventDefault(); S.cur = S.cur.slice(0,-1); renderVerse(); }
-    else if(e.key.length===1 && limpiar(e.key)){ e.preventDefault(); startClock(); S.cur += limpiar(e.key); toast(''); renderVerse(); }
+    if(e.key==='Enter'){ e.preventDefault(); submit(); }   // las palabras se forman solo tocando sílabas; Intro las envía
   });
   // cambio de día con la app abierta: se comprueba cada segundo (con el reloj) y al volver a la app.
   // Si se estaba jugando el tablero de hoy, se pasa al nuevo; si se jugaba uno pasado, se queda en él.

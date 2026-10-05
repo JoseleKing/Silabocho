@@ -3,7 +3,7 @@
 Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo de Heptagrama (Spelling Bee), pero con **sílabas** en lugar de letras.
 
 - Cada tablero tiene 8 sílabas: 7 alrededor y 1 central.
-- Se forman palabras de 2 o más sílabas tocando las fichas o escribiéndolas con el teclado (en el móvil, tocando el hueco de la palabra; no hace falta poner tildes); las sílabas se pueden repetir.
+- Se forman palabras de 2 o más sílabas tocando las fichas (no se pueden escribir con el teclado); las sílabas se pueden repetir.
 - Toda palabra debe contener la sílaba central.
 - Puntos: 2 sílabas = 1; 3 = 2; 4 = 4; 5 o más = 6. Las **palabras estrella** o **Silabochos** (todas las que empatan con el máximo de sílabas del tablero; puede haber una o varias) suman 5 más cada una. El juego muestra cuántos llevas («1 de 2») sin decir cuáles son.
 - Rangos según el porcentaje de puntos: Monosílabo con 0 puntos (barra vacía), Bisílabo desde el primer punto, Trisílabo 5 %, Tetrasílabo 10 %, Pentasílabo 18 %, Hexasílabo 28 %, Heptasílabo 40 %, Octosílabo 50 %, Alejandrino 70 %. Encontrar todas las palabras da aparte el distintivo **★ Tablero completo** (y en el calendario, el día relleno de ocre). Tocando la línea del rango se ven los puntos que pide cada uno en ese tablero.
