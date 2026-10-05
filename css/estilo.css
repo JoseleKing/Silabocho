@@ -95,8 +95,9 @@ h1 .met{color:var(--accent-text)}
 .foot{display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--muted)}
 .foot details summary{cursor:pointer;font-weight:700;color:var(--fg)}
 .foot ul{margin:6px 0 0;padding-left:18px}
-.linkbtn{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;padding:0;align-self:flex-start}
-.linkbtn.warn{color:var(--bad)}
+.btn.reveal{margin-top:-6px}
+.btn.reveal.warn{background:var(--bad);border-color:var(--bad);color:#FFFFFF}
+.btn.reveal.visto{opacity:.55;cursor:default}
 @media (prefers-reduced-motion: reduce){.tile{transition:none}.btn.icono.gira svg{animation:none}}
 
 /* ---------- portada fugaz ---------- */

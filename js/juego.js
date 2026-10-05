@@ -174,11 +174,13 @@ function submit(){
   if(finished()) save();
   clear(); renderScore(); renderWords(); renderClock();
 }
-let confirmReveal = false;
+let confirmReveal = false, revealTimer;
 function reveal(){
   const b = document.getElementById('reveal');
   if(S.revealed[S.day]) return;
-  if(!confirmReveal){ confirmReveal = true; b.textContent = 'Toca otra vez para confirmar: ya no podrás sumar puntos en este tablero'; b.classList.add('warn'); return; }
+  if(!confirmReveal){ confirmReveal = true; b.textContent = 'Toca otra vez para confirmar: ya no podrás sumar puntos en este tablero'; b.classList.add('warn');
+    clearTimeout(revealTimer); revealTimer = setTimeout(()=>{ if(confirmReveal && !S.revealed[S.day]){ confirmReveal = false; b.classList.remove('warn'); b.textContent = 'Ver soluciones'; } }, 5000);   // si no confirma, vuelve a su estado
+    return; }
   S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
 }
 
@@ -217,6 +219,7 @@ async function share(){
 function renderAll(){
   const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
   b.textContent = S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
+  b.classList.toggle('visto', !!S.revealed[S.day]); b.disabled = !!S.revealed[S.day];
   S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
 }
 function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
