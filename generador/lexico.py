@@ -3,12 +3,12 @@
 Reglas (no cambiarlas sin consultar):
 - Palabras del diccionario Hunspell es (wooorm/dictionaries) expandido. Sin nombres propios.
 - Dos niveles:
-  · LEX (núcleo): las que cuentan para el total del tablero. Sustantivos, adjetivos y demás:
+  · LEX (núcleo): con el que se buscan y eligen los tableros. Sustantivos, adjetivos y demás:
     la familia entera (ratero, ratera, rateros, rateras) si alguna forma está entre las TOP más
     frecuentes de FrequencyWords (2018/es, es_50k.txt). Infinitivos y participios: solo si esa
     forma concreta está entre las TOP (así no entran costadas, datadas… por ser frecuente el verbo).
-  · EXTRA: el resto de palabras válidas del diccionario. Se aceptan como «palabras extra»:
-    suman puntos, pero no cuentan en el total.
+  · EXTRA: el resto de palabras válidas del diccionario. Elegido el tablero, se le añaden
+    y cuentan como las demás (puntos, total, soluciones y Silabochos).
 - De 2 a 7 sílabas según silabas.silabear.
 - Sin formas verbales conjugadas (se admiten infinitivos y participios): ver noverb.py
   y formas_verbales.txt, que recoge las formas irregulares que el diccionario trae sueltas.

@@ -184,14 +184,23 @@ resto = elegidos[len(primeros):]
 random.Random(args.semilla).shuffle(resto)
 elegidos = primeros + resto
 
-def extras(t):
-    """Palabras extra del tablero: válidas en el diccionario pero fuera del núcleo."""
+# El núcleo sirve para buscar y elegir los tableros; ya elegidos, se les añaden las demás palabras
+# válidas del diccionario (EXTRA), que cuentan igual que las otras, y se recalculan los Silabochos.
+TODAS = {**LEX, **EXTRA}
+def soluciones(t):
     sil = set(t['exterior']) | {t['central']}
-    return sorted((w for w, s in EXTRA.items() if t['central'] in s and set(s) <= sil), key=lambda w: (-len(EXTRA[w]), w))
+    return sorted((w for w, s in TODAS.items() if t['central'] in s and set(s) <= sil), key=lambda w: (-len(TODAS[w]), -len(set(TODAS[w])), w))
 
-out = [{'central': t['central'], 'exterior': t['exterior'], 'estrellas': t['estrellas'],
-        'palabras': [[w, '-'.join(s)] for w, s in t['palabras'].items()],
-        'extra': [[w, '-'.join(EXTRA[w])] for w in extras(t)]} for t in elegidos]
+out = []
+for t in elegidos:
+    sol = soluciones(t)
+    m = len(TODAS[sol[0]])
+    out.append({'central': t['central'], 'exterior': t['exterior'], 'estrellas': [w for w in sol if len(TODAS[w]) == m],
+                'palabras': [[w, '-'.join(TODAS[w])] for w in sol]})
+rep_est = collections.Counter(w for t in out for w in t['estrellas'])
+for w, n in rep_est.items():
+    if n > 1:
+        print(f'aviso: el Silabocho «{w}» sale en {n} tableros', file=sys.stderr)
 os.makedirs(os.path.dirname(args.salida), exist_ok=True)
 with open(args.salida, 'w', encoding='utf-8') as f:
     f.write('[\n' + ',\n'.join(json.dumps(t, ensure_ascii=False) for t in out) + '\n]\n')
@@ -201,4 +210,4 @@ print(f'\n{len(out)} tableros guardados en {os.path.relpath(args.salida)} '
 for i, t in enumerate(out, 1):
     pts = sum(puntos(s.split('-')) for _, s in t['palabras']) + 5 * len(t['estrellas'])
     print(f"día {i:2d}: {t['central'].upper():5s} | {' '.join(x.upper() for x in t['exterior'])} "
-          f"| {len(t['palabras']):2d} palabras (+{len(t['extra'])} extra), {pts:3d} puntos | ★ {', '.join(t['estrellas'])}")
+          f"| {len(t['palabras']):2d} palabras, {pts:3d} puntos | ★ {', '.join(t['estrellas'])}")
