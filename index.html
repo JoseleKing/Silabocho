@@ -37,11 +37,7 @@
 <div class="app">
   <header>
     <div class="brand"><img src="icons/favicon.svg" alt="" width="34" height="34"><h1>Si<span class="met">·</span>la<span class="met">·</span>bo<span class="met">·</span>cho</h1></div>
-    <nav class="nav" aria-label="Archivo de tableros">
-      <button id="prev" aria-label="Día anterior">◀</button>
-      <span id="boardno">nº 1</span>
-      <button id="next" aria-label="Día siguiente">▶</button>
-    </nav>
+    <button class="pasados" id="pasados" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Juegos pasados</button>
   </header>
   <div class="sub">
     <p class="fecha" id="fecha"></p>
@@ -86,13 +82,25 @@
         <li>Las palabras más raras que admite el diccionario valen como <b>palabras extra</b>: suman sus puntos y te ayudan a subir de rango, pero no cuentan en el total del tablero.</li>
         <li>Las palabras estrella, los <b>Silabochos</b>, son las más largas del tablero (puede haber una o varias). Cada una suma 5 puntos extra. Junto a tus palabras verás cuántos llevas (★) y si quedan pendientes (☆).</li>
         <li>Los rangos van de Bisílabo a Octosílabo. Si encuentras todas las del tablero, llegas a Alejandrino.</li>
-        <li>Cada día hay un tablero nuevo. Con ◀ puedes jugar los de días anteriores.</li>
+        <li>Cada día hay un tablero nuevo. En «Juegos pasados» puedes elegir en el calendario los de días anteriores.</li>
         <li>La racha (llama) cuenta los días seguidos en que has encontrado al menos una palabra del tablero del día, ese mismo día. Jugar días anteriores no la cambia.</li>
         <li>El reloj cuenta el tiempo que llevas jugando cada tablero desde que tocas la primera sílaba. Se detiene mientras no estás en la app y se queda fijo al completar el tablero o al ver las soluciones.</li>
       </ul>
     </details>
   </div>
 </div>
+<!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
+<dialog class="calendario" id="calendario" aria-labelledby="cal-titulo">
+  <div class="cal-head">
+    <button class="cal-mes" id="cal-prev" type="button" aria-label="Mes anterior">‹</button>
+    <h2 id="cal-titulo">octubre de 2026</h2>
+    <button class="cal-mes" id="cal-next" type="button" aria-label="Mes siguiente">›</button>
+  </div>
+  <div class="cal-dias" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="cal-leyenda"><span><i class="l-jugado"></i>Jugado</span><span><i class="l-completo"></i>Alejandrino</span><span><i class="l-visto"></i>Soluciones vistas</span></div>
+  <button class="btn" id="cal-cerrar" type="button">Cerrar</button>
+</dialog>
 <noscript><p class="empty" style="text-align:center">Silabocho necesita JavaScript.</p></noscript>
 <script src="js/juego.js"></script>
 </body>

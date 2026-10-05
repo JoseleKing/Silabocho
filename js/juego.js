@@ -135,12 +135,38 @@ function renderWords(){
 }
 function renderNav(){
   const t = today();
-  document.getElementById('boardno').textContent = 'nº '+S.day;
-  document.getElementById('prev').disabled = S.day <= 1;
-  document.getElementById('next').disabled = S.day >= t;
   const fecha = dateOf(S.day).toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
-  document.getElementById('fecha').textContent = (S.day===t ? 'Hoy, ' : '')+fecha;
+  document.getElementById('fecha').textContent = (S.day===t ? 'Hoy, ' : '')+fecha+' · nº '+S.day;
 }
+
+// ---------- calendario de juegos pasados ----------
+// Un mes cada vez (semana de lunes a domingo); solo se pueden abrir los días del 1 a hoy.
+let calMes;   // {y, m} del mes a la vista
+function estadoDia(d){
+  const b = BOARDS[(d-1) % BOARDS.length], f = S.found[d] || [];
+  return { completo: f.length >= b.palabras.length, jugado: f.length + (S.extra[d]||[]).length > 0, visto: !!S.revealed[d] };
+}
+function renderCal(){
+  const t = today(), {y, m} = calMes, primero = new Date(y, m, 1), diasMes = new Date(y, m+1, 0).getDate();
+  const fin = dateOf(t), ini = dateOf(1);
+  document.getElementById('cal-titulo').textContent = primero.toLocaleDateString('es-ES',{month:'long', year:'numeric'});
+  document.getElementById('cal-prev').disabled = y*12+m <= ini.getFullYear()*12+ini.getMonth();
+  document.getElementById('cal-next').disabled = y*12+m >= fin.getFullYear()*12+fin.getMonth();
+  let html = '<span class="cal-dia vacio"></span>'.repeat((primero.getDay()+6) % 7);
+  for(let n = 1; n <= diasMes; n++){
+    const d = Math.round((Date.UTC(y, m, n) - START)/864e5) + 1;
+    if(d < 1 || d > t){ html += '<button class="cal-dia" type="button" disabled>'+n+'</button>'; continue; }
+    const e = estadoDia(d), cls = (e.completo?' completo':'')+(e.jugado?' jugado':'')+(e.visto?' visto':'')+(d===t?' hoy':'')+(d===S.day?' actual':'');
+    const desc = 'nº '+d+(d===t?', hoy':'')+(e.completo?', Alejandrino':e.jugado?', jugado':'')+(e.visto?', soluciones vistas':'');
+    html += '<button class="cal-dia'+cls+'" type="button" data-dia="'+d+'" aria-label="'+n+' de '+primero.toLocaleDateString('es-ES',{month:'long'})+', '+desc+'"'+(d===S.day?' aria-current="date"':'')+'>'+n+'</button>';
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+}
+function abrirCal(){ const f = dateOf(S.day); calMes = {y:f.getFullYear(), m:f.getMonth()}; renderCal(); document.getElementById('calendario').showModal();
+  const a = document.querySelector('.cal-dia.actual'); if(a) a.focus({focusVisible:false}); }
+function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d.getFullYear(), m:d.getMonth()}; renderCal(); }
+function irA(n){ n = Math.min(today(), Math.max(1, n)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
+
 let tt;
 function toast(msg, kind){ const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast'+(kind?' '+kind:''); clearTimeout(tt); if(msg) tt=setTimeout(()=>{t.textContent='';},2200); }
 
@@ -222,13 +248,17 @@ function renderAll(){
   b.classList.toggle('visto', !!S.revealed[S.day]); b.disabled = !!S.revealed[S.day];
   S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
 }
-function go(d){ const t = today(), n = Math.min(t, Math.max(1, S.day+d)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
 
 function start(){
   load(); S.day = today();
   if(!Object.keys(S.racha).length && (S.found[S.day]||[]).length) S.racha[S.day] = 1;   // progreso anterior a la racha
-  document.getElementById('prev').onclick = ()=>go(-1);
-  document.getElementById('next').onclick = ()=>go(1);
+  const cal = document.getElementById('calendario');
+  document.getElementById('pasados').onclick = abrirCal;
+  document.getElementById('cal-prev').onclick = ()=>moverMes(-1);
+  document.getElementById('cal-next').onclick = ()=>moverMes(1);
+  document.getElementById('cal-cerrar').onclick = ()=>cal.close();
+  document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
+  cal.addEventListener('click', e=>{ if(e.target===cal) cal.close(); });   // tocar fuera lo cierra
   document.getElementById('del').onclick = ()=>{ S.cur.pop(); renderVerse(); };
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
@@ -237,6 +267,7 @@ function start(){
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
+    if(cal.open) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); }
     else if(e.key==='Backspace'){ S.cur.pop(); renderVerse(); }
   });
