@@ -1,6 +1,7 @@
-# Palabras que el diccionario trae sueltas (sin marcas) y que coinciden con una forma verbal,
-# pero que tienen una lectura no verbal clara: se admiten. Las demás palabras sueltas que
-# coinciden con una forma verbal se consideran verbales (hinchan, suele, eras…). Ver noverb.py.
+# Palabras que coinciden con una forma verbal pero tienen una lectura no verbal clara: se admiten.
+# Sirve para las que el diccionario trae sueltas (sin marcas; las demás que coinciden con una
+# forma verbal se consideran verbales: hinchan, suele, eras…) y para participios que son también
+# sustantivo o adjetivo pero el diccionario solo da como participio (coartada). Ver noverb.py.
 # Una o varias por línea; # para comentarios.
 
 # preposiciones, adverbios, conjunciones, interjecciones
@@ -10,3 +11,5 @@ aúpa upa hala
 una unas tía destino marzo marzas sede debe desuso desvelo recelo recuadro rebato aplomo
 amago aje bruces cercas completas cosquillas entretela garantías guayas manías tupí enrase
 hachís
+# participios con uso de sustantivo o adjetivo
+coartada

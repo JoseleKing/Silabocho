@@ -88,3 +88,6 @@ _RAICES = {w[:-2] for w in CON_MARCAS | SUELTAS if re.search(r'(ar|er|ir)$', w) 
 def _conjugada_suelta(w):
     return any(w[:i] in _RAICES and w[i:] in _TERM for i in range(2, len(w) - 1))
 NOVERB -= {w for w in SUELTAS - CON_MARCAS if w not in ADMITIDAS and _conjugada_suelta(w)}
+
+# las admitidas valen siempre (p. ej., participios con uso de sustantivo: coartada)
+NOVERB |= ADMITIDAS
