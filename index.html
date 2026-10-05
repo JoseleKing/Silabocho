@@ -19,8 +19,14 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Logo de Silabocho, un reloj de arena, con el lema «Ocho sílabas, muchas palabras»">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#F6F1E7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131B26" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" id="theme-color" content="#F6F1E7">
+<!-- Tema: claro por defecto; el modo noche se elige en la ventana «?» y se recuerda.
+     Se aplica aquí, antes de pintar la página, para que no haya un destello claro al abrir. -->
+<script>
+  (function(){ var oscuro = false; try{ oscuro = localStorage.getItem('silabocho-tema') === 'oscuro'; }catch(e){}
+    document.documentElement.setAttribute('data-theme', oscuro ? 'dark' : 'light');
+    document.getElementById('theme-color').setAttribute('content', oscuro ? '#131B26' : '#F6F1E7'); })();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Silabocho">
@@ -126,6 +132,7 @@
         <li>Cada día hay un tablero nuevo. En el calendario tienes los anteriores y tu <b>Silabochario</b>.</li>
         <li>La llama cuenta los días seguidos que juegas el tablero del día. ¡Cuida tu racha!</li>
       </ul>
+  <label class="interruptor"><span>Modo noche</span><input type="checkbox" id="modo-noche" role="switch"><span class="pista-int" aria-hidden="true"></span></label>
   <button class="btn primary" id="reglas-cerrar" type="button">¡A jugar!</button>
 </dialog>
 <!-- Pistas: lo que falta, por sílaba inicial y número de sílabas; en días pasados, también las soluciones -->

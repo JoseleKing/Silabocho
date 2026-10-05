@@ -156,6 +156,15 @@ h1 .met{color:var(--accent-text)}
 .ventana[open]{display:flex;flex-direction:column;gap:10px}
 .ventana::backdrop{background:rgba(19,27,38,.45)}
 .reglas,.pistas-v{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow-y:auto}
+/* interruptor «Modo noche» (ventana de reglas) */
+.interruptor{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px 2px;border-top:1px dashed var(--line);font-weight:700;cursor:pointer}
+.interruptor input{position:absolute;opacity:0;pointer-events:none}
+.pista-int{position:relative;flex:none;width:46px;height:26px;border-radius:999px;background:var(--line);transition:background .2s}
+.pista-int::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--panel);box-shadow:0 1px 3px rgba(19,27,38,.3);transition:transform .2s}
+.interruptor input:checked + .pista-int{background:var(--accent)}
+.interruptor input:checked + .pista-int::after{transform:translateX(20px)}
+.interruptor input:focus-visible + .pista-int{outline:3px solid var(--fg);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.pista-int,.pista-int::after{transition:none}}
 .reglas h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
 /* tabla de puntos de las instrucciones */
 .tabla-puntos{margin-top:6px;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.85rem}

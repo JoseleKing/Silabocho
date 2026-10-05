@@ -250,6 +250,16 @@ function abrirRangos(){
   document.getElementById('rangos-cerrar').focus({focusVisible:false});
 }
 
+// ---------- tema: claro por defecto, modo noche a elección (se recuerda en este navegador) ----------
+const TEMA = 'silabocho-tema';
+function aplicarTema(oscuro){
+  document.documentElement.setAttribute('data-theme', oscuro ? 'dark' : 'light');
+  const m = document.getElementById('theme-color'); if(m) m.setAttribute('content', oscuro ? '#131B26' : '#F6F1E7');
+  const c = document.getElementById('modo-noche'); if(c) c.checked = oscuro;
+}
+function cambiarTema(oscuro){ aplicarTema(oscuro); try{ oscuro ? localStorage.setItem(TEMA, 'oscuro') : localStorage.removeItem(TEMA); }catch(e){} }
+window.addEventListener('storage', e=>{ if(e.key === TEMA || e.key === null) aplicarTema(e.newValue === 'oscuro'); });   // otras pestañas
+
 // ---------- reglas ----------
 const REGLAS_VISTAS = 'silabocho-reglas-vistas';
 function abrirReglas(){ const d = document.getElementById('reglas'); if(d.open) return; d.showModal(); document.getElementById('reglas-cerrar').focus({focusVisible:false}); }
@@ -501,6 +511,9 @@ function start(){
   document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
   const reglas = document.getElementById('reglas'), rangos = document.getElementById('rangos'), pistasv = document.getElementById('pistasv');
   document.getElementById('pistas').onclick = abrirPistas;
+  const noche = document.getElementById('modo-noche');
+  noche.checked = document.documentElement.getAttribute('data-theme') === 'dark';
+  noche.onchange = ()=>cambiarTema(noche.checked);
   document.getElementById('pistas-cerrar').onclick = ()=>pistasv.close();
   document.getElementById('tab-cal').onclick = ()=>pestana('cal');
   document.getElementById('tab-sil').onclick = ()=>pestana('sil');

@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Reiniciar Silabocho</title>
+<script>try{ if(localStorage.getItem("silabocho-tema")==="oscuro") document.documentElement.setAttribute("data-theme","dark"); }catch(e){}</script>
 <style>
   :root{--bg:#F6F1E7;--fg:#1E2A3A;--muted:#5E6470;--panel:#FFFCF5;--line:#E2D8C5;--bad:#B42335}
-  @media (prefers-color-scheme: dark){:root{--bg:#131B26;--fg:#F6F1E7;--muted:#A7AEB9;--panel:#1E2A3A;--line:#2E3B4E;--bad:#C93246}}
+  :root[data-theme="dark"]{--bg:#131B26;--fg:#F6F1E7;--muted:#A7AEB9;--panel:#1E2A3A;--line:#2E3B4E;--bad:#C93246}
   body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
     background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;padding:16px}
   img{width:64px;height:64px}
