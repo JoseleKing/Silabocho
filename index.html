@@ -96,6 +96,17 @@
     <button class="btn sec share" id="share" type="button">Compartir resultado</button>
     <button class="btn sec pistas" id="pistas" type="button" aria-haspopup="dialog">Pistas</button>
   </div>
+
+  <!-- Invitación a instalar: una sola vez, tras el tercer día jugado, y nunca si ya está instalada -->
+  <div class="instalar" id="instalar" role="status" hidden>
+    <button type="button" class="instalar-cerrar" id="instalar-cerrar" aria-label="Cerrar">×</button>
+    <p class="instalar-titulo"><b>¿Juegas a diario?</b> Añade Silabocho a tu pantalla de inicio.</p>
+    <ol class="instalar-ios" id="instalar-ios" hidden>
+      <li>Toca el botón Compartir <svg viewBox="0 0 24 24" aria-label="(un cuadrado con una flecha hacia arriba)" role="img"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M7 11H5.5v9.5h13V11H17"/></svg> en la barra de Safari.</li>
+      <li>Elige <b>Añadir a pantalla de inicio</b>.</li>
+    </ol>
+    <button type="button" class="btn sec" id="instalar-boton" hidden>Instalar</button>
+  </div>
 </div>
 <!-- Reglas: se abren solas la primera vez y luego con el botón «?» -->
 <dialog class="ventana reglas" id="reglas" aria-labelledby="reglas-titulo">

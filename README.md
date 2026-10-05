@@ -16,7 +16,7 @@ Ocho sílabas, muchas palabras. Juego de palabras diario en español, al estilo 
 - **Estadísticas** (tercera pestaña del calendario): días jugados, racha actual y mejor racha, tableros completos, Silabochos y palabras encontradas, y una barra por nivel con los días en que se llegó a él (llegar a Hexasílabo cuenta también para los niveles de abajo).
 - El progreso, el tiempo y la racha se guardan en el dispositivo (`localStorage`).
 - «Compartir resultado» copia o comparte el rango, los puntos, el tiempo y la racha, sin revelar palabras.
-- Es una PWA: se puede instalar en el móvil y funciona sin conexión.
+- Es una PWA: se puede instalar en el móvil y funciona sin conexión. Tras el tercer día jugado, el juego invita una sola vez a instalarlo: en iPhone/iPad con los dos pasos de Safari (allí no hay aviso automático) y en Android/Chrome con un botón «Instalar». Nunca sale si ya se juega desde la app instalada.
 
 ## Estructura
 

@@ -110,6 +110,16 @@ h1 .met{color:var(--accent-text)}
 @keyframes gira{to{transform:rotate(180deg)}}
 /* Compartir y Pistas: secundarios, a medio ancho, solo con borde fino */
 .secundarias{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* invitación a instalar la app */
+.instalar{position:relative;display:flex;flex-direction:column;gap:6px;padding:12px 40px 12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);font-size:.85rem}
+.instalar[hidden],.instalar [hidden]{display:none}
+.instalar-titulo{margin:0}
+.instalar-ios{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px;color:var(--muted)}
+.instalar-ios b{color:var(--fg)}
+.instalar-ios svg{width:17px;height:17px;vertical-align:-3px;fill:none;stroke:var(--fg);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.instalar .btn{align-self:flex-start;padding:7px 18px}
+.instalar-cerrar{position:absolute;top:6px;right:6px;width:28px;height:28px;border:none;border-radius:50%;background:none;color:var(--muted);font-size:1.15rem;line-height:1;cursor:pointer}
+.instalar-cerrar:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .btn.sec{background:transparent;border:1px solid var(--muted);color:var(--fg);font-weight:700}
 .found{background:var(--panel);border:1px solid var(--line);border-radius:14px}
 .found summary{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-size:.85rem;color:var(--muted);-webkit-tap-highlight-color:transparent}

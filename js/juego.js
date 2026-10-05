@@ -312,6 +312,28 @@ function abrirPistas(){
   document.getElementById('pistas-cerrar').focus({focusVisible:false});
 }
 function moverMes(k){ const d = new Date(calMes.y, calMes.m+k, 1); calMes = {y:d.getFullYear(), m:d.getMonth()}; renderCal(); }
+// ---------- invitación a instalar ----------
+// Tras el tercer día jugado, una sola vez: en iPhone/iPad, los dos pasos de Safari (no hay aviso
+// automático); donde el navegador lo permite (Android, Chrome), un botón que abre su diálogo de instalar.
+// Nunca si ya se juega desde la app instalada.
+const INSTALAR_VISTO = 'silabocho-instalar';
+let avisoInstalar = null;
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); avisoInstalar = e; quizaInstalar(); });
+const instalada = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const esIOS = () => /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function quizaInstalar(){
+  const el = document.getElementById('instalar');
+  if(!el || !el.hidden || instalada() || !BOARDS.length) return;
+  let visto = null; try{ visto = localStorage.getItem(INSTALAR_VISTO); }catch(e){ return; }
+  const jugados = Object.values(S.found).filter(f=>f.length).length;
+  if(visto || jugados < 3 || !(esIOS() || avisoInstalar)) return;
+  document.getElementById('instalar-ios').hidden = !esIOS();
+  document.getElementById('instalar-boton').hidden = esIOS() || !avisoInstalar;
+  el.hidden = false;
+  try{ localStorage.setItem(INSTALAR_VISTO, '1'); }catch(e){}   // sale una sola vez, aunque no se cierre
+}
+function instalar(){ if(!avisoInstalar) return; avisoInstalar.prompt(); avisoInstalar = null; document.getElementById('instalar').hidden = true; }
+
 // ---------- resumen de ayer ----------
 // Al abrir el juego en un día nuevo, si ayer se jugó: «Ayer: Hexasílabo · 18 de 26 palabras · Ver soluciones».
 // Sale una vez al día (se recuerda en este navegador) y se va al cerrarlo o al ir a ver las soluciones.
@@ -378,6 +400,7 @@ function submit(){
   else if(sube) toast('¡Ya eres '+RANKS[k][0]+'! +'+pts,'star grande');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
+  quizaInstalar();   // puede que esta palabra complete el tercer día jugado
   clear(); renderScore(); renderWords(); renderClock();
   // los momentos importantes destellan; las palabras normales, no
   if(sube){ destello(document.querySelectorAll('#meter span')[k-1]); destello(document.getElementById('rankname')); }
@@ -497,7 +520,9 @@ function start(){
   });
   window.addEventListener('pagehide', ()=>{ tickClock(); save(); });
   lastTick = performance.now(); setInterval(()=>{ tickClock(); cambioDeDia(); }, 1000);
-  renderAll(); quizaResumen();
+  renderAll(); quizaResumen(); quizaInstalar();
+  document.getElementById('instalar-cerrar').onclick = ()=>{ document.getElementById('instalar').hidden = true; };
+  document.getElementById('instalar-boton').onclick = instalar;
 }
 
 // ---------- portada ----------
