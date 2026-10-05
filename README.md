@@ -76,6 +76,8 @@ Opciones de `gen.py`:
 | `--primeros N` | 3 | cuántos de los mejores van al principio, sin barajar |
 | `--semilla N` | 2026 | semilla fija: la misma semilla da los mismos tableros |
 | `--ampliar ANTES DESPUÉS` | — | conserva los tableros de `data/tableros.json` en su sitio y añade tableros nuevos compatibles: ANTES delante y DESPUÉS detrás. Si ANTES no es 0, la numeración de los días se corre: hay que retrasar `START` en `js/juego.js` y migrar el progreso guardado (ver `load()`) |
+| `--max-central N` | — | una misma sílaba central no sale más de N veces entre todos los tableros (contando los que se conservan con `--ampliar`); la búsqueda ya no propone centrales que hayan llegado al límite |
+| `--max-jaccard X` | 0,45 | parecido máximo entre dos tableros (sílabas compartidas / sílabas en total); subirlo un poco ayuda cuando ya hay muchos tableros y cuesta encontrar más |
 | `--reusar` | — | reutiliza los candidatos de `candidatos.json` y solo rehace la selección (segundos en vez de minutos); se niega si el léxico ha cambiado |
 
 Cómo trabaja:

@@ -29,6 +29,10 @@ ap.add_argument('--semilla', type=int, default=2026)
 ap.add_argument('--primeros', type=int, default=3, help='cuántos de los mejores van al principio sin barajar')
 ap.add_argument('--salida', default=SALIDA)
 ap.add_argument('--reusar', action='store_true', help='reutiliza los candidatos guardados en candidatos.json')
+ap.add_argument('--max-jaccard', type=float, default=0.45, metavar='X',
+                help='parecido máximo entre dos tableros (sílabas compartidas / sílabas en total); por defecto 0,45')
+ap.add_argument('--max-central', type=int, default=None, metavar='N',
+                help='una misma sílaba central no sale más de N veces entre todos los tableros (contando los que se conservan con --ampliar)')
 ap.add_argument('--ampliar', type=int, nargs=2, metavar=('ANTES', 'DESPUES'), help='añade tableros nuevos delante y detrás de los que ya hay')
 args = ap.parse_args()
 if args.ampliar:
@@ -41,7 +45,7 @@ random.seed(args.semilla)
 print(f'léxico: {len(LEX)} palabras en el núcleo, {len(EXTRA)} extra', file=sys.stderr)
 
 MIN_PALABRAS, MAX_PALABRAS = 15, 80
-MAX_JACCARD = 0.45
+MAX_JACCARD = args.max_jaccard
 
 # ---------- búsqueda ----------
 cnt = collections.Counter(s for sil in LEX.values() for s in set(sil))
@@ -72,10 +76,16 @@ def estrellas_de(sol):
     m = max(len(LEX[w]) for w in sol)
     return sorted((w for w in sol if len(LEX[w]) == m), key=orden_estrella)
 
+# veces que sale cada sílaba central (tableros fijos y candidatos); con --max-central, la búsqueda
+# ya no propone una central que haya llegado al límite (así todos los candidatos son aprovechables).
+CENTRALES = collections.Counter()
+def central_libre(c):
+    return args.max_central is None or CENTRALES[SYLS[c]] < args.max_central
+
 def evaluar(S, usos, estrellas):
     best = None
     for c in range(S.bit_length()):
-        if S >> c & 1:
+        if S >> c & 1 and central_libre(c):
             sol = sol_central(S, c)
             if not any(len(LEX[w]) >= 4 for w in sol):
                 continue
@@ -150,6 +160,7 @@ if args.ampliar:
             if x in IDX:      # una sílaba que ya no está entre las más frecuentes no cuenta para el solapamiento
                 S |= 1 << IDX[x]
         MASCARAS_FIJAS.append(S)
+        CENTRALES[t['central']] += 1
         estrellas.update(estrellas_de(sol_central(S, IDX[t['central']])))
         estrellas.update(t['estrellas'])
         for i in range(len(SYLS)):
@@ -175,6 +186,7 @@ while len(tableros) < CANDIDATOS:
     sol.sort(key=orden_estrella)
     est = estrellas_de(sol)
     exterior = [SYLS[i] for i in range(len(SYLS)) if S >> i & 1 and i != c]
+    CENTRALES[SYLS[c]] += 1
     tableros.append(dict(mask=S, central=SYLS[c], exterior=exterior, estrellas=est,
                          palabras={w: LEX[w] for w in sol}))
     estrellas.update(est)
@@ -200,10 +212,13 @@ def estrellas_finales(sol):
 if args.ampliar:
     # los mejores que no repitan Silabocho (contando ya las palabras raras), barajados con la semilla
     usadas, nuevos = {w for t in EXISTENTES for w in t['estrellas']}, []
+    cuenta = collections.Counter(t['central'] for t in EXISTENTES)
     for t in tableros:
         est = set(estrellas_finales(soluciones(t)))
+        if args.max_central is not None and cuenta[t['central']] >= args.max_central:
+            continue
         if len(nuevos) < args.tableros and usadas.isdisjoint(est):
-            nuevos.append(t); usadas |= est
+            nuevos.append(t); usadas |= est; cuenta[t['central']] += 1
     if len(nuevos) < args.tableros:
         sys.exit(f'Solo hay {len(nuevos)} candidatos válidos de {args.tableros}: sube --candidatos.')
     random.Random(args.semilla).shuffle(nuevos)
@@ -226,7 +241,11 @@ for w in fijos:
 for t in tableros:
     if len(primeros) < args.primeros and t not in primeros and all(t['central'] != p['central'] for p in primeros):
         primeros.append(t)
-elegidos = primeros + [t for t in tableros if t not in primeros][:args.tableros - len(primeros)]
+elegidos, cuenta_c = list(primeros), collections.Counter(t['central'] for t in primeros)
+for t in tableros:
+    if len(elegidos) >= args.tableros: break
+    if t in primeros or (args.max_central is not None and cuenta_c[t['central']] >= args.max_central): continue
+    elegidos.append(t); cuenta_c[t['central']] += 1
 resto = elegidos[len(primeros):]
 random.Random(args.semilla).shuffle(resto)
 elegidos = primeros + resto
