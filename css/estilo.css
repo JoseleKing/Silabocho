@@ -1,5 +1,7 @@
 /* Fuentes alojadas en el proyecto para que funcionen sin conexión (subconjunto latino). */
 @font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:200 800;font-display:swap;src:url(../fonts/bricolage.woff2) format("woff2")}
+/* «Cifras»: solo los dígitos de Bricolage, para que todos los números lleven el 0 sin barra (Atkinson lo tacha) */
+@font-face{font-family:"Cifras";font-style:normal;font-weight:200 800;font-display:swap;src:url(../fonts/bricolage.woff2) format("woff2");unicode-range:U+0030-0039}
 @font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/atkinson-400.woff2) format("woff2")}
 @font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/atkinson-700.woff2) format("woff2")}
 
@@ -9,7 +11,7 @@
   --bg:#F6F1E7; --panel:#FFFCF5; --fg:#1E2A3A; --muted:#5E6470; --line:#E2D8C5;
   --accent:#E8A33D; --accent-ink:#1E2A3A; --accent-text:#8F560C; --star-soft:#F5DDAE; --bad:#B42335;
   --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
-  --body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body:"Cifras", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#131B26; --panel:#1E2A3A; --fg:#F6F1E7; --muted:#A7AEB9; --line:#2E3B4E;
@@ -116,7 +118,6 @@ h1 .met{color:var(--accent-text)}
 .btn.reveal.visto{opacity:.55;cursor:default}
 
 /* ---------- ventanas (reglas y calendario) ---------- */
-/* Los días del calendario van en la letra del título: la del texto tacha el cero (1Ø, 2Ø…) */
 .ventana{width:min(360px,calc(100vw - 32px));box-sizing:border-box;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--fg);
   font-family:var(--body);box-shadow:0 18px 50px rgba(19,27,38,.25)}
 .ventana[open]{display:flex;flex-direction:column;gap:10px}
@@ -176,7 +177,7 @@ h1 .met{color:var(--accent-text)}
 .cal-dias,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .cal-dias span{font-size:.72rem;font-weight:700;color:var(--muted)}
 .cal-dia{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid transparent;background:none;
-  color:var(--fg);font-family:var(--display);font-size:1rem;font-variant-numeric:tabular-nums;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  color:var(--fg);font-family:var(--body);font-size:.95rem;font-variant-numeric:tabular-nums;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .cal-dia.vacio{visibility:hidden}
 .cal-dia:disabled{color:var(--muted);opacity:.45}
 button.cal-dia:not(:disabled){cursor:pointer;background:var(--bg);font-weight:700}
