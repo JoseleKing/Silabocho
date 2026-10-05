@@ -330,13 +330,20 @@ function submit(){
   if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
   save();
   const n = sylls(w).length, pts = wordPoints(w), k = rankIndex();
-  if(allFound()) toast('★ ¡Tablero completo! +'+pts,'star');
-  else if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
-  else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
+  const estrella = isStar(joined), sube = k>antes;
+  if(allFound()) toast('★ ¡Tablero completo! +'+pts,'star grande');
+  else if(estrella) toast('★ ¡Silabocho! +'+pts,'star grande');
+  else if(sube) toast('¡Ya eres '+RANKS[k][0]+'! +'+pts,'star grande');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
   clear(); renderScore(); renderWords(); renderClock();
+  // los momentos importantes destellan; las palabras normales, no
+  if(sube){ destello(document.querySelectorAll('#meter span')[k-1]); destello(document.getElementById('rankname')); }
+  if(estrella){ destello(document.querySelector('#found summary')); destello(document.getElementById('estrella')); }
 }
+// un destello corto (ver «.destello» en el CSS); se puede repetir aunque el anterior no haya acabado
+function destello(el){ if(!el) return; el.classList.remove('destello'); void el.offsetWidth; el.classList.add('destello');
+  setTimeout(()=>el.classList.remove('destello'), 1200); }
 let confirmReveal = false, revealTimer;
 // las soluciones solo se pueden ver en tableros de días pasados (desde la ventana de pistas)
 const revealText = () => S.revealed[S.day] ? 'Soluciones a la vista' : 'Ver soluciones';
