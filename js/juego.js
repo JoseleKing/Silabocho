@@ -97,15 +97,24 @@ function toastRacha(){
 function tileEl(s, isCenter, x, y){
   const b = document.createElement('button');
   b.className = 'tile'+(isCenter?' center':'');
-  b.textContent = s; b.style.left = x+'%'; b.style.top = y+'%';
+  b.textContent = s; b.dataset.s = s; b.style.left = x+'%'; b.style.top = y+'%';
   b.setAttribute('aria-label','Sílaba '+s+(isCenter?' (central)':''));
   b.addEventListener('click',()=>{ startClock(); S.cur += s; renderVerse(); toast(''); });
   return b;
 }
+// posición (en %) de la ficha exterior número i, en círculo empezando por arriba
+const posicion = i => { const a = (-90 + i*360/7)*Math.PI/180; return [50+36*Math.cos(a), 50+36*Math.sin(a)]; };
 function renderRose(){
   const r = document.getElementById('rose'); r.innerHTML='';
   r.appendChild(tileEl(B().central, true, 50, 50));
-  outer().forEach((s,i)=>{ const a = (-90 + i*360/7)*Math.PI/180; r.appendChild(tileEl(s,false,50+36*Math.cos(a),50+36*Math.sin(a))); });
+  outer().forEach((s,i)=>r.appendChild(tileEl(s, false, ...posicion(i))));
+}
+// al mezclar, las mismas fichas se deslizan a su nuevo sitio (la transición de left/top está en el CSS),
+// así el ojo puede seguir a dónde va cada una
+function moverFichas(){
+  const fichas = [...document.querySelectorAll('#rose .tile:not(.center)')];
+  outer().forEach((s,i)=>{ const b = fichas.find(x=>x.dataset.s===s); if(!b) return renderRose();
+    const [x, y] = posicion(i); b.style.left = x+'%'; b.style.top = y+'%'; });
 }
 // ---------- la palabra en curso ----------
 // Es un texto: se escribe tocando sílabas o con el teclado. Para comprobarla no cuentan las tildes ni la diéresis.
@@ -452,7 +461,7 @@ function start(){
   // escribir: en el móvil, tocando el hueco de la palabra se abre el teclado; lo escrito pasa a la palabra en curso
   const inp = document.getElementById('escribe');
   inp.addEventListener('input', ()=>{ const v = limpiar(inp.value); if(v) startClock(); S.cur = v; toast(''); renderVerse(); });
-  document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
+  document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} moverFichas(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
   document.getElementById('share').onclick = share;
