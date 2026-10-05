@@ -31,9 +31,8 @@ h1 .met{color:var(--accent-text)}
   cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .redondo svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .ayuda{font-family:var(--display);font-weight:800;font-size:1.05rem}
-.racha,.timer{height:32px;box-sizing:border-box;padding-inline:7px}
+.racha{height:32px;box-sizing:border-box;padding-inline:7px}
 /* en móviles muy estrechos, el logo deja sitio al nombre */
-@media (max-width:380px){.brand img{display:none}}
 .otro-dia{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:-4px;padding:6px 6px 6px 12px;border-radius:999px;background:var(--star-soft);font-size:.82rem}
 .otro-dia[hidden]{display:none}
 .otro-dia button{flex:none;font:inherit;font-weight:700;padding:4px 12px;border-radius:999px;border:none;background:var(--fg);color:var(--bg);cursor:pointer;touch-action:manipulation}
@@ -58,6 +57,10 @@ h1 .met{color:var(--accent-text)}
 /* la palabra y los avisos ocupan el mismo hueco: el aviso tapa la palabra mientras se ve */
 .entrada{display:grid;min-height:58px}
 .entrada>*{grid-area:1/1}
+.escribe{opacity:0;width:100%;height:100%;border:none;padding:0;font-size:16px;color:transparent;caret-color:transparent;background:transparent;cursor:text}
+.verse .cursor{display:inline-block;width:3px;height:1.1em;margin-left:3px;border-radius:2px;background:var(--accent);vertical-align:-.15em;animation:parpadeo 1.1s steps(1) infinite}
+.verse .crudo{color:var(--muted)}
+@keyframes parpadeo{50%{opacity:0}}
 .verse{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:2rem;letter-spacing:.01em;text-align:center;word-break:break-word}
 .toast{display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.05rem;font-weight:700;color:var(--muted);visibility:hidden}
 .entrada.aviso .verse{visibility:hidden}
@@ -126,6 +129,7 @@ h1 .met{color:var(--accent-text)}
 .cal-fecha::first-letter{text-transform:uppercase}
 .rangos h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
 .rangos-pts{margin:0;font-size:.88rem;color:var(--muted)}
+.rangos-tiempo{display:flex;align-items:center;gap:8px;margin:0;font-size:.88rem;color:var(--muted)}
 .rangos-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
 .rangos-lista li{display:flex;justify-content:space-between;gap:12px;padding:6px 10px;border-radius:10px;font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--muted)}
 .rangos-lista li.hecho{color:var(--fg)}
@@ -149,7 +153,7 @@ button.cal-dia.completo{background:var(--accent);color:var(--accent-ink)}
 .l-jugado{background:var(--accent-text);transform:scale(.6)}
 .l-completo{background:var(--accent)}
 .l-visto{border:1.5px dashed var(--muted);box-sizing:border-box}
-@media (prefers-reduced-motion: reduce){.tile{transition:none}.found .chevron{transition:none}.btn.icono.gira svg{animation:none}}
+@media (prefers-reduced-motion: reduce){.verse .cursor{animation:none}.tile{transition:none}.found .chevron{transition:none}.btn.icono.gira svg{animation:none}}
 
 /* ---------- portada fugaz ---------- */
 /* Pantalla de marca (igual en claro y oscuro): fondo ocre, reloj azul marino, arena crema. */

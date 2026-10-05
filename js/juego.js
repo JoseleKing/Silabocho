@@ -10,7 +10,7 @@ const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
 
 let BOARDS = [];
-let S = {day:1, found:{}, cur:[], order:{}, revealed:{}, time:{}, racha:{}};   // time: segundos jugados por día; racha: días jugados en su día
+let S = {day:1, found:{}, cur:'', order:{}, revealed:{}, time:{}, racha:{}};   // time: segundos jugados por día; racha: días jugados en su día
 
 function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null'); if(s){S.found=s.found||{};
   // antes había «palabras extra» aparte; ahora son del tablero, así que pasan a las halladas
@@ -85,7 +85,7 @@ function tileEl(s, isCenter, x, y){
   b.className = 'tile'+(isCenter?' center':'');
   b.textContent = s; b.style.left = x+'%'; b.style.top = y+'%';
   b.setAttribute('aria-label','Sílaba '+s+(isCenter?' (central)':''));
-  b.addEventListener('click',()=>{ startClock(); S.cur.push(s); renderVerse(); toast(''); });
+  b.addEventListener('click',()=>{ startClock(); S.cur += s; renderVerse(); toast(''); });
   return b;
 }
 function renderRose(){
@@ -93,10 +93,30 @@ function renderRose(){
   r.appendChild(tileEl(B().central, true, 50, 50));
   outer().forEach((s,i)=>{ const a = (-90 + i*360/7)*Math.PI/180; r.appendChild(tileEl(s,false,50+36*Math.cos(a),50+36*Math.sin(a))); });
 }
+// ---------- la palabra en curso ----------
+// Es un texto: se escribe tocando sílabas o con el teclado. Para comprobarla no cuentan las tildes ni la diéresis.
+const norm = s => s.normalize('NFD').replace(/[\u0301\u0308]/g,'').normalize('NFC').toLowerCase();
+const limpiar = s => s.toLowerCase().replace(/[^a-záéíóúüñ]/g,'');
+// divide el texto en sílabas del tablero (prefiriendo una división con la central); null si no se puede
+function trocear(txt){
+  const sy = [B().central, ...outer()], memo = {};
+  const ir = i => {
+    if(i===txt.length) return [[]];
+    if(memo[i]) return memo[i];
+    const r = [];
+    sy.forEach(s=>{ const n = norm(s); if(txt.startsWith(n, i)) ir(i+n.length).slice(0,4).forEach(resto=>r.push([s, ...resto])); });
+    return memo[i] = r;
+  };
+  const todas = ir(0);
+  return todas.find(d=>d.includes(B().central)) || todas[0] || null;
+}
 function renderVerse(){
-  const v = document.getElementById('verse');
-  if(!S.cur.length){ v.innerHTML = '<span class="ph">Toca las sílabas para formar una palabra</span>'; return; }
-  v.innerHTML = S.cur.map(s=>'<span'+(s===B().central?' class="c"':'')+'>'+s+'</span>').join('<span class="dot">·</span>');
+  const v = document.getElementById('verse'), inp = document.getElementById('escribe');
+  if(inp.value !== S.cur) inp.value = S.cur;
+  const trozos = S.cur && trocear(norm(S.cur)), cursor = '<span class="cursor" aria-hidden="true"></span>';
+  if(!S.cur){ v.innerHTML = cursor; return; }
+  v.innerHTML = (trozos ? trozos.map(s=>'<span'+(s===B().central?' class="c"':'')+'>'+s+'</span>').join('<span class="dot">·</span>')
+                        : '<span class="crudo">'+S.cur+'</span>') + cursor;
 }
 function renderScore(){
   const k = rankIndex();
@@ -199,20 +219,25 @@ function toast(msg, kind){
 }
 
 function submit(){
-  const cur = S.cur; if(!cur.length) return;
-  const joined = cur.join('');
-  const clear = ()=>{ S.cur=[]; renderVerse(); };
-  if(cur.length<2){ toast('Tiene que tener al menos dos sílabas','bad'); return clear(); }
-  if(!cur.includes(B().central)){ toast('Falta la sílaba central','bad'); return clear(); }
-  const w = words().find(y=>y[0]===joined && y[1]===cur.join('-'));
-  if(!w){ toast('No está en la lista','bad'); return clear(); }
+  if(!S.cur) return;
+  const txt = norm(S.cur), clear = ()=>{ S.cur=''; renderVerse(); };
+  // primero la que coincide tal cual (con sus tildes); si no, sin tildes, y mejor una que aún no tengas
+  const iguales = words().filter(y=>norm(y[0])===txt);
+  const w = iguales.find(y=>y[0]===S.cur) || iguales.find(y=>!myFound().includes(y[0])) || iguales[0];
+  if(!w){
+    const trozos = trocear(txt);
+    toast(!trozos ? 'Usa solo las sílabas del tablero' : trozos.length<2 ? 'Tiene que tener al menos dos sílabas'
+      : !trozos.includes(B().central) ? 'Falta la sílaba central' : 'No está en la lista', 'bad');
+    return clear();
+  }
+  const joined = w[0];
   if(myFound().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
   if(S.revealed[S.day]){ toast('Las soluciones ya están a la vista','bad'); return clear(); }
   const antes = rankIndex();
   myFound().push(joined);
   if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
   save();
-  const n = cur.length, pts = wordPoints(w), k = rankIndex();
+  const n = sylls(w).length, pts = wordPoints(w), k = rankIndex();
   if(allFound()) toast('★ ¡Tablero completo! +'+pts,'star');
   else if(isStar(joined)) toast('¡Silabocho! +'+pts,'star');
   else if(k>antes) toast('+'+pts+' · ¡Ya eres '+RANKS[k][0]+'!','star');
@@ -271,7 +296,7 @@ function renderAll(){
   const b = document.getElementById('reveal'); confirmReveal=false; b.classList.remove('warn');
   b.textContent = revealText();
   b.classList.toggle('visto', !!S.revealed[S.day]); b.disabled = !!S.revealed[S.day];
-  S.cur=[]; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
+  S.cur=''; renderNav(); renderRose(); renderVerse(); renderScore(); renderWords(); renderClock(); renderRacha();
 }
 
 function start(){
@@ -290,7 +315,10 @@ function start(){
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
   [cal, reglas, rangos].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
-  document.getElementById('del').onclick = ()=>{ S.cur = []; renderVerse(); };   // borra la palabra entera (con el teclado, Retroceso quita solo la última sílaba)
+  document.getElementById('del').onclick = ()=>{ S.cur = ''; renderVerse(); };   // borra la palabra entera (con el teclado, Retroceso quita solo la última letra)
+  // escribir: en el móvil, tocando el hueco de la palabra se abre el teclado; lo escrito pasa a la palabra en curso
+  const inp = document.getElementById('escribe');
+  inp.addEventListener('input', ()=>{ const v = limpiar(inp.value); if(v) startClock(); S.cur = v; toast(''); renderVerse(); });
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} renderRose(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
@@ -299,8 +327,10 @@ function start(){
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
     if(cal.open || reglas.open || rangos.open) return;
-    if(e.key==='Enter'){ e.preventDefault(); submit(); }
-    else if(e.key==='Backspace'){ S.cur.pop(); renderVerse(); }
+    if(e.key==='Enter'){ e.preventDefault(); submit(); return; }
+    if(e.target===inp || e.metaKey || e.ctrlKey || e.altKey) return;   // en el campo de escribir, lo gestiona él
+    if(e.key==='Backspace'){ e.preventDefault(); S.cur = S.cur.slice(0,-1); renderVerse(); }
+    else if(e.key.length===1 && limpiar(e.key)){ e.preventDefault(); startClock(); S.cur += limpiar(e.key); toast(''); renderVerse(); }
   });
   // si la app queda abierta y cambia el día, al volver a ella se pasa al tablero nuevo
   let ultimoHoy = S.day;
