@@ -196,7 +196,7 @@ function renderWords(){
   est.setAttribute('aria-label', n===1 ? (k ? 'Has encontrado el Silabocho' : 'Aún no has encontrado el Silabocho')
     : 'Has encontrado '+k+' de '+n+' Silabochos');
   const vacio = !f.length && !rev ? '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>' : '';
-  list.innerHTML = vacio + htmlGrupos(f, rev);
+  list.innerHTML = vacio + htmlGrupos(f, rev); list.classList.toggle('soluciones', rev);
 }
 // una palabra como ficha: hallada, rellena (★ si es Silabocho); sin hallar, con borde discontinuo
 // (☆ y borde de acento si es un Silabocho que se escapó)

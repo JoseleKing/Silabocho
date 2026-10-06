@@ -242,6 +242,9 @@ h1 .met{color:var(--accent-text)}
 .res-sil-tit{margin:0;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .res-sil-tit.todos{color:var(--accent-text);text-transform:none;letter-spacing:0;font-size:.95rem}
 .res-sil .w{font-size:1rem}
+/* con las soluciones a la vista (resultados y lista del tablero): las halladas, rellenas, con borde y en negrita;
+   las que faltaron siguen huecas y apagadas. Los Silabochos hallados conservan su ocre. */
+.resultados .words .w:not(.missed):not(.star),.words.soluciones .w:not(.missed):not(.star){background:color-mix(in srgb,var(--fg) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--fg) 24%,transparent);font-weight:700}
 .res-acciones{display:flex;gap:8px;margin-top:4px}
 .res-acciones .btn{flex:1}
 .res-acciones .btn[hidden]{display:none}
