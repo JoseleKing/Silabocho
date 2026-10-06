@@ -189,16 +189,25 @@ function renderWords(){
   est.className = 'estrella' + (k===n ? ' si' : k ? ' medio' : '');
   est.setAttribute('aria-label', n===1 ? (k ? 'Has encontrado el Silabocho' : 'Aún no has encontrado el Silabocho')
     : 'Has encontrado '+k+' de '+n+' Silabochos');
-  // un grupo por número de sílabas (de menos a más), con «halladas/total»; dentro, orden alfabético
+  const vacio = !f.length && !rev ? '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>' : '';
+  list.innerHTML = vacio + htmlGrupos(f, rev);
+}
+// una palabra como ficha: hallada, rellena (★ si es Silabocho); sin hallar, con borde discontinuo
+// (☆ y borde de acento si es un Silabocho que se escapó)
+function chipPalabra(w, f){
+  const x = w[0], si = f.includes(x), est = isStar(x);
+  return '<span class="w'+(si ? (est?' star':'') : ' missed'+(est?' sil-falta':''))+'"'+(est && !si ? ' aria-label="'+x+', Silabocho sin encontrar"' : '')+'>'
+    +w[1].split('-').join('·')+(est ? (si?' ★':' ☆') : '')+'</span>';
+}
+// las palabras del tablero de S.day, un grupo por número de sílabas (de menos a más), con «halladas/total»;
+// dentro, orden alfabético. Sin soluciones a la vista, solo las halladas.
+function htmlGrupos(f, rev){
   const grupos = {};
   words().forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
-  const vacio = !f.length && !rev ? '<span class="empty">Aún no has encontrado ninguna. Empieza por las de dos sílabas.</span>' : '';
-  list.innerHTML = vacio + Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
+  return Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
     const todas = grupos[n], halladas = todas.filter(w=>f.includes(w[0])).length;
     const shown = (rev ? todas : todas.filter(w=>f.includes(w[0]))).sort((a,b)=>a[0].localeCompare(b[0],'es'));
-    const chips = shown.map(w=>{
-      const x = w[0], cls = isStar(x)?' star':(!f.includes(x)?' missed':'');
-      return '<span class="w'+cls+'">'+w[1].split('-').join('·')+(isStar(x)?' ★':'')+'</span>'; }).join('');
+    const chips = shown.map(w=>chipPalabra(w, f)).join('');
     const completo = halladas===todas.length;
     return '<div class="grupo"><div class="grupo-head"><span class="grupo-n">'+n+' sílabas</span>'
       +'<span class="grupo-c'+(completo?' ok':'')+'" aria-label="'+halladas+' de '+todas.length+' encontradas">'+halladas+'/'+todas.length+(completo?' ✓':'')+'</span></div>'
@@ -370,33 +379,78 @@ function quizaInstalar(){
 function instalar(){ if(!avisoInstalar) return; avisoInstalar.prompt(); avisoInstalar = null; document.getElementById('instalar').hidden = true; }
 
 // ---------- resumen de ayer ----------
-// Al abrir el juego en un día nuevo, si ayer se jugó: «Ayer: Hexasílabo · 18 de 26 palabras · Ver soluciones».
-// Sale una vez al día (se recuerda en este navegador) y se va al cerrarlo o al ir a ver las soluciones.
+// Al abrir el juego en un día nuevo, si ayer se jugó: «Ayer: Hexasílabo · 18 de 26 palabras · Silabochos ★☆☆»,
+// con «Seguir jugando» (el tablero de ayer, sin destapar nada) y «Ver resultados» (la ventana de resultados).
+// Sale una vez al día (se recuerda en este navegador) y se va al cerrarlo o al elegir una de las dos.
 const RESUMEN_VISTO = 'silabocho-resumen';
-function datosDia(d){ const antes = S.day; S.day = d; const r = {rango: RANKS[rankIndex()][0], n: myFound().length, total: words().length, lleno: allFound(), visto: !!S.revealed[d]}; S.day = antes; return r; }
+// hace fn() con el tablero del día d como si fuera el actual (words, stars, score…) y deja S.day como estaba
+function enDia(d, fn){ const antes = S.day; S.day = d; try{ return fn(); } finally{ S.day = antes; } }
+function datosDia(d){ return enDia(d, ()=>({rango: RANKS[rankIndex()][0], n: myFound().length, total: words().length, lleno: allFound(), visto: !!S.revealed[d],
+  puntos: score(), puntosTot: total(), est: stars().length, estHallados: stars().filter(x=>myFound().includes(x)).length})); }
 function quizaResumen(){
   const el = document.getElementById('resumen'), ayer = today() - 1;
   let visto = null; try{ visto = localStorage.getItem(RESUMEN_VISTO); }catch(e){}
   if(ayer < 1 || !(S.found[ayer]||[]).length || visto === String(today())){ el.hidden = true; return; }
-  const r = datosDia(ayer);
-  document.getElementById('resumen-txt').innerHTML = 'Ayer: <b>'+r.rango+'</b> · '+r.n+' de '+r.total+(r.total===1?' palabra':' palabras')+(r.lleno ? ' · ★ Tablero completo' : '');
-  document.getElementById('resumen-ver').hidden = r.lleno;
+  cancelarAyer();
   el.hidden = false;
 }
-function cerrarResumen(){ document.getElementById('resumen').hidden = true; try{ localStorage.setItem(RESUMEN_VISTO, String(today())); }catch(e){} }
-// como en Pistas, ver las soluciones pide un segundo toque: después ya no se suman puntos en ese tablero
+function textoResumen(){
+  const r = datosDia(today() - 1);
+  document.getElementById('resumen-txt').innerHTML = 'Ayer: <b>'+r.rango+'</b> · '+r.n+' de '+r.total+(r.total===1?' palabra':' palabras')
+    +(r.lleno ? ' · <b>★ Tablero completo</b>' : ' · '+(r.est===1?'Silabocho ':'Silabochos ')+'<span class="resumen-est">'+'★'.repeat(r.estHallados)+'☆'.repeat(r.est-r.estHallados)+'</span>');
+  // completo o con las soluciones ya vistas, no hay nada que seguir jugando
+  document.getElementById('resumen-seguir').hidden = r.lleno || r.visto;
+}
+function cerrarResumen(){ cancelarAyer(); document.getElementById('resumen').hidden = true; try{ localStorage.setItem(RESUMEN_VISTO, String(today())); }catch(e){} }
+function seguirAyer(){ if(confirmAyer) return cancelarAyer(); const ayer = today() - 1; cerrarResumen(); irA(ayer); }
+// como en Pistas, ver las soluciones pide un segundo toque (después ya no se suman puntos en ese tablero).
+// Mientras se confirma, el aviso cambia de texto y de botones, pero no de altura.
 let confirmAyer = false, ayerTimer;
 function verAyer(){
-  const ayer = today() - 1, b = document.getElementById('resumen-ver');
-  if(!S.revealed[ayer] && !confirmAyer){
-    confirmAyer = true; b.textContent = 'Toca otra vez: ya no sumarás puntos ayer'; b.classList.add('warn');
-    clearTimeout(ayerTimer); ayerTimer = setTimeout(()=>{ confirmAyer = false; b.textContent = 'Ver soluciones'; b.classList.remove('warn'); }, 5000);
+  const ayer = today() - 1, r = datosDia(ayer);
+  if(!r.visto && !r.lleno && !confirmAyer){
+    const el = document.getElementById('resumen');
+    el.style.minHeight = el.offsetHeight + 'px'; el.classList.add('confirma'); confirmAyer = true;
+    document.getElementById('resumen-txt').textContent = '¿Seguro? Ya no podrás sumar puntos ayer.';
+    document.getElementById('resumen-seguir').textContent = 'Cancelar';
+    document.getElementById('resumen-ver').textContent = 'Confirmar';
+    clearTimeout(ayerTimer); ayerTimer = setTimeout(cancelarAyer, 5000);
     return;
   }
-  clearTimeout(ayerTimer); confirmAyer = false; cerrarResumen();
-  if(!S.revealed[ayer]){ S.revealed[ayer] = true; save(); }
-  if(S.day === ayer) renderAll(); else irA(ayer);
-  document.getElementById('found').open = true;
+  cerrarResumen();
+  if(!r.lleno && !S.revealed[ayer]){ S.revealed[ayer] = true; save(); if(S.day === ayer) renderAll(); }
+  abrirResultados(ayer);
+}
+// vuelve el aviso a su estado normal (tras «Cancelar», los 5 segundos o al cerrarlo)
+function cancelarAyer(){
+  clearTimeout(ayerTimer); confirmAyer = false;
+  const el = document.getElementById('resumen'); el.style.minHeight = ''; el.classList.remove('confirma');
+  document.getElementById('resumen-seguir').textContent = 'Seguir jugando';
+  document.getElementById('resumen-ver').textContent = 'Ver resultados';
+  if(today() > 1) textoResumen();
+}
+
+// ---------- resultados de un día pasado (los de ayer, desde el resumen) ----------
+// Encima del tablero que se esté jugando, sin cambiar de día: nivel, puntos, palabras y tiempo;
+// después los Silabochos y, por último, todas las palabras del tablero.
+function abrirResultados(d){
+  const r = datosDia(d), t = S.time[d];
+  document.getElementById('res-titulo').textContent = (d === today()-1 ? 'Resultados de ayer' : 'Resultados')+' · nº '+d;
+  document.getElementById('res-rango').textContent = r.rango;
+  // cada dato en un bloque que no se parte al pasar de línea
+  document.getElementById('res-cifras').innerHTML = [r.puntos+' de '+r.puntosTot+' puntos', r.n+' de '+r.total+(r.total===1?' palabra':' palabras')]
+    .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : [])
+    .map(x=>'<span>'+x+'</span>').join(' · ');
+  enDia(d, ()=>{
+    const f = myFound(), est = stars(), todos = est.every(x=>f.includes(x));
+    const titulo = todos ? (est.length===1 ? '¡Encontraste el Silabocho!' : '¡Encontraste todos los Silabochos!')
+                         : (est.length===1 ? 'El Silabocho era:' : 'Los Silabochos eran:');
+    document.getElementById('res-sil').innerHTML = '<p class="res-sil-tit'+(todos?' todos':'')+'">'+titulo+'</p><div class="chips">'
+      + est.map(x=>chipPalabra(words().find(y=>y[0]===x) || [x, x], f)).join('') + '</div>';
+    document.getElementById('res-palabras').innerHTML = htmlGrupos(f, true);
+  });
+  const v = document.getElementById('resultados'); v.showModal();
+  v.scrollTop = 0; document.getElementById('res-cerrar').focus({focusVisible:false});
 }
 
 function irA(n){ n = Math.min(today(), Math.max(1, n)); if(n===S.day) return; tickClock(); save(); S.day = n; toast(''); renderAll(); }
@@ -522,10 +576,13 @@ function start(){
   document.getElementById('rangos-cerrar').onclick = ()=>rangos.close();
   document.getElementById('volver').onclick = ()=>irA(today());
   document.getElementById('resumen-ver').onclick = verAyer;
+  document.getElementById('resumen-seguir').onclick = seguirAyer;
+  const resultados = document.getElementById('resultados');
+  document.getElementById('res-cerrar').onclick = ()=>resultados.close();
   document.getElementById('resumen-cerrar').onclick = cerrarResumen;
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
-  [cal, reglas, rangos, pistasv].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
+  [cal, reglas, rangos, pistasv, resultados].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));   // tocar fuera las cierra
   document.getElementById('del').onclick = ()=>{ S.cur = ''; renderVerse(); };   // borra la palabra entera
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} moverFichas(); };
   document.getElementById('send').onclick = submit;
@@ -534,7 +591,7 @@ function start(){
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
-    if(cal.open || reglas.open || rangos.open || pistasv.open) return;
+    if(cal.open || reglas.open || rangos.open || pistasv.open || resultados.open) return;
     if(e.key==='Enter'){ e.preventDefault(); submit(); }   // las palabras se forman solo tocando sílabas; Intro las envía
   });
   // cambio de día con la app abierta: se comprueba cada segundo (con el reloj) y al volver a la app.

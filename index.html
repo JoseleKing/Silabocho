@@ -65,8 +65,15 @@
     </div>
   </header>
   <!-- Solo cuando se juega un día anterior -->
-  <!-- Resumen de ayer: una vez al día, al abrir el juego, si ayer se jugó -->
-  <div class="resumen" id="resumen" role="status" hidden><span id="resumen-txt"></span><button type="button" class="resumen-ver" id="resumen-ver">Ver soluciones</button><button type="button" class="resumen-cerrar" id="resumen-cerrar" aria-label="Cerrar el resumen de ayer">×</button></div>
+  <!-- Resumen de ayer: una vez al día, al abrir el juego, si ayer se jugó; texto arriba y acciones debajo -->
+  <div class="resumen" id="resumen" role="status" hidden>
+    <p class="resumen-txt" id="resumen-txt"></p>
+    <button type="button" class="resumen-cerrar" id="resumen-cerrar" aria-label="Cerrar el resumen de ayer">×</button>
+    <div class="resumen-acciones">
+      <button type="button" class="resumen-btn" id="resumen-seguir">Seguir jugando</button>
+      <button type="button" class="resumen-btn fuerte" id="resumen-ver">Ver resultados</button>
+    </div>
+  </div>
   <div class="otro-dia" id="otrodia" hidden><span id="otrodia-txt"></span><button type="button" id="volver">Volver a hoy</button></div>
 
   <!-- Rango en una línea; al tocarlo, la tabla de rangos -->
@@ -153,6 +160,17 @@
   <p class="rangos-tiempo">Tiempo jugado: <span class="timer" id="timer" role="timer"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 15C19 10 17 3 12 3S5 10 12 15C19 20 17 27 12 27S5 20 12 15Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg><span id="time">0:00</span></span></p>
   <ol class="rangos-lista" id="rangos-lista"></ol>
   <button class="btn" id="rangos-cerrar" type="button">Cerrar</button>
+</dialog>
+<!-- Resultados de ayer: se abre desde el resumen, encima del tablero de hoy (sin cambiar de día) -->
+<dialog class="ventana resultados" id="resultados" aria-labelledby="res-titulo">
+  <h2 id="res-titulo">Resultados de ayer</h2>
+  <div class="res-cab">
+    <span class="res-rango" id="res-rango"></span>
+    <span class="res-cifras" id="res-cifras"></span>
+  </div>
+  <div class="res-sil" id="res-sil"></div>
+  <div class="words" id="res-palabras"></div>
+  <button class="btn primary" id="res-cerrar" type="button">Cerrar</button>
 </dialog>
 <!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
 <dialog class="ventana calendario" id="calendario" aria-label="Juegos pasados">
