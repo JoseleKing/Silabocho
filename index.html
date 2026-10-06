@@ -64,7 +64,6 @@
     <button class="redondo ayuda" id="ayuda" type="button" aria-haspopup="dialog" aria-label="Cómo se juega" title="Cómo se juega">?</button>
     </div>
   </header>
-  <!-- Solo cuando se juega un día anterior -->
   <!-- Resumen de ayer: una vez al día, al abrir el juego, si ayer se jugó; texto arriba y acciones debajo -->
   <div class="resumen" id="resumen" role="status" hidden>
     <p class="resumen-txt" id="resumen-txt"></p>
@@ -74,7 +73,14 @@
       <button type="button" class="resumen-btn fuerte" id="resumen-ver">Ver resultados</button>
     </div>
   </div>
-  <div class="otro-dia" id="otrodia" hidden><span id="otrodia-txt"></span><button type="button" id="volver">Volver a hoy</button></div>
+  <!-- Solo cuando se juega un día pasado: qué día es, sus resultados y el atajo para volver al de hoy -->
+  <div class="otro-dia" id="otrodia" hidden>
+    <p class="otro-dia-txt" id="otrodia-txt"></p>
+    <div class="otro-dia-acciones">
+      <button type="button" class="sec" id="volver">Volver a hoy</button>
+      <button type="button" id="otrodia-ver">Ver resultados</button>
+    </div>
+  </div>
 
   <!-- Rango en una línea; al tocarlo, la tabla de rangos -->
   <button class="rank" id="rank" type="button" aria-haspopup="dialog"><span class="rank-name" id="rankname">Monosílabo</span><span class="meter" id="meter"></span><span class="rank-pts" id="pts">0</span></button>
@@ -161,16 +167,20 @@
   <ol class="rangos-lista" id="rangos-lista"></ol>
   <button class="btn" id="rangos-cerrar" type="button">Cerrar</button>
 </dialog>
-<!-- Resultados de ayer: se abre desde el resumen, encima del tablero de hoy (sin cambiar de día) -->
+<!-- Resultados de un día pasado: desde el resumen de ayer, la barra de día pasado, Pistas, el calendario o el Silabochario;
+     se abre encima de lo que haya, sin cambiar de día -->
 <dialog class="ventana resultados" id="resultados" aria-labelledby="res-titulo">
-  <h2 id="res-titulo">Resultados de ayer</h2>
+  <h2 id="res-titulo">Resultados</h2>
   <div class="res-cab">
     <span class="res-rango" id="res-rango"></span>
-    <span class="res-cifras" id="res-cifras"></span>
+    <div class="res-cifras" id="res-cifras"></div>
   </div>
   <div class="res-sil" id="res-sil"></div>
   <div class="words" id="res-palabras"></div>
-  <button class="btn primary" id="res-cerrar" type="button">Cerrar</button>
+  <div class="res-acciones">
+    <button class="btn sec" id="res-compartir" type="button">Compartir</button>
+    <button class="btn primary" id="res-cerrar" type="button">Cerrar</button>
+  </div>
 </dialog>
 <!-- Calendario de juegos pasados: cada día con tablero lleva a ese tablero -->
 <dialog class="ventana calendario" id="calendario" aria-label="Juegos pasados">

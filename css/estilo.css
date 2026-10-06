@@ -36,8 +36,21 @@ h1 .met{color:var(--accent-text)}
 .ayuda{font-family:var(--display);font-weight:800;font-size:1.05rem}
 .racha{height:32px;box-sizing:border-box;padding-inline:7px}
 /* en móviles muy estrechos, el logo deja sitio al nombre */
-.otro-dia{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:-4px;padding:6px 6px 6px 12px;border-radius:999px;background:var(--star-soft);font-size:.82rem}
+/* barra de día pasado: el día arriba y, debajo, «Volver a hoy» y «Ver resultados» */
+.otro-dia{display:grid;grid-template-rows:1fr auto;gap:6px;box-sizing:border-box;margin-top:-4px;padding:8px 8px 8px 12px;border:1px solid transparent;border-radius:14px;background:var(--star-soft);font-size:.82rem;line-height:1.3}
 .otro-dia[hidden]{display:none}
+.otro-dia-txt{margin:0;padding-top:2px;min-width:0}
+.otro-dia-acciones{display:flex;gap:6px}
+/* mientras se confirma «Ver resultados»: en rojo, con el mismo tamaño */
+.otro-dia.confirma{border-color:var(--bad)}
+.otro-dia.confirma #otrodia-ver{background:var(--bad);border-color:var(--bad);color:var(--panel)}
+/* datos en línea separados por «·» (ver datosHTML): el «·» va delante de cada dato y el contenedor
+   recorta el del primero de cada línea, así nunca queda un «·» al principio ni al final
+   (el hueco, --sep, mide lo que « · »; el relleno de la derecha deja sitio a la cursiva) */
+.datos{--sep:.78em;display:block;overflow:hidden;padding-right:.2em}
+.datos-l{display:flex;flex-wrap:wrap;margin-left:calc(-1 * var(--sep))}
+.datos-l>span{position:relative;padding-left:var(--sep);white-space:nowrap}
+.datos-l>span::before{content:"·";position:absolute;left:calc(var(--sep) / 2 - .13em)}
 /* resumen de ayer: discreto, solo con borde; el texto y la × arriba, las acciones debajo */
 .resumen{display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr auto;align-items:start;box-sizing:border-box;gap:6px 6px;margin-top:-4px;padding:8px 6px 8px 12px;border:1px solid var(--line);border-radius:14px;line-height:1.3;font-size:.82rem;color:var(--muted)}
 .resumen[hidden],.resumen-btn[hidden]{display:none}
@@ -54,7 +67,8 @@ h1 .met{color:var(--accent-text)}
 .resumen.confirma .resumen-btn.fuerte{background:var(--bad);border-color:var(--bad);color:var(--panel)}
 .resumen-cerrar{flex:none;width:26px;height:26px;border:none;border-radius:50%;background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;touch-action:manipulation}
 .resumen button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
-.otro-dia button{flex:none;font:inherit;font-weight:700;padding:4px 12px;border-radius:999px;border:none;background:var(--fg);color:var(--bg);cursor:pointer;touch-action:manipulation}
+.otro-dia button{flex:none;font:inherit;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.otro-dia button.sec{background:transparent;color:var(--fg)}
 /* rango en una línea: nombre, barra y puntos */
 .rank{display:flex;align-items:center;gap:10px;width:100%;padding:4px 0;border:none;background:none;color:var(--fg);font:inherit;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .rank-name{flex:none;font-family:var(--display);font-weight:700;font-size:1.05rem}
@@ -219,14 +233,14 @@ h1 .met{color:var(--accent-text)}
 .res-cab{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .res-rango{padding:3px 12px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:700}
 .res-cifras{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.res-cifras span{white-space:nowrap}
 .res-cifras b{color:var(--fg)}
 .res-sil{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:var(--bg)}
 .res-sil-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.res-sil-cab .grupo-c{white-space:nowrap}
 .res-sil-tit{margin:0;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .res-sil-tit.todos{color:var(--accent-text);text-transform:none;letter-spacing:0;font-size:.95rem}
 .res-sil .w{font-size:1rem}
-.resultados .btn.primary{margin-top:4px}
+.res-acciones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
 /* pistas */
 .pistas-v h2{margin:0;font-family:var(--display);font-weight:700;font-size:1.2rem}
 .pistas-sub{margin:0;font-size:.88rem;color:var(--muted)}

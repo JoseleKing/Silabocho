@@ -85,6 +85,9 @@ const puntosRango = (i, tot) => i===0 ? 0 : Math.max(1, Math.ceil(RANKS[i][1]*to
 // completar el tablero (todas las palabras) o al ver las soluciones.
 const finished = () => !!S.revealed[S.day] || allFound();
 const fmtTime = sec => { sec = Math.floor(sec); const m = Math.floor(sec/60), r = sec%60; return m+':'+(r<10?'0':'')+r; };
+// varios datos en línea separados por «·»: cada uno es un bloque y el «·» lo dibuja el CSS delante de cada dato
+// (ver «.datos»); el del primero de cada línea queda recortado, así nunca hay un «·» al principio ni al final
+const datosHTML = items => '<span class="datos"><span class="datos-l">'+items.map(x=>'<span>'+x+'</span>').join('')+'</span></span>';
 let lastTick = 0, sinceSave = 0;
 const enPortada = () => { const el = document.getElementById('portada'); return !!el && !el.classList.contains('fuera'); };
 function clockRunning(){ return S.time[S.day] !== undefined && !finished() && document.visibilityState === 'visible' && !enPortada(); }
@@ -219,10 +222,22 @@ function renderNav(){
   const t = today();
   const fecha = dateOf(S.day).toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
   document.getElementById('fecha').textContent = (S.day===t ? 'Hoy, ' : '')+fecha+' · nº '+S.day;
-  // aviso cuando se juega un día anterior, con atajo para volver al de hoy
-  document.getElementById('otrodia').hidden = S.day===t;
-  document.getElementById('otrodia-txt').textContent = 'Nº '+S.day+' · '+fecha;
+  // barra cuando se juega un día pasado: sus resultados y el atajo para volver al de hoy (redibujarla deshace la confirmación)
+  const barra = document.getElementById('otrodia');
+  barra.hidden = S.day===t; quitarConfirmacion(barra);
+  document.getElementById('otrodia-txt').innerHTML = datosHTML(['Nº '+S.day, fecha]);
+  document.getElementById('volver').textContent = 'Volver a hoy';
+  document.getElementById('otrodia-ver').textContent = 'Ver resultados';
 }
+// «Ver resultados» de la barra: los del día que se está jugando; al cerrar la ventana se sigue en él
+function verDia(){
+  const barra = document.getElementById('otrodia');
+  if(necesitaConfirmar(S.day) && !confirmando(barra))
+    return pedirConfirmacion(barra, document.getElementById('otrodia-txt'), document.getElementById('volver'), document.getElementById('otrodia-ver'),
+      '¿Seguro? Ya no sumarás puntos en este tablero.', renderNav);
+  mostrarResultados(S.day);
+}
+function volverHoy(){ if(confirmando(document.getElementById('otrodia'))) return renderNav(); irA(today()); }
 
 // ---------- calendario de juegos pasados ----------
 // Un mes cada vez (semana de lunes a domingo); solo se pueden abrir los días del 1 a hoy.
@@ -321,8 +336,8 @@ function renderSil(){
         : '<span class="w hueco" aria-label="Silabocho sin encontrar, de '+sil.length+' sílabas">'+sil.map(()=>'_').join('·')+'</span>';
     }).join('');
     const fecha = dateOf(d).toLocaleDateString('es-ES',{day:'numeric', month:'short'});
-    html += '<button class="sil-dia'+(d===S.day?' actual':'')+'" type="button" data-dia="'+d+'"><span class="sil-cab">nº '+d+' · '+fecha+(d===t?' · hoy':'')
-      +(!f.length && !rev ? ' <span class="sil-nota">sin jugar</span>' : '')+'</span><span class="chips">'+chips+'</span></button>';
+    html += '<button class="sil-dia'+(d===S.day?' actual':'')+'" type="button" data-dia="'+d+'"><span class="sil-cab">'
+      +datosHTML(['nº '+d, fecha].concat(d===t ? ['hoy'] : []).concat(!f.length && !rev ? ['<i class="sil-nota">sin jugar</i>'] : []))+'</span><span class="chips">'+chips+'</span></button>';
   }
   document.getElementById('sil-cuenta').textContent = hallados+' de '+total+' Silabochos encontrados';
   document.getElementById('sil-lista').innerHTML = html;
@@ -397,51 +412,59 @@ function quizaResumen(){
 }
 function textoResumen(){
   const r = datosDia(today() - 1);
-  document.getElementById('resumen-txt').innerHTML = 'Ayer: <b>'+r.rango+'</b> · '+r.n+' de '+r.total+(r.total===1?' palabra':' palabras')
-    +(r.lleno ? ' · <b>★ Tablero completo</b>' : ' · '+(r.est===1?'Silabocho ':'Silabochos ')+'<span class="resumen-est">'+'★'.repeat(r.estHallados)+'☆'.repeat(r.est-r.estHallados)+'</span>');
+  document.getElementById('resumen-txt').innerHTML = datosHTML(['Ayer: <b>'+r.rango+'</b>', r.n+' de '+r.total+(r.total===1?' palabra':' palabras'),
+    r.lleno ? '<b>★ Tablero completo</b>' : (r.est===1?'Silabocho ':'Silabochos ')+'<span class="resumen-est">'+'★'.repeat(r.estHallados)+'☆'.repeat(r.est-r.estHallados)+'</span>']);
   // completo o con las soluciones ya vistas, no hay nada que seguir jugando
   document.getElementById('resumen-seguir').hidden = r.lleno || r.visto;
 }
 function cerrarResumen(){ cancelarAyer(); document.getElementById('resumen').hidden = true; try{ localStorage.setItem(RESUMEN_VISTO, String(today())); }catch(e){} }
-function seguirAyer(){ if(confirmAyer) return cancelarAyer(); const ayer = today() - 1; cerrarResumen(); irA(ayer); }
-// como en Pistas, ver las soluciones pide un segundo toque (después ya no se suman puntos en ese tablero).
-// Mientras se confirma, el aviso cambia de texto y de botones, pero no de altura.
-let confirmAyer = false, ayerTimer;
+function seguirAyer(){ if(confirmando(document.getElementById('resumen'))) return cancelarAyer(); const ayer = today() - 1; cerrarResumen(); irA(ayer); }
 function verAyer(){
-  const ayer = today() - 1, r = datosDia(ayer);
-  if(!r.visto && !r.lleno && !confirmAyer){
-    const el = document.getElementById('resumen');
-    el.style.minHeight = el.offsetHeight + 'px'; el.classList.add('confirma'); confirmAyer = true;
-    document.getElementById('resumen-txt').textContent = '¿Seguro? Ya no podrás sumar puntos ayer.';
-    document.getElementById('resumen-seguir').textContent = 'Cancelar';
-    document.getElementById('resumen-ver').textContent = 'Confirmar';
-    clearTimeout(ayerTimer); ayerTimer = setTimeout(cancelarAyer, 5000);
-    return;
-  }
-  cerrarResumen();
-  if(!r.lleno && !S.revealed[ayer]){ S.revealed[ayer] = true; save(); if(S.day === ayer) renderAll(); }
-  abrirResultados(ayer);
+  const ayer = today() - 1, el = document.getElementById('resumen');
+  if(necesitaConfirmar(ayer) && !confirmando(el))
+    return pedirConfirmacion(el, document.getElementById('resumen-txt'), document.getElementById('resumen-seguir'), document.getElementById('resumen-ver'),
+      '¿Seguro? Ya no podrás sumar puntos ayer.', cancelarAyer);
+  cerrarResumen(); mostrarResultados(ayer);
 }
 // vuelve el aviso a su estado normal (tras «Cancelar», los 5 segundos o al cerrarlo)
 function cancelarAyer(){
-  clearTimeout(ayerTimer); confirmAyer = false;
-  const el = document.getElementById('resumen'); el.style.minHeight = ''; el.classList.remove('confirma');
+  quitarConfirmacion(document.getElementById('resumen'));
   document.getElementById('resumen-seguir').textContent = 'Seguir jugando';
   document.getElementById('resumen-ver').textContent = 'Ver resultados';
   if(today() > 1) textoResumen();
 }
 
-// ---------- resultados de un día pasado (los de ayer, desde el resumen) ----------
-// Encima del tablero que se esté jugando, sin cambiar de día: nivel, puntos, palabras y tiempo;
-// después los Silabochos y, por último, todas las palabras del tablero.
+// ---------- confirmar en dos pasos dentro de un aviso ----------
+// En el resumen de ayer y en la barra de día pasado, «Ver resultados» pide un segundo toque si así se dejan
+// de sumar puntos: el texto y los botones cambian un momento («Cancelar» / «Confirmar») sin cambiar la altura.
+// Se deshace con «Cancelar», a los 5 segundos (restaurar) o al redibujar el aviso.
+function pedirConfirmacion(caja, txt, otro, ver, mensaje, restaurar){
+  caja.style.minHeight = caja.offsetHeight + 'px'; caja.classList.add('confirma');
+  txt.textContent = mensaje; otro.textContent = 'Cancelar'; ver.textContent = 'Confirmar';
+  clearTimeout(caja.plazo); caja.plazo = setTimeout(restaurar, 5000);
+}
+function quitarConfirmacion(caja){ clearTimeout(caja.plazo); caja.style.minHeight = ''; caja.classList.remove('confirma'); }
+const confirmando = caja => caja.classList.contains('confirma');
+
+// ---------- resultados de un día pasado ----------
+// Ver las soluciones solo pide confirmación si aún se pueden sumar puntos (sin verlas y sin el tablero completo).
+const necesitaConfirmar = d => { const e = estadoDia(d); return !e.visto && !e.completo; };
+// en el calendario y el Silabochario, los días pasados ya cerrados abren los resultados; el resto, el tablero
+const conResultados = d => d < today() && !necesitaConfirmar(d);
+function mostrarResultados(d){
+  if(necesitaConfirmar(d)){ S.revealed[d] = true; save(); if(S.day === d) renderAll(); }
+  abrirResultados(d);
+}
+// Encima de lo que haya, sin cambiar de día: nivel, puntos, palabras y tiempo; después los Silabochos
+// y, por último, el resto de palabras del tablero.
+let diaResultados;
 function abrirResultados(d){
-  const r = datosDia(d), t = S.time[d];
-  document.getElementById('res-titulo').textContent = (d === today()-1 ? 'Resultados de ayer' : 'Resultados')+' · nº '+d;
+  const r = datosDia(d), t = S.time[d]; diaResultados = d;
+  document.getElementById('res-titulo').innerHTML = datosHTML(d === today()-1 ? ['Resultados de ayer', 'nº '+d]
+    : ['Resultados', 'nº '+d, dateOf(d).toLocaleDateString('es-ES',{day:'numeric', month:'long'})]);
   document.getElementById('res-rango').textContent = r.rango;
-  // cada dato en un bloque que no se parte al pasar de línea
-  document.getElementById('res-cifras').innerHTML = [r.puntos+' de '+r.puntosTot+' puntos', r.n+' de '+r.total+(r.total===1?' palabra':' palabras')]
-    .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : [])
-    .map(x=>'<span>'+x+'</span>').join(' · ');
+  document.getElementById('res-cifras').innerHTML = datosHTML([r.puntos+' de '+r.puntosTot+' puntos', r.n+' de '+r.total+(r.total===1?' palabra':' palabras')]
+    .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : []));
   enDia(d, ()=>{
     // el recuadro de los Silabochos hace de grupo de más sílabas (con su recuento), y abajo no se repiten
     const f = myFound(), est = stars(), todos = est.every(x=>f.includes(x)), hallados = est.filter(x=>f.includes(x)).length;
@@ -453,6 +476,7 @@ function abrirResultados(d){
       + '<div class="chips">' + pal.map(w=>chipPalabra(w, f)).join('') + '</div>';
     document.getElementById('res-palabras').innerHTML = htmlGrupos(f, true, est);
   });
+  const c = document.getElementById('res-compartir'); clearTimeout(c.plazo); c.textContent = 'Compartir';
   const v = document.getElementById('resultados'); v.showModal();
   v.scrollTop = 0; document.getElementById('res-cerrar').focus({focusVisible:false});
 }
@@ -513,11 +537,13 @@ function reveal(){
     return; }
   S.revealed[S.day] = true; save(); confirmReveal=false; renderAll();
   document.getElementById('pistasv').close();
-  document.getElementById('found').open = true;   // las soluciones están en la lista
+  document.getElementById('found').open = true;   // las soluciones también quedan en la lista
+  abrirResultados(S.day);
 }
 
 // ---------- compartir (rango y puntos, sin palabras) ----------
-function shareText(){
+// el resultado del día d (el que se juega, o el de la ventana de resultados)
+function shareText(d = S.day){ return enDia(d, ()=>{
   const k = rankIndex(), f = myFound(), n = stars().length, ks = stars().filter(x=>f.includes(x)).length;
   const star = !ks ? '' : n===1 ? ' ★' : ' ★ '+ks+'/'+n;
   const barra = RANKS.slice(1).map((r,j)=>j+1<=k?'▰':'▱').join('');
@@ -533,20 +559,21 @@ function shareText(){
   if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
   lineas.push(URL_JUEGO);
   return lineas.join('\n');
-}
-async function share(){
-  const text = shareText();
+}); }
+// avisar(texto, bien): por defecto en el hueco de la palabra; desde la ventana de resultados, en su botón
+async function share(d = S.day, avisar = (m, ok)=>toast(m, ok?'good':'bad')){
+  const text = shareText(d);
   if(navigator.share && matchMedia('(pointer: coarse)').matches){
     try{ await navigator.share({text}); return; }
     catch(e){ if(e && e.name==='AbortError') return; }
   }
-  try{ await navigator.clipboard.writeText(text); toast('Resultado copiado. ¡Pégalo donde quieras!','good'); return; }
+  try{ await navigator.clipboard.writeText(text); avisar('Resultado copiado. ¡Pégalo donde quieras!', true); return; }
   catch(e){}
   const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
   document.body.appendChild(ta); ta.select();
   let ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
   ta.remove();
-  toast(ok ? 'Resultado copiado. ¡Pégalo donde quieras!' : 'No se ha podido copiar el resultado', ok?'good':'bad');
+  avisar(ok ? 'Resultado copiado. ¡Pégalo donde quieras!' : 'No se ha podido copiar el resultado', ok);
 }
 
 function renderAll(){
@@ -564,7 +591,10 @@ function start(){
   document.getElementById('cal-prev').onclick = ()=>moverMes(-1);
   document.getElementById('cal-next').onclick = ()=>moverMes(1);
   document.getElementById('cal-cerrar').onclick = ()=>cal.close();
-  document.getElementById('cal-grid').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
+  // un día pasado ya cerrado abre sus resultados encima del calendario (al cerrarlos se sigue en él); el resto, su tablero
+  const tocarDia = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; const d = +b.dataset.dia;
+    if(conResultados(d)) return abrirResultados(d); cal.close(); irA(d); };
+  document.getElementById('cal-grid').onclick = tocarDia;
   const reglas = document.getElementById('reglas'), rangos = document.getElementById('rangos'), pistasv = document.getElementById('pistasv');
   document.getElementById('pistas').onclick = abrirPistas;
   const noche = document.getElementById('modo-noche');
@@ -574,15 +604,20 @@ function start(){
   document.getElementById('tab-cal').onclick = ()=>pestana('cal');
   document.getElementById('tab-sil').onclick = ()=>pestana('sil');
   document.getElementById('tab-est').onclick = ()=>pestana('est');
-  document.getElementById('sil-lista').onclick = e=>{ const b = e.target.closest('[data-dia]'); if(!b) return; cal.close(); irA(+b.dataset.dia); };
+  document.getElementById('sil-lista').onclick = tocarDia;
   document.getElementById('estrella').onclick = ()=>abrirCal('sil');   // atajo: el distintivo de Silabochos abre el Silabochario
   document.getElementById('rank').onclick = abrirRangos;
   document.getElementById('rangos-cerrar').onclick = ()=>rangos.close();
-  document.getElementById('volver').onclick = ()=>irA(today());
+  document.getElementById('volver').onclick = volverHoy;
+  document.getElementById('otrodia-ver').onclick = verDia;
   document.getElementById('resumen-ver').onclick = verAyer;
   document.getElementById('resumen-seguir').onclick = seguirAyer;
   const resultados = document.getElementById('resultados');
   document.getElementById('res-cerrar').onclick = ()=>resultados.close();
+  // compartir el día de la ventana; el aviso sale en el propio botón, porque la ventana tapa el hueco de la palabra
+  const compartir = document.getElementById('res-compartir');
+  compartir.onclick = ()=>share(diaResultados, (m, ok)=>{ compartir.textContent = ok ? '¡Copiado!' : 'No se ha podido copiar';
+    clearTimeout(compartir.plazo); compartir.plazo = setTimeout(()=>{ compartir.textContent = 'Compartir'; }, 2200); });
   document.getElementById('resumen-cerrar').onclick = cerrarResumen;
   document.getElementById('ayuda').onclick = abrirReglas;
   document.getElementById('reglas-cerrar').onclick = ()=>reglas.close();
@@ -591,7 +626,7 @@ function start(){
   document.getElementById('shuffle').onclick = e=>{ const btn = e.currentTarget; btn.classList.remove('gira'); void btn.offsetWidth; btn.classList.add('gira'); const o=outer(); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];} moverFichas(); };
   document.getElementById('send').onclick = submit;
   document.getElementById('reveal').onclick = reveal;
-  document.getElementById('share').onclick = share;
+  document.getElementById('share').onclick = ()=>share();
   document.getElementById('racha').onclick = toastRacha;
   document.addEventListener('keydown',e=>{
     if(e.target.closest && e.target.closest('summary')) return;
