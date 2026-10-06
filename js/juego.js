@@ -200,10 +200,11 @@ function chipPalabra(w, f){
     +w[1].split('-').join('·')+(est ? (si?' ★':' ☆') : '')+'</span>';
 }
 // las palabras del tablero de S.day, un grupo por número de sílabas (de menos a más), con «halladas/total»;
-// dentro, orden alfabético. Sin soluciones a la vista, solo las halladas.
-function htmlGrupos(f, rev){
+// dentro, orden alfabético. Sin soluciones a la vista, solo las halladas. Las palabras de «sin» no salen
+// (y un grupo que se quede vacío, tampoco).
+function htmlGrupos(f, rev, sin = []){
   const grupos = {};
-  words().forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
+  words().filter(w=>!sin.includes(w[0])).forEach(w=>{ const n = sylls(w).length; (grupos[n] = grupos[n] || []).push(w); });
   return Object.keys(grupos).map(Number).sort((a,b)=>a-b).map(n=>{
     const todas = grupos[n], halladas = todas.filter(w=>f.includes(w[0])).length;
     const shown = (rev ? todas : todas.filter(w=>f.includes(w[0]))).sort((a,b)=>a[0].localeCompare(b[0],'es'));
@@ -442,12 +443,15 @@ function abrirResultados(d){
     .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : [])
     .map(x=>'<span>'+x+'</span>').join(' · ');
   enDia(d, ()=>{
-    const f = myFound(), est = stars(), todos = est.every(x=>f.includes(x));
+    // el recuadro de los Silabochos hace de grupo de más sílabas (con su recuento), y abajo no se repiten
+    const f = myFound(), est = stars(), todos = est.every(x=>f.includes(x)), hallados = est.filter(x=>f.includes(x)).length;
+    const pal = est.map(x=>words().find(y=>y[0]===x) || [x, x]), largos = [...new Set(pal.map(w=>sylls(w).length))];
     const titulo = todos ? (est.length===1 ? '¡Encontraste el Silabocho!' : '¡Encontraste todos los Silabochos!')
-                         : (est.length===1 ? 'El Silabocho era:' : 'Los Silabochos eran:');
-    document.getElementById('res-sil').innerHTML = '<p class="res-sil-tit'+(todos?' todos':'')+'">'+titulo+'</p><div class="chips">'
-      + est.map(x=>chipPalabra(words().find(y=>y[0]===x) || [x, x], f)).join('') + '</div>';
-    document.getElementById('res-palabras').innerHTML = htmlGrupos(f, true);
+                         : (est.length===1 ? 'El Silabocho era' : 'Los Silabochos eran');
+    document.getElementById('res-sil').innerHTML = '<div class="res-sil-cab"><p class="res-sil-tit'+(todos?' todos':'')+'">'+titulo+'</p>'
+      + '<span class="grupo-c'+(todos?' ok':'')+'" aria-label="'+hallados+' de '+est.length+' encontrados">'+(largos.length===1 ? largos[0]+' sílabas · ' : '')+hallados+'/'+est.length+(todos?' ✓':'')+'</span></div>'
+      + '<div class="chips">' + pal.map(w=>chipPalabra(w, f)).join('') + '</div>';
+    document.getElementById('res-palabras').innerHTML = htmlGrupos(f, true, est);
   });
   const v = document.getElementById('resultados'); v.showModal();
   v.scrollTop = 0; document.getElementById('res-cerrar').focus({focusVisible:false});

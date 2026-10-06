@@ -222,6 +222,7 @@ h1 .met{color:var(--accent-text)}
 .res-cifras span{white-space:nowrap}
 .res-cifras b{color:var(--fg)}
 .res-sil{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.res-sil-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
 .res-sil-tit{margin:0;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .res-sil-tit.todos{color:var(--accent-text);text-transform:none;letter-spacing:0;font-size:.95rem}
 .res-sil .w{font-size:1rem}
