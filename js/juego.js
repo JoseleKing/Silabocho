@@ -8,6 +8,7 @@ const START = Date.UTC(2026, 9, 1);
 const INICIO = '2026-10-01';   // se guarda con el progreso para saber con qué numeración se jugó
 const ORDEN = 2;                // versión del orden de tableros (2: catarata pasó del día 4 al 7)
 const URL_JUEGO = 'https://joseleking.github.io/Silabocho/';
+const URL_COMPARTIR = URL_JUEGO.replace(/^https?:\/\//, '').replace(/\/$/, '');   // en el texto de compartir, sin https:// ni barra final
 const STORE = 'silabocho-v1';
 const pointsFor = n => n<=2?1:n===3?2:n===4?4:6;
 
@@ -549,24 +550,26 @@ function reveal(){
   abrirResultados(S.day);
 }
 
-// ---------- compartir (rango y puntos, sin palabras) ----------
-// el resultado del día d (el que se juega, o el de la ventana de resultados)
+// ---------- compartir (nivel, palabras, Silabochos y racha; sin desvelar palabras) ----------
+// El resultado del día d (el que se juega, o el de la ventana de resultados), en tres líneas como mucho y el enlace:
+//   Silabocho nº 6 · Octosílabo
+//   ▰▰▰▰▰▰▰▱ 12/28 palabras · ★ Silabocho          (o «★ ¡Tablero completo! 28/28 palabras»)
+//   🔥 4 días
 function shareText(d = S.day){ return enDia(d, ()=>{
   const k = rankIndex(), f = myFound(), n = stars().length, ks = stars().filter(x=>f.includes(x)).length;
-  const star = !ks ? '' : n===1 ? ' ★' : ' ★ '+ks+'/'+n;
-  const barra = RANKS.slice(1).map((r,j)=>j+1<=k?'▰':'▱').join('');
-  const lineas = [
-    'Silabocho nº '+S.day+' · '+RANKS[k][0],
-    barra+'  '+score()+'/'+total()+' puntos'+' · '+f.length+(f.length===1?' palabra':' palabras')+star,
-  ];
+  const visto = !!S.revealed[S.day], palabras = f.length+'/'+words().length+' palabras';
+  let linea2;
+  if(allFound() && !visto) linea2 = '★ ¡Tablero completo! '+palabras;   // el logro sustituye a la barra y a los Silabochos
+  else {
+    linea2 = RANKS.slice(1).map((r,j)=>j+1<=k?'▰':'▱').join('')+' '+palabras;
+    if(ks) linea2 += n===1 ? ' · ★ Silabocho' : ' · ★ '+ks+'/'+n+' Silabochos';   // solo si se encontró alguno
+    if(visto) linea2 += ' · soluciones vistas';
+  }
+  const lineas = ['Silabocho nº '+S.day+' · '+RANKS[k][0], linea2];
   // la racha de hoy solo va con el tablero de hoy; un día pasado lleva la que había entonces, si se jugó en su día
-  const r = d === today() ? rachaActual() : rachaHasta(d), extra = [];
-  if(S.time[S.day] !== undefined) extra.push('⏳ '+fmtTime(S.time[S.day]));
-  if(r >= 1) extra.push('🔥 '+r+(r===1?' día':' días'));
-  if(extra.length) lineas.push(extra.join(' · '));
-  if(allFound() && !S.revealed[S.day]) lineas.push('★ Tablero completo');
-  if(S.revealed[S.day]) lineas.push('(con las soluciones a la vista)');
-  lineas.push(URL_JUEGO);
+  const r = d === today() ? rachaActual() : rachaHasta(d);
+  if(r >= 1) lineas.push('🔥 '+r+(r===1?' día':' días'));
+  lineas.push(URL_COMPARTIR);
   return lineas.join('\n');
 }); }
 // avisar(texto, bien): por defecto en el hueco de la palabra; desde la ventana de resultados, en su botón
