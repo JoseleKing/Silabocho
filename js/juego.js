@@ -108,7 +108,9 @@ function renderClock(){
 
 // ---------- racha: días seguidos jugando el tablero del día ----------
 // Sigue viva si hoy aún no has jugado pero sí ayer; se rompe al saltarte un día entero.
-function rachaActual(){ const t = today(); let d = S.racha[t] ? t : t-1, n = 0; while(d >= 1 && S.racha[d]){ n++; d--; } return n; }
+// días seguidos jugados en su día que acaban en d (0 si d no se jugó en su día)
+function rachaHasta(d){ let n = 0; while(d >= 1 && S.racha[d]){ n++; d--; } return n; }
+function rachaActual(){ const t = today(); return rachaHasta(S.racha[t] ? t : t-1); }
 function rachaMejor(){ let mejor = 0, n = 0; const t = today(); for(let d = 1; d <= t; d++){ n = S.racha[d] ? n+1 : 0; mejor = Math.max(mejor, n); } return mejor; }
 function renderRacha(){
   const r = rachaActual(), hoy = !!S.racha[today()], el = document.getElementById('racha');
@@ -337,7 +339,7 @@ function renderSil(){
     }).join('');
     const fecha = dateOf(d).toLocaleDateString('es-ES',{day:'numeric', month:'short'});
     html += '<button class="sil-dia'+(d===S.day?' actual':'')+'" type="button" data-dia="'+d+'"><span class="sil-cab">'
-      +datosHTML(['nº '+d, fecha].concat(d===t ? ['hoy'] : []).concat(!f.length && !rev ? ['<i class="sil-nota">sin jugar</i>'] : []))+'</span><span class="chips">'+chips+'</span></button>';
+      +datosHTML(['nº '+d, fecha].concat(d===t ? ['hoy'] : []).concat(!f.length ? ['<i class="sil-nota">sin jugar</i>'] : []))+'</span><span class="chips">'+chips+'</span></button>';
   }
   document.getElementById('sil-cuenta').textContent = hallados+' de '+total+' Silabochos encontrados';
   document.getElementById('sil-lista').innerHTML = html;
@@ -459,24 +461,28 @@ function mostrarResultados(d){
 // y, por último, el resto de palabras del tablero.
 let diaResultados;
 function abrirResultados(d){
-  const r = datosDia(d), t = S.time[d]; diaResultados = d;
+  // un día sin ninguna palabra no es un logro: sin nivel, sin tus puntos, sin contador de Silabochos y sin Compartir
+  const r = datosDia(d), t = S.time[d], jugado = r.n > 0; diaResultados = d;
   document.getElementById('res-titulo').innerHTML = datosHTML(d === today()-1 ? ['Resultados de ayer', 'nº '+d]
     : ['Resultados', 'nº '+d, dateOf(d).toLocaleDateString('es-ES',{day:'numeric', month:'long'})]);
-  document.getElementById('res-rango').textContent = r.rango;
-  document.getElementById('res-cifras').innerHTML = datosHTML([r.puntos+' de '+r.puntosTot+' puntos', r.n+' de '+r.total+(r.total===1?' palabra':' palabras')]
-    .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : []));
+  const rango = document.getElementById('res-rango');
+  rango.textContent = jugado ? r.rango : 'Sin jugar'; rango.classList.toggle('sin-jugar', !jugado);
+  document.getElementById('res-cifras').innerHTML = datosHTML(!jugado ? [r.total+(r.total===1?' palabra':' palabras'), r.puntosTot+' puntos posibles']
+    : [r.puntos+' de '+r.puntosTot+' puntos', r.n+' de '+r.total+(r.total===1?' palabra':' palabras')]
+      .concat(t !== undefined ? ['⏳ '+fmtTime(t)] : []).concat(r.lleno ? ['<b>★ Tablero completo</b>'] : []));
   enDia(d, ()=>{
     // el recuadro de los Silabochos hace de grupo de más sílabas (con su recuento), y abajo no se repiten
     const f = myFound(), est = stars(), todos = est.every(x=>f.includes(x)), hallados = est.filter(x=>f.includes(x)).length;
     const pal = est.map(x=>words().find(y=>y[0]===x) || [x, x]), largos = [...new Set(pal.map(w=>sylls(w).length))];
-    const titulo = todos ? (est.length===1 ? '¡Encontraste el Silabocho!' : '¡Encontraste todos los Silabochos!')
+    const titulo = todos && jugado ? (est.length===1 ? '¡Encontraste el Silabocho!' : '¡Encontraste todos los Silabochos!')
                          : (est.length===1 ? 'El Silabocho era' : 'Los Silabochos eran');
     document.getElementById('res-sil').innerHTML = '<div class="res-sil-cab"><p class="res-sil-tit'+(todos?' todos':'')+'">'+titulo+'</p>'
-      + '<span class="grupo-c'+(todos?' ok':'')+'" aria-label="'+hallados+' de '+est.length+' encontrados">'+(largos.length===1 ? largos[0]+' sílabas · ' : '')+hallados+'/'+est.length+(todos?' ✓':'')+'</span></div>'
+      + (!jugado ? (largos.length===1 ? '<span class="grupo-c">'+largos[0]+' sílabas</span>' : '')
+        : '<span class="grupo-c'+(todos?' ok':'')+'" aria-label="'+hallados+' de '+est.length+' encontrados">'+(largos.length===1 ? largos[0]+' sílabas · ' : '')+hallados+'/'+est.length+(todos?' ✓':'')+'</span>') + '</div>'
       + '<div class="chips">' + pal.map(w=>chipPalabra(w, f)).join('') + '</div>';
     document.getElementById('res-palabras').innerHTML = htmlGrupos(f, true, est);
   });
-  const c = document.getElementById('res-compartir'); clearTimeout(c.plazo); c.textContent = 'Compartir';
+  const c = document.getElementById('res-compartir'); clearTimeout(c.plazo); c.textContent = 'Compartir'; c.hidden = !jugado;
   const v = document.getElementById('resultados'); v.showModal();
   v.scrollTop = 0; document.getElementById('res-cerrar').focus({focusVisible:false});
 }
@@ -494,26 +500,28 @@ function toast(msg, kind){
 function submit(){
   if(!S.cur) return;
   const txt = norm(S.cur), clear = ()=>{ S.cur=''; renderVerse(); };
-  // primero la que coincide tal cual (con sus tildes); si no, sin tildes, y mejor una que aún no tengas
+  // las que se escriben con las mismas fichas y solo se diferencian por la tilde (papa y papá) cuentan juntas:
+  // al enviarla se suman todas las que aún no tengas
   const iguales = words().filter(y=>norm(y[0])===txt);
-  const w = iguales.find(y=>y[0]===S.cur) || iguales.find(y=>!myFound().includes(y[0])) || iguales[0];
-  if(!w){
+  if(!iguales.length){
     const trozos = trocear(txt);
     toast(!trozos ? 'Usa solo las sílabas del tablero' : trozos.length<2 ? 'Tiene que tener al menos dos sílabas'
       : !trozos.includes(B().central) ? 'Falta la sílaba central' : 'No está en la lista', 'bad');
     return clear();
   }
-  const joined = w[0];
-  if(myFound().includes(joined)){ toast('Ya la tenías','bad'); return clear(); }
+  const nuevas = iguales.filter(y=>!myFound().includes(y[0])).sort((a,b)=>(b[0]===S.cur)-(a[0]===S.cur));   // la escrita tal cual, primero
+  if(!nuevas.length){ toast(iguales.length>1 ? 'Ya las tenías' : 'Ya la tenías','bad'); return clear(); }
   if(S.revealed[S.day]){ toast('Las soluciones ya están a la vista','bad'); return clear(); }
   const antes = rankIndex();
-  myFound().push(joined);
+  nuevas.forEach(y=>myFound().push(y[0]));
   if(S.day===today()){ S.racha[S.day] = 1; renderRacha(); }   // jugado en su día: cuenta para la racha
   save();
-  const n = sylls(w).length, pts = wordPoints(w), k = rankIndex();
-  const estrella = isStar(joined), sube = k>antes;
+  const n = sylls(nuevas[0]).length, pts = nuevas.reduce((a,y)=>a+wordPoints(y),0), k = rankIndex();
+  const estrella = nuevas.some(y=>isStar(y[0])), sube = k>antes;
+  // con dos a la vez se dicen las dos (antes que la subida de nivel, que ya se ve en la barra)
   if(allFound()) toast('★ ¡Tablero completo! +'+pts,'star grande');
   else if(estrella) toast('★ ¡Silabocho! +'+pts,'star grande');
+  else if(nuevas.length>1) toast('¡Valen '+nuevas.map(y=>y[0]).join(' y ')+'! +'+pts, sube ? 'star grande' : 'good');
   else if(sube) toast('¡Ya eres '+RANKS[k][0]+'! +'+pts,'star grande');
   else toast((n>=4?'¡Muy bien! ':'')+'+'+pts,'good');
   if(finished()) save();
@@ -551,7 +559,8 @@ function shareText(d = S.day){ return enDia(d, ()=>{
     'Silabocho nº '+S.day+' · '+RANKS[k][0],
     barra+'  '+score()+'/'+total()+' puntos'+' · '+f.length+(f.length===1?' palabra':' palabras')+star,
   ];
-  const r = rachaActual(), extra = [];
+  // la racha de hoy solo va con el tablero de hoy; un día pasado lleva la que había entonces, si se jugó en su día
+  const r = d === today() ? rachaActual() : rachaHasta(d), extra = [];
   if(S.time[S.day] !== undefined) extra.push('⏳ '+fmtTime(S.time[S.day]));
   if(r >= 1) extra.push('🔥 '+r+(r===1?' día':' días'));
   if(extra.length) lineas.push(extra.join(' · '));

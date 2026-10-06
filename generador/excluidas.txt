@@ -1,2 +1,6 @@
 # Palabras que el autor decide quitar del léxico tras la revisión (rarezas, nombres propios…).
 # Una por línea; # para comentarios. Ver revision/dudosas.md.
+
+# 2026-10-06
+taqué      # pretérito de «tacar»; el diccionario la trae como entrada propia (con plural) y pasaba el filtro de verbos
+protomo    # el DLE solo recoge «prótomo»

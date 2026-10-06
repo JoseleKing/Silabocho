@@ -14,6 +14,8 @@ Reglas (no cambiarlas sin consultar):
   y formas_verbales.txt, que recoge las formas irregulares que el diccionario trae sueltas.
 - Sin pronombres pegados al verbo (tenerlo, dámelo, dile, casarse).
 - Sin palabras vetadas (vetadas.txt) ni excluidas a mano (excluidas.txt).
+- Sin los demostrativos ni «sólo» con la tilde diacrítica antigua (éste, ésa, aquéllos, sólo…; decidido el
+  2026-10-06): repetían esta, esa, solo… Ver TILDE_ANTIGUA.
 - Palabras del DLE que Hunspell no trae, en añadidas.txt (cado, tacataca…).
 - Sin plurales (decidido el 2026-10-05): ni de sustantivos y adjetivos (calabozos, alegres) ni de
   participios (cantados). Ver es_plural(); las excepciones (antes, pelvis, microondas…) en no_plurales.txt.
@@ -82,6 +84,11 @@ EXCLUIDAS = set(leer_lista('excluidas.txt'))
 def vetada(w):
     return w in VETO_EXACTO or w.startswith(VETO_PREFIJO)
 
+# demostrativos y «sólo» con la tilde diacrítica antigua: son las mismas palabras que esta, ese, solo…
+# (ésto, éso y aquéllo nunca la llevaron, pero el diccionario las genera)
+TILDE_ANTIGUA = {'éste', 'ésta', 'éstos', 'éstas', 'ése', 'ésa', 'ésos', 'ésas', 'aquél', 'aquélla', 'aquéllos',
+                 'aquéllas', 'sólo', 'ésto', 'éso', 'aquéllo'}
+
 # ---------- sílabas y fichas ----------
 # Una ficha vale para la misma sílaba con o sin tilde: la ficha «o» sirve para la «ó» de «ópera».
 def sin_acento(s):
@@ -121,7 +128,7 @@ def valida(w, motivo=None):
     s = silabear(w)
     if not s or not (2 <= len(s) <= 7):
         return None
-    m = ('vetada' if vetada(w) else 'excluida' if w in EXCLUIDAS else 'enclítico' if es_enclitico(w)
+    m = ('vetada' if vetada(w) else 'excluida' if w in EXCLUIDAS else 'tilde antigua' if w in TILDE_ANTIGUA else 'enclítico' if es_enclitico(w)
          else 'conjugada' if w not in NOVERB or w in FORMAS_VERBALES else 'plural' if es_plural(w) else None)
     if m:
         if motivo is not None:
@@ -150,7 +157,7 @@ def construir(top=TOP, verbose=True):
     # palabras del DLE que el diccionario Hunspell no trae (añadidas.txt)
     for w in leer_lista('añadidas.txt'):
         sil = silabear(w)
-        if w in nucleo or w in extra or not sil or not (2 <= len(sil) <= 7) or vetada(w) or w in EXCLUIDAS:
+        if w in nucleo or w in extra or not sil or not (2 <= len(sil) <= 7) or vetada(w) or w in EXCLUIDAS or w in TILDE_ANTIGUA:
             continue
         (nucleo if w in frecuentes else extra)[w] = sil
     if verbose:
