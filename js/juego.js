@@ -563,7 +563,6 @@ function shareText(d = S.day){ return enDia(d, ()=>{
   else {
     linea2 = RANKS.slice(1).map((r,j)=>j+1<=k?'▰':'▱').join('')+' '+palabras;
     if(ks) linea2 += n===1 ? ' · ★ Silabocho' : ' · ★ '+ks+'/'+n+' Silabochos';   // solo si se encontró alguno
-    if(visto) linea2 += ' · soluciones vistas';
   }
   const lineas = ['Silabocho nº '+S.day+' · '+RANKS[k][0], linea2];
   // la racha de hoy solo va con el tablero de hoy; un día pasado lleva la que había entonces, si se jugó en su día
