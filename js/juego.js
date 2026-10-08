@@ -24,13 +24,20 @@ function load(){ try{ const s = JSON.parse(localStorage.getItem(STORE)||'null');
   if(!s.inicio){ const correr = o => Object.fromEntries(Object.entries(o).map(([d,v])=>[+d+3, v]));
     S.found=correr(S.found); S.revealed=correr(S.revealed); S.time=correr(S.time); S.racha=correr(S.racha); migrado = true; }
   // orden 2: el tablero de catarata pasó del día 4 al 7 (y el 4 tiene uno nuevo); su progreso va con él (la racha no)
-  if((s.orden||1) < 2){ [S.found, S.revealed, S.time].forEach(o=>{ if(o[4] !== undefined){ o[7] = o[4]; delete o[4]; } }); migrado = true; }
+  if((s.orden||1) < 2){ [S.found, S.time].forEach(o=>{ if(o[4] !== undefined){ o[7] = o[4]; delete o[4]; } }); migrado = true; }
+  // las soluciones vistas de entonces no se traen: se veían con «Rendirse» en el tablero del mismo día, y al correr
+  // los días acababan en uno que aún no había llegado (catarata, visto el 4, salía ya resuelto el 7 sin haberlo jugado)
+  if(!s.inicio || (s.orden||1) < 2){ S.revealed = {}; migrado = true; }
   if(migrado) save(true); } }catch(e){} }   // tras migrar se escribe sin fusionar con el formato antiguo
+// las soluciones solo se pueden ver en días pasados: unas «vistas» de hoy o de después no valen
+const vistoValido = d => +d < today();
 // ¿vale la palabra x en el tablero del día d? (sin tableros cargados aún, se da por buena)
 function valeEn(d, x){ const b = BOARDS.length && BOARDS[(d-1) % BOARDS.length]; return !b || b.palabras.some(w=>w[0]===x); }
 // quita del progreso las palabras que ya no valen en su tablero (p. ej., los plurales desde que no se admiten)
+// y las soluciones vistas de hoy o de días por venir, que solo pueden venir de datos antiguos (hoy no se pueden ver)
 function depurar(){
   let cambio = false;
+  Object.keys(S.revealed).forEach(d=>{ if(!vistoValido(d)){ delete S.revealed[d]; cambio = true; } });
   Object.keys(S.found).forEach(d=>{ const f = S.found[d].filter(x=>valeEn(d, x));
     if(f.length !== S.found[d].length){ S.found[d] = f; cambio = true; } });
   if(cambio) save();
@@ -45,7 +52,7 @@ function fusionar(otro){
   let cambio = false;
   Object.entries(otro.found||{}).forEach(([d,ws])=>{ const f = S.found[d] || (S.found[d] = []);
     ws.forEach(x=>{ if(!f.includes(x) && valeEn(d, x)){ f.push(x); cambio = true; } }); });
-  [['revealed', S.revealed], ['racha', S.racha]].forEach(([k, mio])=>Object.entries(otro[k]||{}).forEach(([d,v])=>{ if(v && !mio[d]){ mio[d] = v; cambio = true; } }));
+  [['revealed', S.revealed], ['racha', S.racha]].forEach(([k, mio])=>Object.entries(otro[k]||{}).forEach(([d,v])=>{ if(v && !mio[d] && (k !== 'revealed' || vistoValido(d))){ mio[d] = v; cambio = true; } }));
   Object.entries(otro.time||{}).forEach(([d,v])=>{ if(typeof v === 'number' && !(S.time[d] >= v)){ S.time[d] = v; cambio = true; } });
   return cambio;
 }
